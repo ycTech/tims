@@ -115,6 +115,14 @@
         <version>${mysql.connector.version}</version>
         <scope>runtime</scope>
       </dependency>
+      <dependency>
+        <groupId>com.github.tobato</groupId>
+        <artifactId>fastdfs-client</artifactId>
+        <version>1.25.4-RELEASE</version>
+      </dependency>
+      <!--fastDFS集成-->
+      <!-- https://mvnrepository.com/artifact/com.github.tobato/fastdfs-client -->
+
     </dependencies>
   </dependencyManagement>
 
