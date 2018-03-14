@@ -90,6 +90,8 @@
             <groupId>com.hessian</groupId>
             <artifactId>hessian</artifactId>
         </dependency>
+
+
     </dependencies>
 
     <build>
