@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tims.core.bill.mapper.BillInfoMapper">
+
+ <insert id="insertBillInfo" parameterType="com.tims.facade.domain.BillInfo">
+     insert into bill_info(id,bill_date,org_id,create_user,bill_type_id,bill_no,amount,task_type,status)
+     values(#{id},#{billDate},#{orgId},#{createUser},#{billTypeId},#{billNo},#{amount},#{taskType},#{status})
+ </insert>
+</mapper>
