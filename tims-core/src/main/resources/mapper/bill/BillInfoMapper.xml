@@ -3,8 +3,61 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tims.core.bill.mapper.BillInfoMapper">
 
- <insert id="insertBillInfo" parameterType="com.tims.facade.domain.BillInfo">
-     insert into bill_info(id,bill_date,org_id,create_user,bill_type_id,bill_no,amount,task_type,status)
-     values(#{id},#{billDate},#{orgId},#{createUser},#{billTypeId},#{billNo},#{amount},#{taskType},#{status})
+ <insert id="saveBillInfo" parameterType="com.tims.facade.domain.BillInfo">
+     insert into bill_info(
+         id,
+         bill_date,
+         org_id,
+         create_user,
+         bill_type_id,
+         bill_no,
+         amount,
+         task_type,
+         status)
+     values(
+         #{id},
+         #{billDate},
+         #{orgId},
+         #{createUser},
+         #{billTypeId},
+         #{billNo},
+         #{amount},
+         #{taskType},
+         #{status})
  </insert>
+
+    <select id="updateBillInfo" parameterType="com.tims.facade.domain.BillInfo">
+        update bill_info
+        <set>
+            <if test=" billInfo.billDate != null">
+                bill_date=#{billInfo.billDate},
+            </if>
+            <if test=" billInfo.orgId != null">
+                org_id=#{billInfo.orgId},
+            </if>
+            <if test=" billInfo.createUser != null">
+                create_user=#{billInfo.createUser},
+            </if>
+            <if test=" billInfo.gradeId != null">
+                bill_type_id=#{billInfo.billTypeId},
+            </if>
+            <if test=" billInfo.billNo != null">
+                bill_no=#{billInfo.billNo},
+            </if>
+            <if test=" billInfo.amount != null">
+                amount=#{billInfo.amount},
+            </if>
+            <if test=" billInfo.taskType != null">
+                task_type=#{billInfo.taskType},
+            </if>
+            <if test=" billInfo.status != null">
+                status=#{billInfo.status},
+            </if>
+        </set>
+        WHERE  id=#{billInfo.id}
+    </select>
+
+    <delete id="deleteBillInfo" parameterType="string">
+        delete from bill_info where id=#{id}
+    </delete>
 </mapper>

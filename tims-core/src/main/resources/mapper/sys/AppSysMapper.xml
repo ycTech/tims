@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tims.core.sys.mapper.AppSysMapper">
+
+ <insert id="saveAppSys" parameterType="com.tims.facade.domain.AppSys">
+     insert into app_sys(
+         id,
+         sys_code,
+         sys_name,
+         status)
+     values(
+         #{id},
+         #{sysCode},
+         #{sysName},
+         #{status}
+        )
+ </insert>
+
+    <select id="updateAppSys" parameterType="com.tims.facade.domain.AppSys">
+        update app_sys
+        <set>
+            <if test=" appSys.sysCode != null">
+                sys_code=#{appSys.sysCode},
+            </if>
+            <if test=" appSys.sysName != null">
+                sys_name=#{appSys.sysName},
+            </if>
+            <if test=" appSys.status != null">
+                status=#{appSys.status},
+            </if>
+        </set>
+        WHERE  id=#{appSys.id}
+    </select>
+
+    <delete id="deleteAppSys" parameterType="string">
+        delete from app_sys where id=#{id}
+    </delete>
+</mapper>
