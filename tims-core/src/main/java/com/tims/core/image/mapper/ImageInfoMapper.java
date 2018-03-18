@@ -1,7 +1,9 @@
 package com.tims.core.image.mapper;
 
+import com.tims.facade.dfs.vo.BillImageVo;
 import com.tims.facade.domain.ImageInfo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface ImageInfoMapper {
@@ -26,4 +28,11 @@ public interface ImageInfoMapper {
      * @return
      */
     public int  deleteImageInfo(String id);
+
+    /**
+     * 根据单据编码查询图片列表
+     * @param billNo
+     * @return
+     */
+    public BillImageVo queryImagesByBillNo(@Param("billNo") String billNo);
 }

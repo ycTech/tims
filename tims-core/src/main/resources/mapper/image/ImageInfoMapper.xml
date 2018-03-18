@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tims.core.image.mapper.ImageInfoMapper">
+
+ <select id="queryImagesByBillNo" parameterType="String" resultType="com.tims.facade.dfs.vo.BillImageVo">
+    SELECT
+        bi.id         billId,
+        bi.bill_no    billNo,
+        ii.image_name imageName,
+        ii.url        imageUrl
+    FROM
+        bill_info bi
+    LEFT JOIN
+        bill_image_rel bir
+    ON
+        bi.id=bir.bill_id
+    LEFT JOIN
+        image_info ii
+    ON
+        bir.image_id=ii.id
+    WHERE
+        bi.bill_no=#{billNo}
+ </select>
+</mapper>

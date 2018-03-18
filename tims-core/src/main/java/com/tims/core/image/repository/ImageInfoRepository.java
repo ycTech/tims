@@ -1,6 +1,7 @@
 package com.tims.core.image.repository;
 
 import com.tims.core.image.mapper.ImageInfoMapper;
+import com.tims.facade.dfs.vo.BillImageVo;
 import com.tims.facade.domain.ImageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -35,6 +36,15 @@ public class ImageInfoRepository {
      */
     public int  deleteImageInfo(String id){
         return  imageInfoMapper.deleteImageInfo(id);
+    }
+
+    /**
+     * 根据单据编码查询图片列表
+     * @param billNo
+     * @return
+     */
+    public BillImageVo queryImagesByBillNo(String billNo){
+        return imageInfoMapper.queryImagesByBillNo(billNo);
     }
 
 }

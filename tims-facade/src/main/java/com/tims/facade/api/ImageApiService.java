@@ -1,5 +1,6 @@
 package com.tims.facade.api;
 
+import com.tims.facade.dfs.vo.BillImageVo;
 import com.tims.facade.domain.ImageClassify;
 import com.tims.facade.domain.ImageClassifyRel;
 import com.tims.facade.domain.ImageInfo;
@@ -69,4 +70,18 @@ public interface ImageApiService {
      * @return
      */
     public  boolean deleteImageClassifyRel(String id);
+
+    /**
+     * 根据单据ID查询图片或者文件
+     * @param billId
+     * @return
+     */
+    public BillImageVo queryImagesByBillId(String billId);
+
+    /**
+     * 根据单据编码查询图片或者文件
+     * @param billNo
+     * @return
+     */
+    public BillImageVo queryImagesByBillNo(String billNo);
 }
