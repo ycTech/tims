@@ -37,4 +37,14 @@ public class BillInfoRepository {
     public int  deleteBillInfo(String id){
         return  billInfoMapper.deleteBillInfo(id);
     }
+
+
+    /**
+     * 根据id获取对象
+     * @param id
+     * @return
+     */
+    public  BillInfo queryBillInfoById(String  id){
+        return  billInfoMapper.queryBillInfoById(id);
+    }
 }

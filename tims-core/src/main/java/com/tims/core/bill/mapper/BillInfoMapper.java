@@ -4,6 +4,7 @@ import com.tims.facade.domain.BillInfo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface BillInfoMapper {
@@ -30,4 +31,11 @@ public interface BillInfoMapper {
      * @return
      */
     public int  deleteBillInfo(String id);
+
+    /**
+     * 根据id获取对象
+     * @param id
+     * @return
+     */
+    public  BillInfo queryBillInfoById(@Param("id") String  id);
 }
