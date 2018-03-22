@@ -60,4 +60,8 @@
     WHERE
         bi.bill_no=#{billNo}
  </select>
+
+    <select id="queryImageInfoByImageClassifyId" parameterType="string" resultType="com.tims.facade.domain.ImageInfo">
+        select  * from image_info where image_classify_id=#{imageClassifyId}
+    </select>
 </mapper>

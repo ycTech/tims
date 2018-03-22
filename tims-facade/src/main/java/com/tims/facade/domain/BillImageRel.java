@@ -2,7 +2,9 @@ package com.tims.facade.domain;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class BillImageRel {
+import java.io.Serializable;
+
+public class BillImageRel implements Serializable {
     @ApiModelProperty(value = "主键")
     private String id;
     @ApiModelProperty(value = "单据ID")

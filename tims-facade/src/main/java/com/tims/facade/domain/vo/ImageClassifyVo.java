@@ -2,6 +2,8 @@ package com.tims.facade.domain.vo;
 
 import com.tims.facade.domain.ImageInfo;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,7 +11,7 @@ import java.util.List;
  * @author liuzm
  * @date 2018/3/21
  */
-public class ImageClassifyVo {
+public class ImageClassifyVo implements Serializable {
     @ApiModelProperty(value = "主键")
     private String id;
     @ApiModelProperty(value = "类型编码")

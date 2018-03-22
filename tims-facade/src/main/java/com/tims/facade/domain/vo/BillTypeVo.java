@@ -1,6 +1,8 @@
 package com.tims.facade.domain.vo;
 
 import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,7 +10,7 @@ import java.util.List;
  * @author Administrator
  * @date 2018/3/21
  */
-public class BillTypeVo {
+public class BillTypeVo implements Serializable {
     @ApiModelProperty(value = "主键")
     private String id;
     @ApiModelProperty(value = "单据类型编号")

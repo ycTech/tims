@@ -1,6 +1,7 @@
 package com.tims.core.api;
 
 import com.tims.core.bill.service.BillTypeService;
+import com.tims.core.bill.service.TimsService;
 import com.tims.core.image.service.ImageClassifyService;
 import com.tims.facade.api.TimsApiService;
 import com.tims.facade.domain.BillType;
@@ -24,6 +25,8 @@ public class TimsApiServiceImpl implements TimsApiService{
     @Autowired
     private ImageClassifyService imageClassifyService;
 
+    @Autowired
+    private TimsService timsService;
     @Override
     public boolean synchronizeBillType(BillType billType) throws Exception {
         if(null!=billType){
@@ -51,6 +54,9 @@ public class TimsApiServiceImpl implements TimsApiService{
         BillInfoVo billInfoVo=new BillInfoVo();
         Assert.notNull(billNo,"单据id不能为空!");
         //获取单据对象
-        return null;
+
+        return timsService.getBillInfoById(billNo);
     }
+
+
 }

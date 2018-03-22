@@ -3,7 +3,9 @@ package com.tims.facade.domain;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 
-public class AppSys {
+import java.io.Serializable;
+
+public class AppSys implements Serializable {
     @ApiModelProperty(value = "主键")
     private String id;
     @ApiModelProperty(value = "业务系统编码")

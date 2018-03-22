@@ -5,6 +5,8 @@ import com.tims.facade.domain.ImageInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 @Mapper
 public interface ImageInfoMapper {
 
@@ -35,4 +37,11 @@ public interface ImageInfoMapper {
      * @return
      */
     public BillImageVo queryImagesByBillNo(@Param("billNo") String billNo);
+
+    /**
+     * 根据id获取图片列表
+     * @param imageClassifyId
+     * @return
+     */
+    public List<ImageInfo> queryImageInfoByImageClassifyId(@Param("imageClassifyId") String imageClassifyId);
 }

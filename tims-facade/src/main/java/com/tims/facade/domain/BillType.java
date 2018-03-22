@@ -2,9 +2,10 @@ package com.tims.facade.domain;
 
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class BillType{
+public class BillType implements Serializable {
     @ApiModelProperty(value = "主键")
     private String id;
     @ApiModelProperty(value = "单据类型编号")

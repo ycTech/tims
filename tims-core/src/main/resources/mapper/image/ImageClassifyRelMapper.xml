@@ -48,5 +48,7 @@
         delete from image_classify_rel where id=#{id}
     </delete>
 
-
+    <select id="queryImageClassifyRelByBillTypeId" parameterType="string" resultType="com.tims.facade.domain.ImageClassifyRel">
+        select * from  image_classify_rel where bill_type_id=#{billTypeId}
+    </select>
 </mapper>

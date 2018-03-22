@@ -2,7 +2,9 @@ package com.tims.facade.domain;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class ImageInfo {
+import java.io.Serializable;
+
+public class ImageInfo implements Serializable {
     @ApiModelProperty(value = "主键")
     private String id;
     @ApiModelProperty(value = "图片分类ID")

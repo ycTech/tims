@@ -2,7 +2,9 @@ package com.tims.facade.domain;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class ImageClassifyRel {
+import java.io.Serializable;
+
+public class ImageClassifyRel  implements Serializable {
     @ApiModelProperty(value = "主键")
     private  String id;
     @ApiModelProperty(value = "机构ID")

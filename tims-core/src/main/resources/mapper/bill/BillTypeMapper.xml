@@ -65,4 +65,8 @@
     <delete id="deleteBillType" parameterType="string">
         delete from bill_type where id=#{id}
     </delete>
+
+    <select id="queryBillTypeById" parameterType="string" resultType="com.tims.facade.domain.BillType">
+        select * from bill_type where  id=#{id}
+    </select>
 </mapper>

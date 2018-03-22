@@ -5,6 +5,8 @@ import com.tims.facade.domain.ImageClassifyRel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class ImageClassRelRepository {
     @Autowired
@@ -35,5 +37,15 @@ public class ImageClassRelRepository {
      */
     public int  deleteImageClassifyRel(String id){
         return  imageClassifyRelMapper.deleteImageClassifyRel(id);
+    }
+
+
+    /**
+     * 根据单据类型id获取图片类型列表
+     * @param billTypeId
+     * @return
+     */
+    public List<ImageClassifyRel> queryImageClassifyRelByBillTypeId(String billTypeId){
+        return  imageClassifyRelMapper.queryImageClassifyRelByBillTypeId(billTypeId);
     }
 }

@@ -61,7 +61,7 @@
         delete from bill_info where id=#{id}
     </delete>
 
-    <select id="queryBillInfoById" parameterMap="string" resultType="com.tims.facade.domain.BillInfo">
+    <select id="queryBillInfoById"  parameterType="string" resultType="com.tims.facade.domain.BillInfo">
         select * from bill_info where id=#{id}
     </select>
 </mapper>

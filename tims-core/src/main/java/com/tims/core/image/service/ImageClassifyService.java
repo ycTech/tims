@@ -36,4 +36,13 @@ public class ImageClassifyService {
     public int  deleteImageClassify(String id){
         return imageClassifyRepository.deleteImageClassify(id);
     }
+
+    /**
+     * 根据id获取图片类型
+     * @param id
+     * @return
+     */
+    public ImageClassify queryImageClassifyById(String id){
+        return  imageClassifyRepository.queryImageClassifyById(id);
+    }
 }

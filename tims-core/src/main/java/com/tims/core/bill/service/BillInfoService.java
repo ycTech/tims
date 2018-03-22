@@ -53,17 +53,5 @@ public class BillInfoService {
         return  billInfoRepository.queryBillInfoById(id);
     }
 
-    /**
-     *根据id获取对象vo
-     * @param id
-     * @return
-     */
-    public BillInfoVo getBillInfoById(String id){
-        BillInfoVo billInfoVo =new BillInfoVo();
-        BillInfo billInfo=this.queryBillInfoById(id);
-        if(null!=billInfo){
-            BeanUtils.copyProperties(billInfo,billInfoVo);
-        }
-        return  billInfoVo;
-    }
+
 }

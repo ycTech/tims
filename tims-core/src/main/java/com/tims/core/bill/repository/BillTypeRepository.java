@@ -36,4 +36,13 @@ public class BillTypeRepository {
     public int  deleteBillType(String id){
         return  billTypeMapper.deleteBillType(id);
     }
+
+    /**
+     * 根据id获取对象
+     * @param id
+     * @return
+     */
+    public  BillType queryBillTypeById(String id){
+        return billTypeMapper.queryBillTypeById(id);
+    }
 }
