@@ -34,12 +34,6 @@ public class TimsService {
     public BillInfoVo getBillInfoById(String id){
         BillInfoVo billInfoVo =new BillInfoVo();
         BillInfo billInfo=billInfoService.queryBillInfoById(id);
-        //单据类型
-        BillTypeVo billTypeVo=new BillTypeVo();
-        //单据图片类型关系
-        ImageClassifyVo imageClassifyVo=new ImageClassifyVo();
-        List<ImageClassifyVo> imageClassifyVos=new ArrayList<>();
-        //图片类型以及图片列表
         ImageInfo imageInfo=new ImageInfo();
         List<ImageInfo> imageInfoList=new ArrayList<>();
         if(null!=billInfo){
@@ -47,12 +41,15 @@ public class TimsService {
             if(null!=billInfo.getBillTypeId()){
                 BillType billType=billTypeService.queryBillTypeById(id);
                 if(null!=billType){
-                    BeanUtils.copyProperties(billInfo,billInfoVo);
-                    List<ImageClassifyRel> list=imageClassifyRelService.queryImageClassifyRelByBillTypeId(billInfo.getBillTypeId());
+                    BillTypeVo billTypeVo=new BillTypeVo();
+                    BeanUtils.copyProperties(billType,billTypeVo);
+                    List<ImageClassifyRel> list=imageClassifyRelService.queryImageClassifyRelByBillTypeId(billType.getId());
                     if(null!=list &&  list.size()>0){
+                        List<ImageClassifyVo> imageClassifyVos=new ArrayList<>();
                         for(ImageClassifyRel imageClassifyRel:list){
                             ImageClassify imageClassify=imageClassifyService.queryImageClassifyById(imageClassifyRel.getClassifyId());
                             if(null!=imageClassify){
+                                ImageClassifyVo imageClassifyVo=new ImageClassifyVo();
                                 BeanUtils.copyProperties(imageClassify,imageClassifyVo);
                                 List<ImageInfo> imageInfos=imageInfoService.queryImageInfoByImageClassifyId(imageClassify.getId());
                                 if(null!=imageInfos && imageInfos.size()>0){
@@ -67,7 +64,6 @@ public class TimsService {
                 }
             }
         }
-
         return  billInfoVo;
     }
 }
