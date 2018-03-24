@@ -2,6 +2,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tims.core.image.mapper.ImageInfoMapper">
+    <insert id="saveImageInfo" parameterType="com.tims.facade.domain.ImageInfo">
+        insert into image_info(
+        id,
+        image_classify_id,
+        image_name,
+        url,
+        create_time)
+        values(
+        #{id},
+        #{imageClassifyId},
+        #{imageName},
+        #{url},
+        #{createTime}
+        )
+    </insert>
+
+    <select id="updateImageInfo" parameterType="com.tims.facade.domain.ImageInfo">
+        update image_info
+        <set>
+            <if test=" imageInfo.imageClassifyId != null">
+                image_classify_id=#{imageInfo.imageClassifyId},
+            </if>
+            <if test=" imageInfo.imageName != null">
+                image_name=#{imageInfo.imageName},
+            </if>
+            <if test=" imageInfo.url != null">
+                url=#{imageInfo.url},
+            </if>
+            <if test=" imageInfo.createTime != null">
+                create_time=#{imageInfo.createTime},
+            </if>
+        </set>
+        WHERE  id=#{imageInfo.id}
+    </select>
+
+    <delete id="deleteImageInfo" parameterType="string">
+        delete from image_info where id=#{id}
+    </delete>
 
  <select id="queryImagesByBillNo" parameterType="String" resultType="com.tims.facade.dfs.vo.BillImageVo">
     SELECT
@@ -22,4 +60,8 @@
     WHERE
         bi.bill_no=#{billNo}
  </select>
+
+    <select id="queryImageInfoByImageClassifyId" parameterType="string" resultType="com.tims.facade.domain.ImageInfo">
+        select  * from image_info where image_classify_id=#{imageClassifyId}
+    </select>
 </mapper>

@@ -2,6 +2,7 @@ package com.tims.core.image.mapper;
 
 import com.tims.facade.domain.ImageClassify;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface ImageClassifyMapper {
@@ -27,4 +28,10 @@ public interface ImageClassifyMapper {
      */
     public int  deleteImageClassify(String id);
 
+    /**
+     * 根据id获取图片类型
+     * @param id
+     * @return
+     */
+    public ImageClassify queryImageClassifyById(@Param("id") String id);
 }

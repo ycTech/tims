@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tims.core.bill.mapper.BillImageRelMapper">
+
+ <insert id="saveBillImageRel" parameterType="com.tims.facade.domain.BillImageRel">
+     insert into bill_image_rel(
+         id,
+         bill_id,
+         image_id,
+         seq)
+     values(
+         #{id},
+         #{billId},
+         #{imageId},
+         #{seq}
+        )
+ </insert>
+
+    <select id="updateBillImageRel" parameterType="com.tims.facade.domain.BillImageRel">
+        update bill_image_rel
+        <set>
+            <if test=" billImageRel.billId != null">
+                bill_id=#{billImageRel.billId},
+            </if>
+            <if test=" billImageRel.imageId != null">
+                image_id=#{billImageRel.imageId},
+            </if>
+            <if test=" billImageRel.seq != null">
+                seq=#{billImageRel.seq},
+            </if>
+
+        </set>
+        WHERE  id=#{billImageRel.id}
+    </select>
+
+    <delete id="deleteBillImageRel" parameterType="string">
+        delete from bill_image_rel where id=#{id}
+    </delete>
+</mapper>

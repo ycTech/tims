@@ -1,11 +1,16 @@
-package com.tims.facade.domain;
+package com.tims.facade.domain.vo;
 
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.List;
 
-public class BillType implements Serializable {
+/**
+ *
+ * @author Administrator
+ * @date 2018/3/21
+ */
+public class BillTypeVo implements Serializable {
     @ApiModelProperty(value = "主键")
     private String id;
     @ApiModelProperty(value = "单据类型编号")
@@ -18,14 +23,8 @@ public class BillType implements Serializable {
     private String isTicket;
     @ApiModelProperty(value = "状态")
     private String status;
-    @ApiModelProperty(value = "创建人")
-    private String createUser;
-    @ApiModelProperty(value = "更新人")
-    private String  updateUser;
-    @ApiModelProperty(value = "创建时间")
-    private Date createTime;
-    @ApiModelProperty(value = "更新时间")
-    private Date updateTime;
+    @ApiModelProperty(value = "图片类型")
+    List<ImageClassifyVo> imageClassifyVos;
 
     public String getId() {
         return id;
@@ -75,35 +74,11 @@ public class BillType implements Serializable {
         this.status = status;
     }
 
-    public String getCreateUser() {
-        return createUser;
+    public List<ImageClassifyVo> getImageClassifyVos() {
+        return imageClassifyVos;
     }
 
-    public void setCreateUser(String createUser) {
-        this.createUser = createUser;
-    }
-
-    public String getUpdateUser() {
-        return updateUser;
-    }
-
-    public void setUpdateUser(String updateUser) {
-        this.updateUser = updateUser;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setImageClassifyVos(List<ImageClassifyVo> imageClassifyVos) {
+        this.imageClassifyVos = imageClassifyVos;
     }
 }

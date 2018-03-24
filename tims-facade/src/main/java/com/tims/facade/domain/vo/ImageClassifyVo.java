@@ -1,18 +1,27 @@
-package com.tims.facade.domain;
+package com.tims.facade.domain.vo;
 
+import com.tims.facade.domain.ImageInfo;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.util.List;
 
-public class ImageClassify  implements Serializable {
+/**
+ *
+ * @author liuzm
+ * @date 2018/3/21
+ */
+public class ImageClassifyVo implements Serializable {
     @ApiModelProperty(value = "主键")
     private String id;
-    @ApiModelProperty(value = "图片编码")
+    @ApiModelProperty(value = "类型编码")
     private String classifyCode;
-    @ApiModelProperty(value = "图片名称")
+    @ApiModelProperty(value = "类型名称")
     private String classifyName;
     @ApiModelProperty(value = "状态")
     private String status;
+    @ApiModelProperty(value = "图片对象")
+    List<ImageInfo> imageInfos;
 
     public String getId() {
         return id;
@@ -44,5 +53,13 @@ public class ImageClassify  implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public List<ImageInfo> getImageInfos() {
+        return imageInfos;
+    }
+
+    public void setImageInfos(List<ImageInfo> imageInfos) {
+        this.imageInfos = imageInfos;
     }
 }

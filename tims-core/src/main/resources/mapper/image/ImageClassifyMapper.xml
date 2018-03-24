@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tims.core.image.mapper.ImageClassifyMapper">
+    <insert id="saveImageClassify" parameterType="com.tims.facade.domain.ImageClassify">
+        insert into image_classify(
+        id,
+        classify_code,
+        classify_name,
+        status
+        )
+        values(
+        #{id},
+        #{classifyCode},
+        #{classifyName},
+        #{status}
+        )
+    </insert>
+
+    <select id="updateImageClassify" parameterType="com.tims.facade.domain.ImageClassify">
+        update image_classify
+        <set>
+            <if test=" imageClassify.classifyCode != null">
+                classify_code=#{imageClassify.classifyCode},
+            </if>
+            <if test=" imageClassify.classifyName != null">
+                classify_name=#{imageClassify.classifyName},
+            </if>
+            <if test=" imageClassify.status != null">
+                status=#{imageClassify.status}
+            </if>
+
+        </set>
+        WHERE  id=#{imageClassify.id}
+    </select>
+
+    <delete id="deleteImageClassify" parameterType="string">
+        delete from image_classify where id=#{id}
+    </delete>
+
+    <select id="queryImageClassifyById" parameterType="string" resultType="com.tims.facade.domain.ImageClassify">
+        select * from image_classify where id=#{id}
+    </select>
+
+</mapper>

@@ -26,4 +26,6 @@ public interface BillImageRelMapper {
      * @return
      */
     public int  deleteBillImageRel(String id);
+
+
 }

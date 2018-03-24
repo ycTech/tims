@@ -2,6 +2,7 @@ package com.tims.core.bill.mapper;
 
 import com.tims.facade.domain.BillType;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface BillTypeMapper {
@@ -26,4 +27,11 @@ public interface BillTypeMapper {
      * @return
      */
     public int  deleteBillType(String id);
+
+    /**
+     * 根据id获取对象
+     * @param id
+     * @return
+     */
+    public  BillType queryBillTypeById(@Param("id") String id);
 }

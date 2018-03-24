@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tims.core.bill.mapper.BillTypeMapper">
+
+ <insert id="saveBillType" parameterType="com.tims.facade.domain.BillType">
+     insert into bill_type(
+         id,
+     bill_type_code,
+     bill_type_name,
+     parent_bill_type_code,
+     is_ticket,
+     status,
+     create_time,
+     create_user,
+     update_time,
+     update_user)
+     values(
+         #{id},
+         #{billTypeCode},
+         #{billTypeName},
+         #{parentBillTypeCode},
+         #{isTicket},
+         #{status},
+         #{createTime},
+         #{createUser},
+         #{updateTime},
+         #{updateUser})
+ </insert>
+
+    <select id="updateBillType" parameterType="com.tims.facade.domain.BillType">
+        update bill_type
+        <set>
+            <if test=" billType.billTypeCode != null">
+                bill_type_code=#{billType.billTypeCode},
+            </if>
+            <if test=" billType.billTypeName != null">
+                bill_type_name=#{billType.billTypeName},
+            </if>
+            <if test=" billType.parentBillTypeCode != null">
+                parent_bill_type_code=#{billType.parentBillTypeCode},
+            </if>
+            <if test=" billType.isTicket != null">
+                is_ticket=#{billType.isTicket},
+            </if>
+            <if test=" billType.status != null">
+                status=#{billType.status},
+            </if>
+            <if test=" billType.createTime != null">
+                create_time=#{billType.createTime},
+            </if>
+            <if test=" billType.createUser != null">
+                create_user=#{billType.createUser},
+            </if>
+            <if test=" billType.updateTime != null">
+                update_time=#{billType.updateTime},
+            </if>
+            <if test=" billType.updateUser != null">
+                update_user=#{billType.updateUser},
+            </if>
+        </set>
+        WHERE  id=#{billType.id}
+    </select>
+
+    <delete id="deleteBillType" parameterType="string">
+        delete from bill_type where id=#{id}
+    </delete>
+
+    <select id="queryBillTypeById" parameterType="string" resultType="com.tims.facade.domain.BillType">
+        select * from bill_type where  id=#{id}
+    </select>
+</mapper>

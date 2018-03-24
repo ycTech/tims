@@ -6,6 +6,8 @@ import com.tims.facade.domain.ImageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ImageInfoService {
     @Autowired
@@ -44,5 +46,14 @@ public class ImageInfoService {
      */
     public BillImageVo queryImagesByBillNo(String billNo) {
         return imageInfoRepository.queryImagesByBillNo(billNo);
+    }
+
+    /**
+     * 根据id获取图片列表
+     * @param imageClassifyId
+     * @return
+     */
+    public List<ImageInfo> queryImageInfoByImageClassifyId(String imageClassifyId){
+        return  imageInfoRepository.queryImageInfoByImageClassifyId(imageClassifyId);
     }
 }
