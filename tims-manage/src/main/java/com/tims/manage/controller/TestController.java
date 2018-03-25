@@ -48,7 +48,7 @@ public class TestController extends BaseController {
     }
 
     @ApiOperation(value = "测试同步单据类型")
-    @RequestMapping(value = "/saveImageClassify",method = RequestMethod.POST, headers = {"Accept=application/json"})
+    @RequestMapping(value = "/saveBIllType",method = RequestMethod.POST, headers = {"Accept=application/json"})
     @ResponseBody
     public ResultVo<Boolean> insertBillType(@RequestBody BillType billType) throws Exception {
         Boolean result=timsApiService.synchronizeBillType(billType);
@@ -56,7 +56,7 @@ public class TestController extends BaseController {
     }
 
     @ApiOperation(value = "测试同步图片类型")
-    @RequestMapping(value = "/saveBIllType",method = RequestMethod.POST, headers = {"Accept=application/json"})
+    @RequestMapping(value = "/saveImageClassify",method = RequestMethod.POST, headers = {"Accept=application/json"})
     @ResponseBody
     public ResultVo<Boolean> insertImageClassify(@RequestBody ImageClassify imageClassify) throws Exception {
         Boolean result=timsApiService.synchronizeImageClassify(imageClassify);

@@ -1,11 +1,14 @@
 package com.tims.core.bill.service;
 
+import com.tims.common.util.PkUtil;
 import com.tims.core.bill.mapper.BillImageRelMapper;
 import com.tims.core.bill.repository.BillImageRelRepository;
 import com.tims.facade.domain.BillImageRel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.UUID;
 
 @Service
 public class BillImageRelService {
@@ -21,6 +24,7 @@ public class BillImageRelService {
      */
     @Transactional(rollbackFor=Exception.class)
     public int saveBillImageRel(BillImageRel billImageRel){
+        billImageRel.setId(PkUtil.getUuid());
         return  billImageRelRepository.saveBillImageRel(billImageRel);
     }
 

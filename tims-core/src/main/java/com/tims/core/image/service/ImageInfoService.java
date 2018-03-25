@@ -1,5 +1,6 @@
 package com.tims.core.image.service;
 
+import com.tims.common.util.PkUtil;
 import com.tims.core.image.repository.ImageInfoRepository;
 import com.tims.facade.dfs.vo.BillImageVo;
 import com.tims.facade.domain.ImageInfo;
@@ -19,6 +20,7 @@ public class ImageInfoService {
      * @return
      */
     public int saveImageInfo(ImageInfo imageInfo){
+        imageInfo.setId(PkUtil.getUuid());
         return  imageInfoRepository.saveImageInfo(imageInfo);
     }
 

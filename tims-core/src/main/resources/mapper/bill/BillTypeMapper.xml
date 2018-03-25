@@ -28,7 +28,7 @@
          #{updateUser})
  </insert>
 
-    <select id="updateBillType" parameterType="com.tims.facade.domain.BillType">
+    <update id="updateBillType" parameterType="com.tims.facade.domain.BillType">
         update bill_type
         <set>
             <if test=" billType.billTypeCode != null">
@@ -60,7 +60,7 @@
             </if>
         </set>
         WHERE  id=#{billType.id}
-    </select>
+    </update>
 
     <delete id="deleteBillType" parameterType="string">
         delete from bill_type where id=#{id}

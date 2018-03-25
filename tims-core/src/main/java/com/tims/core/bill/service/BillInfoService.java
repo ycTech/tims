@@ -1,5 +1,6 @@
 package com.tims.core.bill.service;
 
+import com.tims.common.util.PkUtil;
 import com.tims.core.bill.repository.BillInfoRepository;
 import com.tims.facade.domain.BillInfo;
 import com.tims.facade.domain.vo.BillInfoVo;
@@ -20,6 +21,7 @@ public class BillInfoService {
      */
     @Transactional(rollbackFor=Exception.class)
     public int saveBillInfo(BillInfo billInfo){
+        billInfo.setId(PkUtil.getUuid());
         return  billInfoRepository.saveBillInfo(billInfo);
     }
 

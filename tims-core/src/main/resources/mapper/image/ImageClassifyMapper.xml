@@ -17,7 +17,7 @@
         )
     </insert>
 
-    <select id="updateImageClassify" parameterType="com.tims.facade.domain.ImageClassify">
+    <update id="updateImageClassify" parameterType="com.tims.facade.domain.ImageClassify">
         update image_classify
         <set>
             <if test=" imageClassify.classifyCode != null">
@@ -32,7 +32,7 @@
 
         </set>
         WHERE  id=#{imageClassify.id}
-    </select>
+    </update>
 
     <delete id="deleteImageClassify" parameterType="string">
         delete from image_classify where id=#{id}

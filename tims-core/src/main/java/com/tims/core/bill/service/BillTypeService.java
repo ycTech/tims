@@ -1,5 +1,6 @@
 package com.tims.core.bill.service;
 
+import com.tims.common.util.PkUtil;
 import com.tims.core.bill.repository.BillTypeRepository;
 import com.tims.facade.domain.BillType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ public class BillTypeService {
      * @return
      */
     public int saveBillType(BillType billType){
+        //billType.setId(PkUtil.getUuid());
         return  billTypeRepository.saveBillType(billType);
     }
 
