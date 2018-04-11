@@ -16,8 +16,8 @@ public class BillInfoRepository {
      * @param billInfo
      * @return
      */
-    public int saveBillInfo(BillInfo billInfo){
-        return  billInfoMapper.saveBillInfo(billInfo);
+    public void saveBillInfo(BillInfo billInfo){
+        billInfoMapper.saveBillInfo(billInfo);
     }
 
     /**

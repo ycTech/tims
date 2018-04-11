@@ -18,8 +18,8 @@ public class ImageInfoRepository {
      * @param imageInfo
      * @return
      */
-    public int saveImageInfo(ImageInfo imageInfo){
-        return  imageInfoMapper.saveImageInfo(imageInfo);
+    public void saveImageInfo(ImageInfo imageInfo){
+        imageInfoMapper.saveImageInfo(imageInfo);
     }
 
     /**

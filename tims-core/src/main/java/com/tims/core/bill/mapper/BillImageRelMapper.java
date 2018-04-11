@@ -2,6 +2,7 @@ package com.tims.core.bill.mapper;
 
 import com.tims.facade.domain.BillImageRel;
 import com.tims.facade.domain.BillInfo;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -11,7 +12,7 @@ public interface BillImageRelMapper {
      * @param billImageRel
      * @return
      */
-    public int saveBillImageRel(BillImageRel billImageRel);
+    public void saveBillImageRel(BillImageRel billImageRel);
 
     /**
      * 更新影像图片关系

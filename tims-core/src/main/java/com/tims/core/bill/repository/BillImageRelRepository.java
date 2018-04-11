@@ -14,8 +14,8 @@ public class BillImageRelRepository {
      * @param billImageRel
      * @return
      */
-    public int saveBillImageRel(BillImageRel billImageRel){
-        return  billImageRelMapper.saveBillImageRel(billImageRel);
+    public void saveBillImageRel(BillImageRel billImageRel){
+        billImageRelMapper.saveBillImageRel(billImageRel);
     }
 
     /**

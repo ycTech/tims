@@ -1,5 +1,6 @@
 package com.tims.facade.api;
 
+import com.tims.facade.dfs.qo.UploadQo;
 import com.tims.facade.domain.BillImageRel;
 import com.tims.facade.domain.BillInfo;
 import com.tims.facade.domain.BillType;
@@ -71,5 +72,12 @@ public interface BillApiService {
      * @return
      */
     public boolean deleteBillType(String id);
+
+    /**
+     * 新增单据图片
+     * @param uploadQos
+     * @return
+     */
+    public void saveBillImage(UploadQo uploadQos);
 
 }

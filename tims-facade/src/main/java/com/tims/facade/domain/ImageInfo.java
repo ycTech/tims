@@ -3,6 +3,7 @@ package com.tims.facade.domain;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class ImageInfo implements Serializable {
     @ApiModelProperty(value = "主键")
@@ -14,7 +15,7 @@ public class ImageInfo implements Serializable {
     @ApiModelProperty(value = "URL")
     private String url;
     @ApiModelProperty(value = "创建时间")
-    private String createTime;
+    private Date createTime;
 
     public String getId() {
         return id;
@@ -48,11 +49,11 @@ public class ImageInfo implements Serializable {
         this.url = url;
     }
 
-    public String getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 }

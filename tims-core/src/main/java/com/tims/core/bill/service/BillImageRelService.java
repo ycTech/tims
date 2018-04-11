@@ -1,5 +1,6 @@
 package com.tims.core.bill.service;
 
+import com.tims.common.util.PkUtil;
 import com.tims.core.bill.mapper.BillImageRelMapper;
 import com.tims.core.bill.repository.BillImageRelRepository;
 import com.tims.facade.domain.BillImageRel;
@@ -20,8 +21,9 @@ public class BillImageRelService {
      * @return
      */
     @Transactional(rollbackFor=Exception.class)
-    public int saveBillImageRel(BillImageRel billImageRel){
-        return  billImageRelRepository.saveBillImageRel(billImageRel);
+    public void saveBillImageRel(BillImageRel billImageRel){
+        billImageRel.setId(PkUtil.getUUID());
+        billImageRelRepository.saveBillImageRel(billImageRel);
     }
 
     /**

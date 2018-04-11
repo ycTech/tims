@@ -3,15 +3,12 @@ package com.tims.manage.controller;
 import com.tims.common.result.ResultVo;
 import com.tims.common.util.ResultUtil;
 import com.tims.facade.api.ImageApiService;
-import com.tims.facade.dfs.qo.UploadQo;
 import com.tims.facade.dfs.vo.BillImageVo;
-import com.tims.manage.fast.FastDFSClientWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @Api(value = "单据管理")
 @RestController

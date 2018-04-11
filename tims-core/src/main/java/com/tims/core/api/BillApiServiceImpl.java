@@ -1,13 +1,31 @@
 package com.tims.core.api;
 
+import com.tims.common.util.PkUtil;
+import com.tims.core.bill.service.BillImageRelService;
+import com.tims.core.bill.service.BillInfoService;
+import com.tims.core.image.service.ImageInfoService;
 import com.tims.facade.api.BillApiService;
+import com.tims.facade.dfs.qo.UploadQo;
 import com.tims.facade.domain.BillImageRel;
 import com.tims.facade.domain.BillInfo;
 import com.tims.facade.domain.BillType;
+import com.tims.facade.domain.ImageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 
 @Component
 public class BillApiServiceImpl implements BillApiService {
+
+    @Autowired
+    private BillInfoService billInfoService;
+    @Autowired
+    private BillImageRelService billImageRelService;
+    @Autowired
+    private ImageInfoService imageInfoService;
+
     @Override
     public boolean saveBillInfo(BillInfo billInfo) {
         return false;
@@ -51,5 +69,23 @@ public class BillApiServiceImpl implements BillApiService {
     @Override
     public boolean deleteBillType(String id) {
         return false;
+    }
+
+    @Override
+    @Transactional(rollbackFor=Exception.class)
+    public void saveBillImage(UploadQo uploadQos) {
+        BillInfo billInfo=new BillInfo();
+        billInfo.setBillNo(uploadQos.getBillNo());
+        billInfo.setBillTypeId(uploadQos.getBillTypeId());
+        billInfoService.saveBillInfo(billInfo);
+        ImageInfo imageInfo=new ImageInfo();
+        imageInfo.setImageClassifyId(uploadQos.getClassifyId());
+        imageInfo.setImageName(uploadQos.getImageName());
+        imageInfo.setUrl(uploadQos.getImageUrl());
+        imageInfoService.saveImageInfo(imageInfo);
+        BillImageRel billImageRel=new BillImageRel();
+        billImageRel.setBillId(billInfo.getId());
+        billImageRel.setImageId(imageInfo.getId());
+        billImageRelService.saveBillImageRel(billImageRel);
     }
 }

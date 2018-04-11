@@ -2,6 +2,7 @@ package com.tims.core.image.mapper;
 
 import com.tims.facade.dfs.vo.BillImageVo;
 import com.tims.facade.domain.ImageInfo;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -15,7 +16,7 @@ public interface ImageInfoMapper {
      * @param imageInfo
      * @return
      */
-    public int saveImageInfo(ImageInfo imageInfo);
+    public void saveImageInfo(ImageInfo imageInfo);
 
     /**
      * 更新图片

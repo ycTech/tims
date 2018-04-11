@@ -20,6 +20,8 @@ public class BillInfo implements Serializable {
     private String billNo;
     @ApiModelProperty(value = "金额")
     private Double amount;
+    @ApiModelProperty(value = "任务类型")
+    private Double taskType;
     @ApiModelProperty(value = "状态")
     private String status;
 
@@ -85,6 +87,14 @@ public class BillInfo implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Double getTaskType() {
+        return taskType;
+    }
+
+    public void setTaskType(Double taskType) {
+        this.taskType = taskType;
     }
 }
 

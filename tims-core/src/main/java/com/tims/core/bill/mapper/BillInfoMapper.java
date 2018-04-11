@@ -1,6 +1,7 @@
 package com.tims.core.bill.mapper;
 
 import com.tims.facade.domain.BillInfo;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public interface BillInfoMapper {
      * @param billInfo
      * @return
      */
-    public int saveBillInfo(BillInfo billInfo);
+    public void saveBillInfo(BillInfo billInfo);
 
     /**
      * 更新影像对象

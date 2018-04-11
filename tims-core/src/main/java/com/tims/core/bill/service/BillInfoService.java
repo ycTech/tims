@@ -1,12 +1,16 @@
 package com.tims.core.bill.service;
 
+import com.tims.common.util.PkUtil;
 import com.tims.core.bill.repository.BillInfoRepository;
 import com.tims.facade.domain.BillInfo;
 import com.tims.facade.domain.vo.BillInfoVo;
+import com.tims.facade.enums.StatusEnum;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 
 @Service
 public class BillInfoService {
@@ -19,8 +23,11 @@ public class BillInfoService {
      * @return
      */
     @Transactional(rollbackFor=Exception.class)
-    public int saveBillInfo(BillInfo billInfo){
-        return  billInfoRepository.saveBillInfo(billInfo);
+    public void saveBillInfo(BillInfo billInfo){
+        billInfo.setId(PkUtil.getUUID());
+        billInfo.setBillDate(new Date());
+        billInfo.setStatus(StatusEnum.VALID.name());
+        billInfoRepository.saveBillInfo(billInfo);
     }
 
     /**
