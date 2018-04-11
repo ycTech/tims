@@ -16,12 +16,44 @@ public interface TimsApiService {
     public boolean synchronizeBillType(BillType billType) throws Exception;
 
     /**
+     * 同步更新单据类型
+     * @param billType
+     * @return
+     * @throws Exception
+     */
+    public boolean synchronizeUpdateBillType(BillType billType) throws  Exception;
+
+    /**
+     * 同步删除单据类型
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    public  boolean syschronizeDeleteBillType(String id) throws  Exception;
+
+    /**
      * 同步图片类型
      * @param imageClassify
      * @return
      * @throws Exception
      */
     public boolean synchronizeImageClassify(ImageClassify imageClassify) throws Exception;
+
+    /**
+     * 同步更新图片类型
+     * @param imageClassify
+     * @return
+     * @throws Exception
+     */
+    public  boolean synchronizeUpdateImageClassify(ImageClassify imageClassify)  throws  Exception;
+
+    /**
+     * 同步更新删除图片类型
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    public  boolean syschronizeDeleteImageClassify(String id)throws  Exception;
 
     /**
      * 根据单据id查单据情况

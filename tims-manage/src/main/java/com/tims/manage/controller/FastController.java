@@ -57,4 +57,12 @@ public class FastController {
         return fileUrl;
     }
 
+    @ApiOperation(value = "上传文件")
+    @RequestMapping(value = "/updateTest", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultVo updateTest(@RequestParam("file")MultipartFile file) throws Exception {
+        String fileUrl= dfsClient.uploadFile(file);
+        return ResultUtil.success(fileUrl);
+    }
+
 }

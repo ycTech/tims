@@ -1,5 +1,6 @@
 package com.tims.core.image.service;
 
+import com.tims.common.util.PkUtil;
 import com.tims.core.image.repository.ImageClassifyRepository;
 import com.tims.facade.domain.ImageClassify;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ public class ImageClassifyService {
      * @return
      */
     public int saveImageClassify(ImageClassify imageClassify){
+        //imageClassify.setId(PkUtil.getUuid());
         return  imageClassifyRepository.saveImageClassify(imageClassify);
     }
 

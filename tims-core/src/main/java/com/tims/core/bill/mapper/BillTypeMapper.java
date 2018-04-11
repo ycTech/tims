@@ -19,7 +19,7 @@ public interface BillTypeMapper {
      * @param billType
      * @return
      */
-    public int updateBillType(BillType billType);
+    public int updateBillType(@Param("billType") BillType billType);
 
     /**
      * 删除

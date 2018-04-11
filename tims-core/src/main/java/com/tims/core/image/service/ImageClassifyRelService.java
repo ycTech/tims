@@ -1,5 +1,6 @@
 package com.tims.core.image.service;
 
+import com.tims.common.util.PkUtil;
 import com.tims.core.image.repository.ImageClassRelRepository;
 import com.tims.facade.domain.ImageClassify;
 import com.tims.facade.domain.ImageClassifyRel;
@@ -19,6 +20,7 @@ public class ImageClassifyRelService {
      * @return
      */
     public int saveImageClassifyRel(ImageClassifyRel imageClassifyRel){
+         imageClassifyRel.setId(PkUtil.getUuid());
         return  imageClassRelRepository.saveImageClassifyRel(imageClassifyRel);
     }
 
