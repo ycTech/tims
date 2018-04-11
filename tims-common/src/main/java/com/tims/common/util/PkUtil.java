@@ -13,12 +13,5 @@ public class PkUtil {
         return UUID.randomUUID().toString().replaceAll("-", "");
     }
 
-    /**
-     * 主键  yyyyMMdd+uuid
-     * @return
-     */
-    public static String getPrimaryKey(){
-        return DateUtil.getDays()+getUuid();
-    }
 
 }
