@@ -1,11 +1,13 @@
 package com.tims.core.image.service;
 
+import com.tims.common.util.PkUtil;
 import com.tims.core.image.repository.ImageInfoRepository;
 import com.tims.facade.dfs.vo.BillImageVo;
 import com.tims.facade.domain.ImageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -18,10 +20,10 @@ public class ImageInfoService {
      * @param imageInfo
      * @return
      */
-    public int saveImageInfo(ImageInfo imageInfo){
+    public void saveImageInfo(ImageInfo imageInfo){
         imageInfo.setId(PkUtil.getUUID());
         imageInfo.setCreateTime(new Date());
-        return imageInfoRepository.saveImageInfo(imageInfo);
+        imageInfoRepository.saveImageInfo(imageInfo);
     }
 
     /**

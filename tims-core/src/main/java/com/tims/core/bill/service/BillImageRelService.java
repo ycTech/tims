@@ -21,9 +21,9 @@ public class BillImageRelService {
      * @return
      */
     @Transactional(rollbackFor=Exception.class)
-    public int saveBillImageRel(BillImageRel billImageRel){
+    public void saveBillImageRel(BillImageRel billImageRel){
         billImageRel.setId(PkUtil.getUUID());
-        return billImageRelRepository.saveBillImageRel(billImageRel);
+        billImageRelRepository.saveBillImageRel(billImageRel);
     }
 
     /**

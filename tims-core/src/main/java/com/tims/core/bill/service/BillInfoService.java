@@ -23,11 +23,11 @@ public class BillInfoService {
      * @return
      */
     @Transactional(rollbackFor=Exception.class)
-    public int saveBillInfo(BillInfo billInfo){
+    public void saveBillInfo(BillInfo billInfo){
         billInfo.setId(PkUtil.getUUID());
         billInfo.setBillDate(new Date());
         billInfo.setStatus(StatusEnum.VALID.name());
-        return billInfoRepository.saveBillInfo(billInfo);
+        billInfoRepository.saveBillInfo(billInfo);
     }
 
     /**
