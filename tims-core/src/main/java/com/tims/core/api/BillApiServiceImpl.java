@@ -76,10 +76,10 @@ public class BillApiServiceImpl implements BillApiService {
     public void saveBillImage(UploadQo uploadQos) {
         BillInfo billInfo=new BillInfo();
         billInfo.setBillNo(uploadQos.getBillNo());
-        billInfo.setBillTypeId(uploadQos.getBillTypeId());
+//        billInfo.setBillTypeId(uploadQos.getBillTypeId());
         billInfoService.saveBillInfo(billInfo);
         ImageInfo imageInfo=new ImageInfo();
-        imageInfo.setImageClassifyId(uploadQos.getClassifyId());
+//        imageInfo.setImageClassifyId(uploadQos.getClassifyId());
         imageInfo.setImageName(uploadQos.getImageName());
         imageInfo.setUrl(uploadQos.getImageUrl());
         imageInfoService.saveImageInfo(imageInfo);

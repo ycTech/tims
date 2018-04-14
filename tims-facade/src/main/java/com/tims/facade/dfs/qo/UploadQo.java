@@ -9,20 +9,45 @@ public class UploadQo implements Serializable {
 
     @ApiModelProperty(value = "单据日期",hidden = false)
     private Date billDate;
-    @ApiModelProperty(value = "单据类型ID")
-    private String billTypeId;
-    @ApiModelProperty(value = "附件分类ID")
-    private String classifyId;
-    @ApiModelProperty(value = "附件分类名称")
-    private String classifyName;
+    @ApiModelProperty(value = "制单人")
+    private String userCode;
+    @ApiModelProperty(value = "单据类型")
+    private String billType;
     @ApiModelProperty(value = "单据编号")
     private String billNo;
+    @ApiModelProperty(value = "单据ID")
+    private String billId;
+    @ApiModelProperty(value = "路径")
+    private String path;
+    @ApiModelProperty(value = "是否目录")
+    private String isFolder;
+    @ApiModelProperty(value = "操作类型(add(新增),delete（删除）)")
+    private String operate;
     @ApiModelProperty(value = "图片名称")
     private String imageName;
+    @ApiModelProperty(value = "文件大小")
+    private String fileSize;
     @ApiModelProperty(value = "图片URL")
     private String imageUrl;
     @ApiModelProperty(value = "base64")
     private String imageBase64;
+
+    public String getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(String fileSize) {
+        this.fileSize = fileSize;
+    }
+
+    public String getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
+    }
+
     public Date getBillDate() {
         return billDate;
     }
@@ -31,28 +56,12 @@ public class UploadQo implements Serializable {
         this.billDate = billDate;
     }
 
-    public String getBillTypeId() {
-        return billTypeId;
+    public String getBillType() {
+        return billType;
     }
 
-    public void setBillTypeId(String billTypeId) {
-        this.billTypeId = billTypeId;
-    }
-
-    public String getClassifyId() {
-        return classifyId;
-    }
-
-    public void setClassifyId(String classifyId) {
-        this.classifyId = classifyId;
-    }
-
-    public String getClassifyName() {
-        return classifyName;
-    }
-
-    public void setClassifyName(String classifyName) {
-        this.classifyName = classifyName;
+    public void setBillType(String billType) {
+        this.billType = billType;
     }
 
     public String getBillNo() {
@@ -63,12 +72,36 @@ public class UploadQo implements Serializable {
         this.billNo = billNo;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getBillId() {
+        return billId;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setBillId(String billId) {
+        this.billId = billId;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public String getIsFolder() {
+        return isFolder;
+    }
+
+    public void setIsFolder(String isFolder) {
+        this.isFolder = isFolder;
+    }
+
+    public String getOperate() {
+        return operate;
+    }
+
+    public void setOperate(String operate) {
+        this.operate = operate;
     }
 
     public String getImageName() {
@@ -77,6 +110,14 @@ public class UploadQo implements Serializable {
 
     public void setImageName(String imageName) {
         this.imageName = imageName;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getImageBase64() {

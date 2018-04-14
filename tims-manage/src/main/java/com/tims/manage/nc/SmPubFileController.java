@@ -3,6 +3,7 @@ package com.tims.manage.nc;
 import com.tims.common.result.ResultVo;
 import com.tims.common.util.ResultUtil;
 import com.tims.facade.api.BillApiService;
+import com.tims.facade.api.FileStoreApiService;
 import com.tims.facade.dfs.qo.UploadQo;
 import com.tims.facade.nc.domian.OrgInfo;
 import com.tims.facade.nc.domian.UserInfo;
@@ -34,7 +35,7 @@ public class SmPubFileController extends BaseController {
     @Autowired
     private FastDFSClientWrapper dfsClient;
     @Autowired
-    private BillApiService billApiService;
+    private FileStoreApiService fileStoreApiService;
 
     @ApiOperation(value = "上传文件")
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
@@ -50,11 +51,15 @@ public class SmPubFileController extends BaseController {
         String fileUrl= dfsClient.uploadFile(file);
         UploadQo uploadQos=new UploadQo();
         uploadQos.setBillNo(billNo);
-        uploadQos.setBillTypeId(billType);
-        uploadQos.setClassifyId(billType);
+        uploadQos.setBillType(billType);
+        uploadQos.setBillId(billId);
+        uploadQos.setUserCode(userCode);
+        uploadQos.setPath(path);
+        uploadQos.setIsFolder(isFolder);
         uploadQos.setImageUrl(fileUrl);
+        uploadQos.setFileSize(String.valueOf(file.getSize()));
         uploadQos.setImageName(file.getOriginalFilename());
-        billApiService.saveBillImage(uploadQos);
+        fileStoreApiService.saveFileStore(uploadQos);
         return ResultUtil.success(fileUrl);
     }
 

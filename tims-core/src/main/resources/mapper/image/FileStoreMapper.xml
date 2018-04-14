@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tims.core.image.mapper.FileStoreMapper">
+    <insert id="saveFileStore" parameterType="com.tims.facade.domain.FileStore">
+        insert into file_store(
+        id,
+        bill_id,
+        file_name,
+        bill_no,
+        bill_type,
+        file_path,
+        file_size,
+        user_code,
+        url,
+        is_delete,
+        is_folder,
+        create_time)
+        values(
+        #{id},
+        #{billId},
+        #{imageName},
+        #{billNo},
+        #{billType},
+        #{filePath},
+        #{fileSize},
+        #{userCode},
+        #{url},
+        #{isDelete},
+        #{isFolder},
+        #{createTime}
+        )
+    </insert>
+
+</mapper>

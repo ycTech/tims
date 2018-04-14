@@ -36,8 +36,8 @@ public class FastController extends BaseController {
         String fileUrl= dfsClient.uploadFile(file);
         UploadQo uploadQos=new UploadQo();
         uploadQos.setBillNo(billNo);
-        uploadQos.setBillTypeId(billTypeId);
-        uploadQos.setClassifyId(classifyId);
+//        uploadQos.setBillTypeId(billTypeId);
+//        uploadQos.setClassifyId(classifyId);
         uploadQos.setImageUrl(fileUrl);
         uploadQos.setImageName(file.getOriginalFilename());
         billApiService.saveBillImage(uploadQos);
