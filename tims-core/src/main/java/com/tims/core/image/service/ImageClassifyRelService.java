@@ -20,7 +20,7 @@ public class ImageClassifyRelService {
      * @return
      */
     public int saveImageClassifyRel(ImageClassifyRel imageClassifyRel){
-         imageClassifyRel.setId(PkUtil.getUuid());
+         imageClassifyRel.setId(PkUtil.getUUID());
         return  imageClassRelRepository.saveImageClassifyRel(imageClassifyRel);
     }
 

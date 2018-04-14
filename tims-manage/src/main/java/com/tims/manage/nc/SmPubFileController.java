@@ -2,17 +2,26 @@ package com.tims.manage.nc;
 
 import com.tims.common.result.ResultVo;
 import com.tims.common.util.ResultUtil;
+import com.tims.facade.api.BillApiService;
+import com.tims.facade.dfs.qo.UploadQo;
+import com.tims.facade.nc.domian.OrgInfo;
+import com.tims.facade.nc.domian.UserInfo;
 import com.tims.facade.nc.qo.UploadFileInfo;
 import com.tims.facade.nc.vo.FileInfoVo;
+import com.tims.manage.controller.BaseController;
+import com.tims.manage.fast.FastDFSClientWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Created by Administrator on 2018/4/11.
@@ -20,7 +29,34 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(value = "外部接口")
 @RestController
 @RequestMapping("/smfile")
-public class SmPubFileController {
+public class SmPubFileController extends BaseController {
+
+    @Autowired
+    private FastDFSClientWrapper dfsClient;
+    @Autowired
+    private BillApiService billApiService;
+
+    @ApiOperation(value = "上传文件")
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultVo upload(@RequestParam(value="file",required=false)MultipartFile file,
+                           @RequestParam(value = "userCode",required=true) String userCode,
+                           @RequestParam(value = "billType",required=true) String billType,
+                           @RequestParam(value = "billId",required=true) String billId,
+                           @RequestParam(value = "billNo",required=true) String billNo,
+                           @RequestParam(value = "path",required=true) String path,
+                           @RequestParam(value = "isFolder",required=true) String isFolder
+                           ) throws Exception {
+        String fileUrl= dfsClient.uploadFile(file);
+        UploadQo uploadQos=new UploadQo();
+        uploadQos.setBillNo(billNo);
+        uploadQos.setBillTypeId(billType);
+        uploadQos.setClassifyId(billType);
+        uploadQos.setImageUrl(fileUrl);
+        uploadQos.setImageName(file.getOriginalFilename());
+        billApiService.saveBillImage(uploadQos);
+        return ResultUtil.success(fileUrl);
+    }
 
 
     @ApiOperation(value = "新增文件信息")
@@ -38,21 +74,20 @@ public class SmPubFileController {
         return ResultUtil.success(fileInfoVo);
     }
 
-
-    @ApiOperation(value = "查询员工转正情况信息")
-    @RequestMapping(value = {"preview"}, method = RequestMethod.GET, headers = {"Accept=application/json"})
+    @ApiOperation(value = "新增机构")
+    @RequestMapping(value = "/save/org",method = RequestMethod.POST, headers = {"Accept=application/json"})
     @ResponseBody
-    public ResultVo<String> queryEmployeeFormalByEmployeeId(@RequestParam(required = false) String billType,
-        @RequestParam(required = false) String billName,
-        @RequestParam(required = false) String billPk,
-        @RequestParam(required = false) String billNo,
-        @RequestParam(required = false) String path,
-        @RequestParam(required = false) String creator,
-        @RequestParam(required = false) String pkCorp,
-        @RequestParam(required = false) String systemId
-    ){
-        String url="http://192.168.1.100:10800/group2/M00/00/00/wKgBG1q3xUeAcKvwACyfKC9S-ZY310.jpg";
-        return ResultUtil.success("url");
+    public ResultVo insertOrg(@RequestBody OrgInfo orgInfo){
+        FileInfoVo fileInfoVo=new FileInfoVo();
+        return success;
+    }
+
+    @ApiOperation(value = "新增用户")
+    @RequestMapping(value = "/save/user",method = RequestMethod.POST, headers = {"Accept=application/json"})
+    @ResponseBody
+    public ResultVo<FileInfoVo> insertUser(@RequestBody UserInfo userInfo){
+
+        return success;
     }
 
 }
