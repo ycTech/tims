@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <property name="LOG_FILE" value="F:\\workspace\\tims\\jodconverter-web/target/classes/logs/app.log"></property>
+    <property name="LOG_FILE" value="D:\\tims\\jodconverter-web/target/classes/logs/app.log"></property>
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
     <jmxConfigurator/>
     <logger name="org.springframework.web" level="info"/>
