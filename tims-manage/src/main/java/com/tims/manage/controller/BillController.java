@@ -41,7 +41,7 @@ public class BillController {
     }
 
     @ApiOperation(value = "根据单据信息查询文件列表")
-    @RequestMapping(value = "/file/list/", method = RequestMethod.POST, headers = {"Accept=application/json"})
+    @RequestMapping(value = "/file/list", method = RequestMethod.POST, headers = {"Accept=application/json"})
     @ResponseBody
     public ResultVo queryFileListByBillInfo(@ RequestBody UploadQo uploadQo) throws Exception {
         FileTree fileTree= imageApiService.queryFileListByBillInfo(uploadQo);

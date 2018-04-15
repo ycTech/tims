@@ -9,7 +9,7 @@ public class File implements TreeEntity<File>,Serializable {
     public String name;
     private String url;
     public String parentId;
-    public List<File> childList;
+    public List<File> children;
 
     public String getUrl() {
         return url;
@@ -40,16 +40,20 @@ public class File implements TreeEntity<File>,Serializable {
         return parentId;
     }
 
+    @Override
+    public void setChildList(List<File> childList) {
+        this.children = childList;
+    }
+
     public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 
-    public List<File> getChildList() {
-        return childList;
+    public List<File> getChildren() {
+        return children;
     }
 
-    @Override
-    public void setChildList(List<File> childList) {
-        this.childList = childList;
+    public void setChildren(List<File> children) {
+        this.children = children;
     }
 }

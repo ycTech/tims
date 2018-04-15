@@ -31,6 +31,8 @@
     <module>tims-core</module>
     <module>tims-manage</module>
     <module>tims-common</module>
+    <module>jodconverter-core</module>
+    <module>jodconverter-web</module>
   </modules>
 
   <repositories>
