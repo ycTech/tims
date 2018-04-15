@@ -13,9 +13,7 @@ import com.tims.facade.tree.FileTree;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ImageInfoService {
@@ -71,23 +69,41 @@ public class ImageInfoService {
         uploadQoTmp.setBillId(uploadQo.getBillId());
         List<FileStore> fileStoreList=fileStoreRepository.queryFileStore(uploadQoTmp);
         List<File> list=new ArrayList<>();
+        Map<String,String> treeIdMap=new HashMap<String,String>();
         for(FileStore fileStore:fileStoreList){
             String[] pathArry=fileStore.getFilePath().split("/");
             if(pathArry.length>0){
-                File file=new File();
-                file.setId(pathArry[1]);
-                file.setParentId("0");
-                file.setName(pathArry[1]);
-                file.setUrl("");
-                list.add(file);
+                if(treeIdMap.get(pathArry[1])==null) {
+                    File file = new File();
+                    file.setId(pathArry[1]);
+                    file.setParentId("0");
+                    file.setName(pathArry[1]);
+                    file.setUrl("");
+                    list.add(file);
+                    treeIdMap.put(file.getId(),file.getId());
+                }
             }
             if(pathArry.length>2){
-                File file=new File();
-                file.setId(pathArry[3]);
-                file.setParentId(pathArry[1]);
-                file.setName(pathArry[3]);
-                file.setUrl("");
-                list.add(file);
+                if(treeIdMap.get(pathArry[3])==null) {
+                    File file = new File();
+                    file.setId(pathArry[3]);
+                    file.setParentId(pathArry[1]);
+                    file.setName(pathArry[3]);
+                    file.setUrl("");
+                    list.add(file);
+                    treeIdMap.put(file.getId(),file.getId());
+                    if (fileStore.getImageName() != null && !fileStore.getImageName().isEmpty()) {
+                        if(treeIdMap.get(fileStore.getImageName())==null) {
+                            file = new File();
+                            file.setId(fileStore.getImageName());
+                            file.setParentId(pathArry[3]);
+                            file.setName(fileStore.getImageName());
+                            file.setUrl("");
+                            list.add(file);
+                            treeIdMap.put(file.getId(), file.getId());
+                        }
+                    }
+                }
             }
         }
         List<File>  fileList=TreeParseUtil.getTreeList("0",list);
