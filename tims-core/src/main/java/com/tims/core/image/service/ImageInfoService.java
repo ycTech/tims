@@ -92,16 +92,16 @@ public class ImageInfoService {
                     file.setUrl("");
                     list.add(file);
                     treeIdMap.put(file.getId(),file.getId());
-                    if (fileStore.getImageName() != null && !fileStore.getImageName().isEmpty()) {
-                        if(treeIdMap.get(fileStore.getImageName())==null) {
-                            file = new File();
-                            file.setId(fileStore.getImageName());
-                            file.setParentId(pathArry[3]);
-                            file.setName(fileStore.getImageName());
-                            file.setUrl("");
-                            list.add(file);
-                            treeIdMap.put(file.getId(), file.getId());
-                        }
+                }
+                if (fileStore.getImageName() != null && !fileStore.getImageName().isEmpty()) {
+                    if(treeIdMap.get(fileStore.getImageName())==null) {
+                        File file = new File();
+                        file.setId(fileStore.getImageName());
+                        file.setParentId(pathArry[3]);
+                        file.setName(fileStore.getImageName());
+                        file.setUrl("");
+                        list.add(file);
+                        treeIdMap.put(file.getId(), file.getId());
                     }
                 }
             }
