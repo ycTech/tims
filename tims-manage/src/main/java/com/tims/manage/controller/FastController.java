@@ -3,6 +3,7 @@ package com.tims.manage.controller;
 import com.tims.common.result.ResultVo;
 import com.tims.common.util.ResultUtil;
 import com.tims.facade.api.BillApiService;
+import com.tims.facade.api.FileStoreApiService;
 import com.tims.facade.dfs.qo.UploadQo;
 import com.tims.manage.fast.FastDFSClientWrapper;
 import io.swagger.annotations.Api;
@@ -23,6 +24,8 @@ public class FastController extends BaseController {
     private FastDFSClientWrapper dfsClient;
     @Autowired
     private BillApiService billApiService;
+    @Autowired
+    private FileStoreApiService fileStoreApiService;
 
 
     @ApiOperation(value = "上传文件")
@@ -50,7 +53,7 @@ public class FastController extends BaseController {
     public ResultVo uploadBase64(@RequestBody UploadQo uploadQos) throws Exception {
         String fileUrl= dfsClient.uploadFile(uploadQos.getImageBase64(),uploadQos.getImageName());
         uploadQos.setImageUrl(fileUrl);
-        billApiService.saveBillImage(uploadQos);
+        fileStoreApiService.saveFileStore(uploadQos);
         return ResultUtil.success(fileUrl);
     }
 
