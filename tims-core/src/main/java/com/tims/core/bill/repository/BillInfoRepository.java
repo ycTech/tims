@@ -47,4 +47,5 @@ public class BillInfoRepository {
     public  BillInfo queryBillInfoById(String  id){
         return  billInfoMapper.queryBillInfoById(id);
     }
+
 }

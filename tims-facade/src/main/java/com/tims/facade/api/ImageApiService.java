@@ -1,10 +1,15 @@
 package com.tims.facade.api;
 
+import com.tims.facade.dfs.qo.UploadQo;
 import com.tims.facade.dfs.vo.BillImageVo;
 import com.tims.facade.domain.ImageClassify;
 import com.tims.facade.domain.ImageClassifyRel;
 import com.tims.facade.domain.ImageInfo;
 import com.tims.facade.hessian.HessianService;
+import com.tims.facade.tree.File;
+import com.tims.facade.tree.FileTree;
+
+import java.util.List;
 
 @HessianService(uri = "/imageApiService")
 public interface ImageApiService {
@@ -84,4 +89,11 @@ public interface ImageApiService {
      * @return
      */
     public BillImageVo queryImagesByBillNo(String billNo);
+
+    /**
+     * 根据单据信息查询文件列表
+     * @param uploadQo
+     * @return
+     */
+    public FileTree queryFileListByBillInfo(UploadQo uploadQo) throws Exception;
 }

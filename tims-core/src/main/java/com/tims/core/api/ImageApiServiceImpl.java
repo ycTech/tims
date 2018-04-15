@@ -2,12 +2,17 @@ package com.tims.core.api;
 
 import com.tims.core.image.service.ImageInfoService;
 import com.tims.facade.api.ImageApiService;
+import com.tims.facade.dfs.qo.UploadQo;
 import com.tims.facade.dfs.vo.BillImageVo;
 import com.tims.facade.domain.ImageClassify;
 import com.tims.facade.domain.ImageClassifyRel;
 import com.tims.facade.domain.ImageInfo;
+import com.tims.facade.tree.File;
+import com.tims.facade.tree.FileTree;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class ImageApiServiceImpl implements ImageApiService{
@@ -66,5 +71,10 @@ public class ImageApiServiceImpl implements ImageApiService{
     @Override
     public BillImageVo queryImagesByBillNo(String billNo) {
         return imageInfoService.queryImagesByBillNo(billNo);
+    }
+
+    @Override
+    public FileTree queryFileListByBillInfo(UploadQo uploadQo) throws Exception {
+        return imageInfoService.queryFileListByBillInfo(uploadQo);
     }
 }

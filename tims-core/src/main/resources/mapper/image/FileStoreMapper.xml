@@ -32,4 +32,24 @@
         )
     </insert>
 
+    <select id="queryFileStore" parameterType="com.tims.facade.dfs.qo.UploadQo" resultType="com.tims.facade.domain.FileStore">
+      select
+        bill_id billId,
+        file_name fileName,
+        bill_no billNo,
+        bill_type billType,
+        file_path filePath,
+        url url
+      from file_store where 1=1
+      <if test="uploadQo.billNo!=null and uploadQo.billNo!=''">
+          and bill_no=#{uploadQo.billNo}
+      </if>
+      <if test="uploadQo.billId!=null and uploadQo.billId!=''">
+          and bill_id=#{uploadQo.billId}
+      </if>
+      <if test="uploadQo.path!=null and uploadQo.path!=''">
+          and file_path=#{uploadQo.path}
+      </if>
+    </select>
+
 </mapper>
