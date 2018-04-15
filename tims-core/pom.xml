@@ -12,7 +12,6 @@
     <groupId>com.tims</groupId>
     <artifactId>tims-core</artifactId>
     <version>1.0.0</version>
-    <packaging>war</packaging>
     <name>tims-core</name>
 
     <dependencies>
