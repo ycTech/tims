@@ -37,11 +37,6 @@
 
   <repositories>
     <repository>
-      <id>Releases</id>
-      <name>Releases</name>
-      <url>http://192.168.1.111:8081/nexus/content/repositories/releases</url>
-    </repository>
-    <repository>
       <id>fkls-releases</id>
       <name>fkls release Repository</name>
       <url>http://maven.fkls.com/nexus/content/repositories/releases</url>

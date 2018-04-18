@@ -25,6 +25,10 @@
                 <span data-url="/demo/test5.xlsx">test5.xlsx</span>
             </li>
 
+            <li class="file-item">
+                <span data-url="http://127.0.0.1:8012/demo/test5.doc">test5.doc</span>
+            </li>
+
         </ul>
     </div>
     <div class="file-preview__main">
