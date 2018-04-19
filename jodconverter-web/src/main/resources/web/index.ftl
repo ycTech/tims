@@ -19,13 +19,21 @@
                 <span data-url="/demo/image3.png" >image3.jpg</span>
             </li>
             <li class="file-item">
-                <span data-url="/demo/github.pdf">github.pdf</span>
+                <span data-url="/demo/test.pdf">test.pdf</span>
             </li>
+            <li class="file-item">
+                <span data-url="/demo/test5.xlsx">test5.xlsx</span>
+            </li>
+
+            <li class="file-item">
+                <span data-url="http://127.0.0.1:8012/demo/test5.doc">test5.doc</span>
+            </li>
+
         </ul>
     </div>
     <div class="file-preview__main">
         <iframe id="file-preview__iframe" 
-            src="/onlinePreview?url=/demo/image3.jpg" frameborder="0"></iframe>
+            src="/onlinePreview?url=/demo/test5.xlsx" frameborder="0"></iframe>
     </div>
 </div>
 
