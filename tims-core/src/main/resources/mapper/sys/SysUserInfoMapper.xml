@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tims.core.sys.mapper.SysUserInfoMapper">
+
+ <insert id="saveSysUserInfo" parameterType="com.tims.facade.sys.SysUserInfo">
+     insert into sys_user_info(
+         id,
+         user_name,
+         password,
+         user_code，
+         pk_corp,
+         dr,
+         create_time,
+         create_user,
+         create_user_code,
+         update_time,
+         update_user,
+         update_user_code
+         )
+     values(
+         #{id},
+         #{userName},
+         #{password},
+         #{userCode},
+         #{pkCorp},
+         #{dr},
+         #{createTime},
+         #{createUser},
+         #{createUserCode},
+         #{updateTime},
+         #{updateUser},
+         #{updateUserCode}
+        )
+ </insert>
+
+    <update id="updateSysUserInfo" parameterType="com.tims.facade.sys.SysUserInfo">
+        update sys_user_info
+        <set>
+          <if test=" sysUserInfo.userName != null">
+              user_name=#{sysUserInfo.userName},
+          </if>
+          <if test=" sysUserInfo.password != null">
+            password=#{sysUserInfo.password},
+          </if>
+          <if test=" sysUserInfo.userCode != null">
+            user_code=#{sysUserInfo.userCode},
+          </if>
+          <if test=" sysUserInfo.pkCorp != null">
+            pk_corp=#{sysUserInfo.pkCorp},
+          </if>
+          <if test=" sysUserInfo.dr != null">
+            dr=#{sysUserInfo.dr},
+          </if>
+          <if test=" sysUserInfo.updateTime != null">
+            update_time=#{sysUserInfo.updateTime},
+          </if>
+          <if test=" sysUserInfo.updateUser != null">
+            update_user=#{sysUserInfo.updateUser},
+          </if>
+          <if test=" sysUserInfo.updateUserCode != null">
+            update_user_code=#{sysUserInfo.updateUserCode},
+          </if>
+        </set>
+        WHERE  id=#{sysUserInfo.id}
+    </update>
+
+    <update id="deleteSysUserInfoById" parameterType="string">
+        update from sys_user_info  set dr=1 where id=#{id}
+    </update>
+</mapper>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tims.core.sys.mapper.SysUnitInfoMapper">
+
+ <insert id="saveSysUnitInfo" parameterType="com.tims.facade.sys.SysUnitInfo">
+     insert into sys_unit_info(
+         id,
+         unit_code,
+         unit_name,
+         unit_short_name，
+         dr,
+         create_time,
+         create_user,
+         create_user_code,
+         update_time,
+         update_user,
+         update_user_code
+         )
+     values(
+         #{id},
+         #{unitCode},
+         #{unitName},
+         #{unitShortName},
+         #{dr},
+         #{createTime},
+         #{createUser},
+         #{createUserCode},
+         #{updateTime},
+         #{updateUser},
+         #{updateUserCode}
+        )
+ </insert>
+
+    <update id="updateSysUnitInfo" parameterType="com.tims.facade.sys.SysUnitInfo">
+        update sys_unit_info
+        <set>
+          <if test=" sysUnitInfo.unitCode != null">
+              unit_code=#{sysUnitInfo.unitCode},
+          </if>
+          <if test=" sysUnitInfo.unitName != null">
+            unit_name=#{sysUnitInfo.unitName},
+          </if>
+          <if test=" sysUnitInfo.unitShortName != null">
+            unit_short_name=#{sysUnitInfo.unitShortName},
+          </if>
+          <if test=" sysUnitInfo.dr != null">
+            dr=#{sysUnitInfo.dr},
+          </if>
+          <if test=" sysUnitInfo.updateTime != null">
+            update_time=#{sysUnitInfo.updateTime},
+          </if>
+          <if test=" sysUnitInfo.updateUser != null">
+            update_user=#{sysUnitInfo.updateUser},
+          </if>
+          <if test=" sysUnitInfo.updateUserCode != null">
+            update_user_code=#{sysUnitInfo.updateUserCode},
+          </if>
+        </set>
+        WHERE  id=#{sysUserInfo.id}
+    </update>
+
+    <update id="deleteSysUnitInfoById" parameterType="string">
+        update from sys_unit_info  set dr=1 where id=#{id}
+    </update>
+</mapper>

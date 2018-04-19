@@ -1,29 +1,33 @@
 package com.tims.facade.sys;
 
+import com.tims.facade.common.BaseModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * Created by liuzm on 2018/4/11.
+ *
+ * @author liuzm
+ * @date 2018/4/11
  */
-public class SysUserInfo {
+public class SysUserInfo  extends BaseModel {
 
-    @ApiModelProperty(value = "用户主键")
-    private String cuserid;
+
     @ApiModelProperty(value = "用户编码")
     private String  userCode;
     @ApiModelProperty(value = "用户名字")
     private String userName;
+    @ApiModelProperty(value = "用户密码")
+    private String  password;
     @ApiModelProperty(value = "用户所属公司")
     private String pkCorp;
     @ApiModelProperty(value = "删除标志")
     private int dr;
 
-    public String getCuserid() {
-        return cuserid;
+    public String getPassword() {
+        return password;
     }
 
-    public void setCuserid(String cuserid) {
-        this.cuserid = cuserid;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getUserCode() {
