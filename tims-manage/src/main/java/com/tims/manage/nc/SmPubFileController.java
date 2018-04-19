@@ -2,19 +2,18 @@ package com.tims.manage.nc;
 
 import com.tims.common.result.ResultVo;
 import com.tims.common.util.ResultUtil;
-import com.tims.facade.api.BillApiService;
 import com.tims.facade.api.FileStoreApiService;
+import com.tims.facade.api.SysApiService;
 import com.tims.facade.dfs.qo.UploadQo;
-import com.tims.facade.nc.domian.OrgInfo;
-import com.tims.facade.nc.domian.UserInfo;
 import com.tims.facade.nc.qo.UploadFileInfo;
 import com.tims.facade.nc.vo.FileInfoVo;
+import com.tims.facade.sys.SysUnitInfo;
+import com.tims.facade.sys.SysUserInfo;
 import com.tims.manage.controller.BaseController;
 import com.tims.manage.fast.FastDFSClientWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +35,8 @@ public class SmPubFileController extends BaseController {
     private FastDFSClientWrapper dfsClient;
     @Autowired
     private FileStoreApiService fileStoreApiService;
+    @Autowired
+    private SysApiService sysApiService;
 
     @ApiOperation(value = "上传文件")
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
@@ -82,17 +83,17 @@ public class SmPubFileController extends BaseController {
     @ApiOperation(value = "新增机构")
     @RequestMapping(value = "/save/org",method = RequestMethod.POST, headers = {"Accept=application/json"})
     @ResponseBody
-    public ResultVo insertOrg(@RequestBody OrgInfo orgInfo){
-        FileInfoVo fileInfoVo=new FileInfoVo();
-        return success;
+    public ResultVo insertOrg(@RequestBody SysUnitInfo sysUnitInfo){
+        Boolean result=  sysApiService.saveSysUnitInfo(sysUnitInfo);
+        return ResultUtil.success(result);
     }
 
     @ApiOperation(value = "新增用户")
     @RequestMapping(value = "/save/user",method = RequestMethod.POST, headers = {"Accept=application/json"})
     @ResponseBody
-    public ResultVo<FileInfoVo> insertUser(@RequestBody UserInfo userInfo){
-
-        return success;
+    public ResultVo<FileInfoVo> insertUser(@RequestBody SysUserInfo userInfo){
+      Boolean result=  sysApiService.saveSysUserInfo(userInfo);
+        return ResultUtil.success(result);
     }
 
 }
