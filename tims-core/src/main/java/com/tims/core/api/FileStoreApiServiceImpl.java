@@ -7,6 +7,8 @@ import com.tims.facade.domain.FileStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class FileStoreApiServiceImpl implements FileStoreApiService {
 
@@ -26,5 +28,10 @@ public class FileStoreApiServiceImpl implements FileStoreApiService {
         fileStore.setFileSize(uploadQos.getFileSize());
         fileStore.setIsDelete("0");
         fileStoreService.saveImageInfo(fileStore);
+    }
+
+    @Override
+    public List<FileStore> queryUrlByPath(UploadQo uploadQo) throws Exception {
+        return fileStoreService.queryUrlByPath(uploadQo);
     }
 }

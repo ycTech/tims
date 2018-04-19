@@ -95,4 +95,11 @@ public class SmPubFileController extends BaseController {
         return success;
     }
 
+    @ApiOperation(value = "查询附件的URL")
+    @RequestMapping(value = "/path/list",method = RequestMethod.POST, headers = {"Accept=application/json"})
+    @ResponseBody
+    public ResultVo queryUrlByPath(@RequestBody UploadQo uploadQo) throws Exception {
+        return ResultUtil.success(fileStoreApiService.queryUrlByPath(uploadQo));
+    }
+
 }

@@ -3,6 +3,7 @@ package com.tims.core.image.service;
 import com.tims.common.util.PkUtil;
 import com.tims.core.image.repository.FileStoreRepository;
 import com.tims.core.image.repository.ImageInfoRepository;
+import com.tims.facade.dfs.qo.UploadQo;
 import com.tims.facade.dfs.vo.BillImageVo;
 import com.tims.facade.domain.FileStore;
 import com.tims.facade.domain.ImageInfo;
@@ -26,6 +27,11 @@ public class FileStoreService {
         fileStore.setId(PkUtil.getUUID());
         fileStore.setCreateTime(new Date());
         fileStoreRepository.savefileStore(fileStore);
+    }
+
+    public List<FileStore> queryUrlByPath(UploadQo uploadQo) throws Exception {
+        List<FileStore> fileStoreList=fileStoreRepository.queryFileStore(uploadQo);
+        return fileStoreList;
     }
 
 }

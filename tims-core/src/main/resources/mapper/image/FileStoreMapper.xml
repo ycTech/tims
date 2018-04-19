@@ -50,6 +50,9 @@
       <if test="uploadQo.path!=null and uploadQo.path!=''">
           and file_path=#{uploadQo.path}
       </if>
+      <if test="uploadQo.imageName!=null and uploadQo.imageName!=''">
+          and file_name=#{uploadQo.imageName}
+      </if>
     </select>
 
 </mapper>
