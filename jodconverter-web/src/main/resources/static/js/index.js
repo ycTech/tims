@@ -1,3 +1,15 @@
+var urlQuery = {
+    vsystem: getQueryString('vsystem'),
+    pk_corp: getQueryString('pk_corp'),
+    userCode: getQueryString('userCode'),
+    billType: getQueryString('billType'),
+    billtypename: getQueryString('billtypename'),
+    billId: getQueryString('billId'),
+    billNo: getQueryString('billNo'),
+    isFolder: getQueryString('isFolder'),
+    path: getQueryString('path')
+}
+
 $(function () {
     getTreeData()
     // $('li.file-item').on('click', function() {
@@ -10,14 +22,14 @@ $(function () {
     //     .attr('src', srcPrefix + fileUrl)
     // })
 })
-function setPreviewIframeSrc (fileUrl) {
+function setPreviewIframeSrc(fileUrl) {
     var srcPrefix = '/onlinePreview?url='
     $('#file-preview__iframe').attr('src', srcPrefix + fileUrl)
 }
-function getTreeData () {
+function getTreeData() {
     $.ajax({
         type: 'POST',
-        url: 'bill/file/list',
+        url: 'preview/file/list',
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         data: JSON.stringify(urlQuery),
@@ -29,7 +41,7 @@ function getTreeData () {
                     data: parseTreeData(treeData)
                 }
             })
-            $('#jstree').on('changed.jstree', function(e, data) {
+            $('#jstree').on('changed.jstree', function (e, data) {
                 var fileUrl = data.node.li_attr.fileUrl
                 setPreviewIframeSrc(fileUrl)
             })
@@ -40,7 +52,7 @@ function getTreeData () {
     })
 }
 
-function parseTreeData (treeArray) {
+function parseTreeData(treeArray) {
     for (var i = 0; i < treeArray.length; i++) {
         var item = treeArray[i]
         item.text = item.name
@@ -58,4 +70,16 @@ function parseTreeData (treeArray) {
         }
     }
     return treeArray
+}
+
+
+// 获取location参数
+function getQueryString(name) {
+    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i')
+    var r = window.location.search.substr(1).match(reg)
+    if (r != null) {
+        return unescape(r[2])
+    } else {
+        return null
+    }
 }
