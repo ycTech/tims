@@ -236,8 +236,8 @@ function onDeviceTypeChange () {
 function loadHtml (htmlPath) {
   $.get(htmlPath, function (data) {
     $('#scanner-iframe').empty().html(data)
+    console.log('showImagePreview')
     showImagePreview()
-    toggleScannerConfig()
   })
 }
 function AddImagePreview (fileUrl, thumbImageUrl) {

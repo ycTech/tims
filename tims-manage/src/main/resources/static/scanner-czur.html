@@ -9,9 +9,66 @@
   </div>
   <div class="scanner-setting__wrapper">
 
+    
     <form class="form-inline" role="form">
-
+      <fieldset>
+        <div class="form-group">
+          <label for="ScannerName">选择扫描仪</label>
+          <select
+            name="ScannerName"
+            id="ScannerName"
+            class="form-control"
+            style="width: 220px;"
+            onchange="SelScanner()"
+          >
+          </select>
+        </div>
+      </fieldset>
+      <fieldset>
+        <div class="form-group">
+          <label for="">图片保存路径：</label>
+          <input
+            type="text"
+            class="form-control"
+            id="Path"
+            name="Path"
+            value="D:\CZUR_Images"
+            onchange="CZUR_Path()"
+          >
+        </div>
+        <div class="form-group">
+          <label for="">图片名称前缀：</label>
+          <input
+            type="text"
+            class="form-control"
+            id="Prefix"
+            name="Prefix"
+            value="image"
+          >
+        </div>
+      </fieldset>
+      <div class="form-group">
+        <label for="">label</label>
+        <input
+          type="text"
+          class="form-control"
+          id=""
+          name=""
+        >
+      </div>
+      <div class="form-group">
+        <label for="">label</label>
+        <input
+          type="text"
+          class="form-control"
+          id=""
+          name=""
+        >
+      </div>
+    
+      <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    
 
     <div class="text-center">
       <button type="button" class="btn btn-default" onclick="onCloseConfig()">关闭</button>
