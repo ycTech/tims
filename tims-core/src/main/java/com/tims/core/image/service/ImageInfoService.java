@@ -78,7 +78,7 @@ public class ImageInfoService {
                     file.setId(pathArry[1]);
                     file.setParentId("0");
                     file.setName(pathArry[1]);
-                    file.setUrl("");
+                    file.setUrl(fileStore.getUrl());
                     list.add(file);
                     treeIdMap.put(file.getId(),file.getId());
                 }
@@ -89,7 +89,7 @@ public class ImageInfoService {
                     file.setId(pathArry[3]);
                     file.setParentId(pathArry[1]);
                     file.setName(pathArry[3]);
-                    file.setUrl("");
+                    file.setUrl(fileStore.getUrl());
                     list.add(file);
                     treeIdMap.put(file.getId(),file.getId());
                 }
@@ -99,7 +99,7 @@ public class ImageInfoService {
                         file.setId(fileStore.getImageName());
                         file.setParentId(pathArry[3]);
                         file.setName(fileStore.getImageName());
-                        file.setUrl("");
+                        file.setUrl(fileStore.getUrl());
                         list.add(file);
                         treeIdMap.put(file.getId(), file.getId());
                     }
