@@ -2,7 +2,7 @@
 
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="lib/bootstrap-3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/bootstrap/3.3.7/css/bootstrap.min.css">
     <style type="text/css">
         body{
             margin: 0;
