@@ -55,4 +55,32 @@
       </if>
     </select>
 
+    <select id="queryFileList" resultType="com.tims.facade.domain.FileStore">
+        select
+        bill_id billId,
+        file_name imageName,
+        bill_no billNo,
+        bill_type billType,
+        file_path filePath,
+        url url,
+        create_time createTime
+        from file_store where 1=1
+        <if test="fileStore.billNo!=null and fileStore.billNo!=''">
+            and bill_no=#{fileStore.billNo}
+        </if>
+        <if test="fileStore.billId!=null and fileStore.billId!=''">
+            and bill_id=#{fileStore.billId}
+        </if>
+        <if test="fileStore.billType!=null and fileStore.billType!=''">
+            and bill_type=#{fileStore.billType}
+        </if>
+        <if test="fileStore.filePath!=null and fileStore.filePath!=''">
+            and file_path=#{fileStore.filePath}
+        </if>
+        <if test="fileStore.imageName!=null and fileStore.imageName!=''">
+            and file_name=#{fileStore.imageName}
+        </if>
+        order by create_time desc
+    </select>
+
 </mapper>

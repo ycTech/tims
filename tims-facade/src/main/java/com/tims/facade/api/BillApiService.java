@@ -1,10 +1,15 @@
 package com.tims.facade.api;
 
+import com.github.pagehelper.Page;
+import com.tims.facade.bill.qo.FileStoreQo;
+import com.tims.facade.bill.vo.FileStoreVo;
 import com.tims.facade.dfs.qo.UploadQo;
 import com.tims.facade.domain.BillImageRel;
 import com.tims.facade.domain.BillInfo;
 import com.tims.facade.domain.BillType;
 import com.tims.facade.hessian.HessianService;
+
+import java.util.List;
 
 @HessianService(uri = "/billApiService")
 public interface BillApiService {
@@ -79,5 +84,12 @@ public interface BillApiService {
      * @return
      */
     public void saveBillImage(UploadQo uploadQos);
+
+    /**
+     * 查询单据
+     * @param fileStoreQo
+     * @return
+     */
+    public Page<FileStoreVo> queryBillList(FileStoreQo fileStoreQo);
 
 }

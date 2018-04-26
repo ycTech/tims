@@ -1,5 +1,7 @@
 package com.tims.core.image.service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import com.tims.common.util.PkUtil;
 import com.tims.core.image.repository.FileStoreRepository;
 import com.tims.core.image.repository.ImageInfoRepository;
@@ -120,5 +122,9 @@ public class ImageInfoService {
      */
     public List<ImageInfo> queryImageInfoByImageClassifyId(String imageClassifyId){
         return  imageInfoRepository.queryImageInfoByImageClassifyId(imageClassifyId);
+    }
+
+    public Page<FileStore> queryFileStoreList(FileStore fileStore) throws Exception {
+        return fileStoreRepository.queryFileList(fileStore);
     }
 }

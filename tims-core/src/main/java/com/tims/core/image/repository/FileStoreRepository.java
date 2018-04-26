@@ -1,5 +1,7 @@
 package com.tims.core.image.repository;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import com.tims.core.image.mapper.FileStoreMapper;
 import com.tims.core.image.mapper.ImageInfoMapper;
 import com.tims.facade.dfs.qo.UploadQo;
@@ -28,5 +30,12 @@ public class FileStoreRepository {
     public List<FileStore> queryFileStore(UploadQo uploadQo) throws Exception{
         List<FileStore> fileStore=fileStoreMapper.queryFileStore(uploadQo);
         return fileStore;
+    }
+
+    public Page<FileStore> queryFileList(FileStore fileStore) throws Exception{
+        fileStore.enablePaging();
+        Page<FileStore> fileStoreList=fileStoreMapper.queryFileList(fileStore);
+//        PageInfo<FileStore> pageInfo = new PageInfo<>(fileStoreList);
+        return fileStoreList;
     }
 }

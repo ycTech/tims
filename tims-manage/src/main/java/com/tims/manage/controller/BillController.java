@@ -2,7 +2,9 @@ package com.tims.manage.controller;
 
 import com.tims.common.result.ResultVo;
 import com.tims.common.util.ResultUtil;
+import com.tims.facade.api.BillApiService;
 import com.tims.facade.api.ImageApiService;
+import com.tims.facade.bill.qo.FileStoreQo;
 import com.tims.facade.dfs.qo.UploadQo;
 import com.tims.facade.dfs.vo.BillImageVo;
 import com.tims.facade.tree.File;
@@ -22,6 +24,9 @@ public class BillController {
 
     @Autowired
     private ImageApiService imageApiService;
+
+    @Autowired
+    private BillApiService billApiService;
 
     @ApiOperation(value = "根据单据ID查询对应的图片列表")
     @RequestMapping(value = "/images/id/{billId}", method = RequestMethod.GET, headers = {"Accept=application/json"})
@@ -43,9 +48,16 @@ public class BillController {
     @ApiOperation(value = "根据单据信息查询文件列表")
     @RequestMapping(value = "/file/list", method = RequestMethod.POST, headers = {"Accept=application/json"})
     @ResponseBody
-    public ResultVo queryFileListByBillInfo(@ RequestBody UploadQo uploadQo) throws Exception {
+    public ResultVo queryFileListByBillInfo(@RequestBody UploadQo uploadQo) throws Exception {
         FileTree fileTree= imageApiService.queryFileListByBillInfo(uploadQo);
         return ResultUtil.success(fileTree);
+    }
+
+    @ApiOperation(value = "单据列表")
+    @RequestMapping(value = "/list", method = RequestMethod.POST, headers = {"Accept=application/json"})
+    @ResponseBody
+    public ResultVo queryBillList(@RequestBody FileStoreQo fileStoreQo) throws Exception {
+        return ResultUtil.success(billApiService.queryBillList(fileStoreQo));
     }
 
 }

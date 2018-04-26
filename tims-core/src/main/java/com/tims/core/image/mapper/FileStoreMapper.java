@@ -1,5 +1,6 @@
 package com.tims.core.image.mapper;
 
+import com.github.pagehelper.Page;
 import com.tims.facade.dfs.qo.UploadQo;
 import com.tims.facade.dfs.vo.BillImageVo;
 import com.tims.facade.domain.FileStore;
@@ -27,4 +28,10 @@ public interface FileStoreMapper {
      */
     List<FileStore> queryFileStore(@Param("uploadQo") UploadQo uploadQo) ;
 
+    /**
+     * 查询影像列表
+     * @param fileStore
+     * @return
+     */
+    Page<FileStore> queryFileList(@Param("fileStore") FileStore fileStore) ;
 }

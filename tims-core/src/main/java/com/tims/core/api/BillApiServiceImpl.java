@@ -1,10 +1,13 @@
 package com.tims.core.api;
 
+import com.github.pagehelper.Page;
 import com.tims.common.util.PkUtil;
 import com.tims.core.bill.service.BillImageRelService;
 import com.tims.core.bill.service.BillInfoService;
 import com.tims.core.image.service.ImageInfoService;
 import com.tims.facade.api.BillApiService;
+import com.tims.facade.bill.qo.FileStoreQo;
+import com.tims.facade.bill.vo.FileStoreVo;
 import com.tims.facade.dfs.qo.UploadQo;
 import com.tims.facade.domain.BillImageRel;
 import com.tims.facade.domain.BillInfo;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 @Component
 public class BillApiServiceImpl implements BillApiService {
@@ -87,5 +91,10 @@ public class BillApiServiceImpl implements BillApiService {
         billImageRel.setBillId(billInfo.getId());
         billImageRel.setImageId(imageInfo.getId());
         billImageRelService.saveBillImageRel(billImageRel);
+    }
+
+    @Override
+    public Page<FileStoreVo> queryBillList(FileStoreQo fileStoreQo) {
+        return billInfoService.queryBillList(fileStoreQo);
     }
 }

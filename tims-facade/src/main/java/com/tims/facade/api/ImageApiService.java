@@ -1,7 +1,10 @@
 package com.tims.facade.api;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import com.tims.facade.dfs.qo.UploadQo;
 import com.tims.facade.dfs.vo.BillImageVo;
+import com.tims.facade.domain.FileStore;
 import com.tims.facade.domain.ImageClassify;
 import com.tims.facade.domain.ImageClassifyRel;
 import com.tims.facade.domain.ImageInfo;
@@ -96,4 +99,6 @@ public interface ImageApiService {
      * @return
      */
     public FileTree queryFileListByBillInfo(UploadQo uploadQo) throws Exception;
+
+    public Page<FileStore> queryFileStoreList(FileStore fileStore) throws Exception;
 }

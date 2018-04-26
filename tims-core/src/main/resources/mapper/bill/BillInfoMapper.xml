@@ -64,4 +64,27 @@
     <select id="queryBillInfoById"  parameterType="string" resultType="com.tims.facade.domain.BillInfo">
         select * from bill_info where id=#{id}
     </select>
+
+    <select id="queryBillList" resultType="com.tims.facade.bill.vo.FileStoreVo">
+      SELECT
+        COUNT(*) fileNum,
+        bill_id  billId,
+        bill_no  billNo
+      FROM
+        file_store
+      WHERE
+        is_delete=0
+        <if test="fileStoreQo.billId != null and fileStoreQo.billId != ''">
+            and bill_id=#{fileStoreQo.billId}
+        </if>
+        <if test="fileStoreQo.billNo != null and fileStoreQo.billNo != ''">
+            and bill_no=#{fileStoreQo.billNo}
+        </if>
+        <if test="fileStoreQo.billType != null and fileStoreQo.billType != ''">
+            and bill_type=#{fileStoreQo.billType}
+        </if>
+      GROUP BY
+        bill_id,
+        bill_no
+    </select>
 </mapper>

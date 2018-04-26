@@ -1,9 +1,13 @@
 package com.tims.core.api;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
+import com.tims.core.image.service.FileStoreService;
 import com.tims.core.image.service.ImageInfoService;
 import com.tims.facade.api.ImageApiService;
 import com.tims.facade.dfs.qo.UploadQo;
 import com.tims.facade.dfs.vo.BillImageVo;
+import com.tims.facade.domain.FileStore;
 import com.tims.facade.domain.ImageClassify;
 import com.tims.facade.domain.ImageClassifyRel;
 import com.tims.facade.domain.ImageInfo;
@@ -16,8 +20,10 @@ import java.util.List;
 
 @Component
 public class ImageApiServiceImpl implements ImageApiService{
+
     @Autowired
     private ImageInfoService imageInfoService;
+
     @Override
     public boolean saveImageInfo(ImageInfo imageInfo) {
         return false;
@@ -76,5 +82,10 @@ public class ImageApiServiceImpl implements ImageApiService{
     @Override
     public FileTree queryFileListByBillInfo(UploadQo uploadQo) throws Exception {
         return imageInfoService.queryFileListByBillInfo(uploadQo);
+    }
+
+    @Override
+    public Page<FileStore> queryFileStoreList(FileStore fileStore) throws Exception {
+        return imageInfoService.queryFileStoreList(fileStore);
     }
 }

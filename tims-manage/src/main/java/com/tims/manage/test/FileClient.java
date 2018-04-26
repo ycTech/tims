@@ -1,5 +1,6 @@
 package com.tims.manage.test;
 
+import com.tims.common.exception.BusinessException;
 import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
@@ -21,9 +22,12 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.*;
+
+import static com.sun.xml.internal.ws.api.message.Packet.State.ClientRequest;
 
 public class FileClient {
     public  static  final  String  CHARSET  =  "UTF-8";    
@@ -83,6 +87,7 @@ public class FileClient {
          }
         return resultMap;    
      }
+
 
     /** 
       * HTTP Post 获取内容

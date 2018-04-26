@@ -1,11 +1,12 @@
 package com.tims.facade.domain;
 
+import com.tims.facade.page.AbstractPageForm;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class FileStore implements Serializable {
+public class FileStore extends AbstractPageForm {
     @ApiModelProperty(value = "主键")
     private String id;
     @ApiModelProperty(value = "单据PK")

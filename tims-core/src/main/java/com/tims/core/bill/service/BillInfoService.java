@@ -1,7 +1,10 @@
 package com.tims.core.bill.service;
 
+import com.github.pagehelper.Page;
 import com.tims.common.util.PkUtil;
 import com.tims.core.bill.repository.BillInfoRepository;
+import com.tims.facade.bill.qo.FileStoreQo;
+import com.tims.facade.bill.vo.FileStoreVo;
 import com.tims.facade.domain.BillInfo;
 import com.tims.facade.domain.vo.BillInfoVo;
 import com.tims.facade.enums.StatusEnum;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class BillInfoService {
@@ -60,5 +64,12 @@ public class BillInfoService {
         return  billInfoRepository.queryBillInfoById(id);
     }
 
+    /**
+     * 查询单据列表
+     * @param fileStoreQo
+     */
+    public Page<FileStoreVo> queryBillList(FileStoreQo fileStoreQo){
+        return billInfoRepository.queryBillList(fileStoreQo);
+    }
 
 }

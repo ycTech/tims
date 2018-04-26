@@ -1,9 +1,14 @@
 package com.tims.core.bill.repository;
 
+import com.github.pagehelper.Page;
 import com.tims.core.bill.mapper.BillInfoMapper;
+import com.tims.facade.bill.qo.FileStoreQo;
+import com.tims.facade.bill.vo.FileStoreVo;
 import com.tims.facade.domain.BillInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class BillInfoRepository {
@@ -46,6 +51,15 @@ public class BillInfoRepository {
      */
     public  BillInfo queryBillInfoById(String  id){
         return  billInfoMapper.queryBillInfoById(id);
+    }
+
+    /**
+     * 查询单据列表
+     * @param fileStoreQo
+     */
+    public Page<FileStoreVo> queryBillList(FileStoreQo fileStoreQo){
+        fileStoreQo.enablePaging();
+        return billInfoMapper.queryBillList(fileStoreQo);
     }
 
 }

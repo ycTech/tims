@@ -1,6 +1,10 @@
 package com.tims.core.bill.mapper;
 
+import com.github.pagehelper.Page;
+import com.tims.facade.bill.qo.FileStoreQo;
+import com.tims.facade.bill.vo.FileStoreVo;
 import com.tims.facade.domain.BillInfo;
+import com.tims.facade.domain.FileStore;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -9,8 +13,6 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface BillInfoMapper {
-
-    public List<BillInfo>  queryBillInfo();
 
     /**
      * 新增影像系统
@@ -39,4 +41,6 @@ public interface BillInfoMapper {
      * @return
      */
     public  BillInfo queryBillInfoById(@Param("id") String  id);
+
+    public Page<FileStoreVo> queryBillList(@Param("fileStoreQo")FileStoreQo fileStoreQo);
 }
