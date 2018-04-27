@@ -29,22 +29,35 @@
         <#assign finalUrl="${baseUrl}${pdfUrl}">
     </#if>
     <a class="media" href="${finalUrl}"></a>
-    <#--<iframe src="/pdfjs/web/viewer.html?file=${finalUrl}" width="100%" frameborder="0"></iframe>-->
+    <iframe
+        src="/pdfjs/web/viewer.html?file=${finalUrl}"
+        width="100%"
+        frameborder="0">
+    </iframe>
 </body>
 <script src="lib/jquery.min.js"></script>
 <script src="lib/jquery.media.js"></script>
 <script src="lib/jquery.metadata.js"></script>
+<script src="js/util.js"></script>
 <script type="text/javascript">
     $(function () {
-        $('a.media').media({width: '100%', height: '100%'})
+        var IEVersion = CheckIEVersion()
+
+        if (IEVersion >= 6 && IEVersion <= 11) {
+            $('iframe').hide()
+            $('a.media').show().media({width: '100%', height: '100%'})
+        } else {
+            $('a.media').hide()
+            $('iframe').show()
+            document.getElementsByTagName('iframe')[0].height = document.documentElement.clientHeight-10;
+            /**
+             * 页面变化调整高度
+             */
+            window.onresize = function(){
+                var fm = document.getElementsByTagName("iframe")[0];
+                fm.height = window.document.documentElement.clientHeight-10;
+            }
+        }
     })
-    // document.getElementsByTagName('iframe')[0].height = document.documentElement.clientHeight-10;
-    // /**
-    //  * 页面变化调整高度
-    //  */
-    // window.onresize = function(){
-    //     var fm = document.getElementsByTagName("iframe")[0];
-    //     fm.height = window.document.documentElement.clientHeight-10;
-    // }
 </script>
 </html>
