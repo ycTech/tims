@@ -1,5 +1,6 @@
 package com.tims.core.api;
 
+import com.github.pagehelper.Page;
 import com.tims.core.sys.service.SysUnitInfoService;
 import com.tims.core.sys.service.SysUserInfoService;
 import com.tims.facade.api.SysApiService;
@@ -51,5 +52,10 @@ public class SysApiServiceImpl implements SysApiService {
     @Override
     public Boolean deleteSysUnitInfo(String id) {
         return sysUnitInfoService.deleteSysUnitInfo(id);
+    }
+
+    @Override
+    public Page<SysUserInfo> querySysuserInfoPage(SysUserInfo sysUserInfo) {
+        return sysUserInfoService.querySysuserInfoPage(sysUserInfo);
     }
 }

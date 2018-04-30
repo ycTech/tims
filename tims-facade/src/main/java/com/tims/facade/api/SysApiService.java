@@ -1,5 +1,6 @@
 package com.tims.facade.api;
 
+import com.github.pagehelper.Page;
 import com.tims.facade.hessian.HessianService;
 import com.tims.facade.sys.SysUnitInfo;
 import com.tims.facade.sys.SysUserInfo;
@@ -54,4 +55,11 @@ public interface SysApiService {
      * @return
      */
     public  Boolean deleteSysUnitInfo(String id);
+
+    /**
+     * 分页用户
+     * @param sysUserInfo
+     * @return
+     */
+    public Page<SysUserInfo> querySysuserInfoPage(SysUserInfo sysUserInfo);
 }

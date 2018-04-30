@@ -1,5 +1,6 @@
 package com.tims.core.sys.service;
 
+import com.github.pagehelper.Page;
 import com.tims.common.util.PwdEncryptUtil;
 import com.tims.core.sys.repository.SysUserInfoRepository;
 import com.tims.facade.sys.SysUserInfo;
@@ -57,4 +58,7 @@ public class SysUserInfoService {
         }
         return false;
     }
+
+    public Page<SysUserInfo> querySysuserInfoPage(SysUserInfo sysUserInfo){return
+            sysUserInfoRepository.querySysuserInfoPage(sysUserInfo);}
 }
