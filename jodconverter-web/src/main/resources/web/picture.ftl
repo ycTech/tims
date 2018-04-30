@@ -24,7 +24,7 @@
     //    url: 'src',
     //   navbar:false
     //});
-    var viewer = $('dowebok').viewer({
+    var viewer = $('#dowebok').viewer({
         url: 'src',
         navbar: false
     })

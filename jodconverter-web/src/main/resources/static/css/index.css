@@ -29,7 +29,7 @@ html, body {
 }
 .file-preview__main {
     height: 100%;
-    overflow: auto;
+    overflow: hidden;
 }
 #file-preview__iframe {
     width: 100%;
