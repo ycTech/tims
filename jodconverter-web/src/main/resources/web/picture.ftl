@@ -17,12 +17,17 @@
             <li><img id="${img}"  url="${img}" src="${img}" width="1px" height="1px"></li>
         </#list>
 </ul>
-<script src="js/viewer.min.js"></script>
+<script src="lib/jquery/1.9.1/jquery.min.js"></script>
+<script src="lib/viewer-jquery.min.js"></script>
 <script>
-    var viewer = new Viewer(document.getElementById('dowebok'), {
+    //var viewer = new Viewer(document.getElementById('dowebok'), {
+    //    url: 'src',
+    //   navbar:false
+    //});
+    var viewer = $('dowebok').viewer({
         url: 'src',
-       navbar:false
-    });
+        navbar: false
+    })
     document.getElementById("${currentUrl}").click();
 </script>
 </body>
