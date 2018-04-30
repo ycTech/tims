@@ -47,6 +47,9 @@
       <if test="uploadQo.billId!=null and uploadQo.billId!=''">
           and bill_id=#{uploadQo.billId}
       </if>
+      <if test="uploadQo.billType!=null and uploadQo.billType!=''">
+          and bill_type=#{uploadQo.billType}
+      </if>
       <if test="uploadQo.path!=null and uploadQo.path!=''">
           and file_path=#{uploadQo.path}
       </if>

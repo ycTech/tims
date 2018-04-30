@@ -116,6 +116,28 @@ public class ImageInfoService {
     }
 
     /**
+     * 根据单据信息查询文件目录列表
+     * @param uploadQo
+     * @return
+     */
+    public List<FileStore> queryFolderListByBillInfo(UploadQo uploadQo) throws Exception {
+        //通过单据编号查询出对应的文件目录
+        UploadQo uploadQoTmp=new UploadQo();
+        uploadQoTmp.setBillId(uploadQo.getBillId());
+        uploadQoTmp.setBillType(uploadQo.getBillType());
+        List<FileStore> fileStoreTmpList=fileStoreRepository.queryFileStore(uploadQoTmp);
+        List<FileStore> fileStoreList=new ArrayList<>();
+        for(FileStore fileStore:fileStoreTmpList){
+            String[] pathArry=fileStore.getFilePath().split("/");
+            if(pathArry.length>2){
+                fileStore.setFilePath(pathArry[3]);
+                fileStoreList.add(fileStore);
+            }
+        }
+        return fileStoreList;
+    }
+
+    /**
      * 根据id获取图片列表
      * @param imageClassifyId
      * @return

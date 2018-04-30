@@ -33,7 +33,9 @@ public class FileStoreRepository {
     }
 
     public Page<FileStore> queryFileList(FileStore fileStore) throws Exception{
-        fileStore.enablePaging();
+        if("Y".equals(fileStore.getIsPage())) {
+            fileStore.enablePaging();
+        }
         Page<FileStore> fileStoreList=fileStoreMapper.queryFileList(fileStore);
 //        PageInfo<FileStore> pageInfo = new PageInfo<>(fileStoreList);
         return fileStoreList;

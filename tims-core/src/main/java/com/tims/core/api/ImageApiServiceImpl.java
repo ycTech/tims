@@ -85,6 +85,11 @@ public class ImageApiServiceImpl implements ImageApiService{
     }
 
     @Override
+    public List<FileStore> queryFolderListByBillInfo(UploadQo uploadQo) throws Exception {
+        return imageInfoService.queryFolderListByBillInfo(uploadQo);
+    }
+
+    @Override
     public Page<FileStore> queryFileStoreList(FileStore fileStore) throws Exception {
         return imageInfoService.queryFileStoreList(fileStore);
     }
