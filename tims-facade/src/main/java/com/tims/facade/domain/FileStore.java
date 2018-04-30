@@ -31,6 +31,8 @@ public class FileStore extends AbstractPageForm {
     private String isDelete;
     @ApiModelProperty(value = "是否目录")
     private String isFolder;
+    @ApiModelProperty(value = "是否分页,Y分页，N不分页")
+    private String isPage;
 
     public String getId() {
         return id;
@@ -126,5 +128,13 @@ public class FileStore extends AbstractPageForm {
 
     public void setIsDelete(String isDelete) {
         this.isDelete = isDelete;
+    }
+
+    public String getIsPage() {
+        return isPage;
+    }
+
+    public void setIsPage(String isPage) {
+        this.isPage = isPage;
     }
 }

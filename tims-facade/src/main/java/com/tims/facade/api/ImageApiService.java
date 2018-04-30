@@ -99,6 +99,12 @@ public interface ImageApiService {
      * @return
      */
     public FileTree queryFileListByBillInfo(UploadQo uploadQo) throws Exception;
+    /**
+     * 根据单据类型查询文件目录列表
+     * @param uploadQo
+     * @return
+     */
+    public List<FileStore> queryFolderListByBillInfo(UploadQo uploadQo) throws Exception;
 
     public Page<FileStore> queryFileStoreList(FileStore fileStore) throws Exception;
 }
