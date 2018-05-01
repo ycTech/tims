@@ -1,5 +1,6 @@
 package com.tims.manage.sys;
 
+import com.github.pagehelper.Page;
 import com.tims.common.result.ResultVo;
 import com.tims.common.util.ResultUtil;
 import com.tims.facade.api.SysApiService;
@@ -10,12 +11,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author liuzm
@@ -56,4 +52,11 @@ public class SysUserInfoController {
         return ResultUtil.success(result);
     }
 
+    @ApiOperation(value = "用户分页")
+    @PostMapping( value = {"/page"},headers = {"Accept=application/json"})
+    @ResponseBody
+    public ResultVo<SysUserInfo> querySysuserInfoPage(@RequestBody SysUserInfo sysUserInfo){
+        Page<SysUserInfo>  sysUserInfoPage = sysApiService.querySysuserInfoPage(sysUserInfo);
+        return ResultUtil.success(sysUserInfoPage);
+    }
 }

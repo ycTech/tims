@@ -1,7 +1,9 @@
 package com.tims.core.sys.repository;
 
+import com.github.pagehelper.Page;
 import com.tims.core.sys.mapper.SysUserInfoMapper;
 import com.tims.facade.sys.SysUserInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -27,4 +29,6 @@ public class SysUserInfoRepository {
     public int deleteSysUserInfoById(String id){
         return sysUserInfoMapper.deleteSysUserInfoById(id);
     }
+
+    public Page<SysUserInfo> querySysuserInfoPage(SysUserInfo sysUserInfo){return sysUserInfoMapper.querySysuserInfoPage(sysUserInfo);}
 }
