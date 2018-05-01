@@ -56,9 +56,11 @@ function getTreeData() {
             })
             $('#jstree').on('changed.jstree', function (e, data) {
                 var fileUrl = data.node.li_attr.fileUrl
-                console.log(data.node.id)
                 g_curFileId = data.node.id
                 setPreviewIframeSrc(fileUrl)
+            })
+            $('#jstree').on('ready.jstree', function (e, data) {
+                showNextFile()
             })
         },
         error: function (error) {
@@ -95,7 +97,7 @@ function showPrevFile () {
 }
 
 function getIndexOfFileList (fileList, fileId) {
-    for (var i = 0; i < fileList; i ++) {
+    for (var i = 0; i < fileList.length; i ++) {
         if (fileList[i].id == fileId) {
             return i
         }
