@@ -68,4 +68,31 @@
     <update id="deleteSysUserInfoById" parameterType="string">
         update from sys_user_info  set dr=1 where id=#{id}
     </update>
+
+    <select id="querySysuserInfoPage" parameterType="com.tims.facade.sys.SysUserInfo" resultType="com.tims.facade.sys.SysUserInfo">
+        select  user_name as userName,user_code as  userCode, password as password,pk_corp as  pkCorp,dr as dr
+        from sys_user_info
+        where dr=0
+        <if test=" sysUserInfo.userName != null">
+            and user_name=#{sysUserInfo.userName}
+        </if>
+        <if test=" sysUserInfo.password != null">
+            and password=#{sysUserInfo.password}
+        </if>
+        <if test=" sysUserInfo.userCode != null">
+            and user_code=#{sysUserInfo.userCode}
+        </if>
+        <if test=" sysUserInfo.pkCorp != null">
+            and pk_corp=#{sysUserInfo.pkCorp}
+        </if>
+        <if test=" sysUserInfo.updateTime != null">
+            and update_time=#{sysUserInfo.updateTime}
+        </if>
+        <if test=" sysUserInfo.updateUser != null">
+            and update_user=#{sysUserInfo.updateUser}
+        </if>
+        <if test=" sysUserInfo.updateUserCode != null">
+            and update_user_code=#{sysUserInfo.updateUserCode}
+        </if>
+    </select>
 </mapper>

@@ -34,6 +34,7 @@
 
     <select id="queryFileStore" parameterType="com.tims.facade.dfs.qo.UploadQo" resultType="com.tims.facade.domain.FileStore">
       select
+        id id,
         bill_id billId,
         file_name imageName,
         bill_no billNo,

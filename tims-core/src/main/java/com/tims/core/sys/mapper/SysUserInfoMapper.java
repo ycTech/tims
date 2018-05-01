@@ -1,5 +1,6 @@
 package com.tims.core.sys.mapper;
 
+import com.github.pagehelper.Page;
 import com.tims.facade.sys.SysUserInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -12,6 +13,13 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface SysUserInfoMapper {
 
+
+    /**
+     * 分页查询用户
+     * @param sysUserInfo
+     * @return
+     */
+    public Page<SysUserInfo> querySysuserInfoPage(@Param("sysUserInfo") SysUserInfo sysUserInfo);
     /**
      * 新增用户
      * @param sysUserInfo

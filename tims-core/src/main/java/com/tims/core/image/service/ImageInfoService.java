@@ -98,12 +98,12 @@ public class ImageInfoService {
                 if (fileStore.getImageName() != null && !fileStore.getImageName().isEmpty()) {
                     if(treeIdMap.get(fileStore.getImageName())==null) {
                         File file = new File();
-                        file.setId(fileStore.getImageName());
+                        file.setId(fileStore.getId());
                         file.setParentId(pathArry[3]);
                         file.setName(fileStore.getImageName());
                         file.setUrl(fileStore.getUrl());
                         list.add(file);
-                        treeIdMap.put(file.getId(), file.getId());
+                        treeIdMap.put(file.getName(), file.getId());
                     }
                 }
             }
