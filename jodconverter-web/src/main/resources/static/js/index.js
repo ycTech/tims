@@ -60,7 +60,12 @@ function getTreeData() {
                 setPreviewIframeSrc(fileUrl)
             })
             $('#jstree').on('ready.jstree', function (e, data) {
-                showNextFile()
+                var nextFileId = getQueryString('fileId')
+                if (!nextFileId) {
+                    showNextFile()
+                } else {
+                    $('#' + nextFileId + '_anchor').click()
+                }
             })
         },
         error: function (error) {
