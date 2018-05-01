@@ -15,12 +15,15 @@
 <body class="layui-layout-body">
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
+            <div class="menu-hamburger" onclick="toggleSidebar()">
+                <i class="glyphicon glyphicon-menu-hamburger"></i>
+            </div>
             <div class="layui-logo">
                 影像扫描系统
             </div>
             <ul class="layui-nav layui-layout-left">
-                <li class="layui-nav-item">
-                    <a href="javascript:void(0);">图片预览</a>
+                <li class="layui-nav-item layui-this">
+                    图片预览
                 </li>
             </ul>
         </div>
@@ -37,7 +40,18 @@
         </div>
 
         <div class="layui-footer">
-            &copy;版权所有
+            <div class="pull-left prev-file" style="cursor: pointer; line-height: 44px;">
+                <i class="layui-icon">&#xe603;</i>
+                <span>
+                    上一个文档
+                </span>
+            </div>
+            <div class="pull-right next-file" style="cursor: pointer; line-height: 44px;">
+                <span>
+                    下一个文档
+                </span>
+                <i class="layui-icon">&#xe602;</i>
+            </div>
         </div>
     </div>
     

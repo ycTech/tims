@@ -35,3 +35,34 @@ html, body {
     width: 100%;
     height: 100%;
 }
+.layui-footer .prev-file:hover,
+.layui-footer .next-file:hover {
+    color: #009688;
+}
+
+.menu-hamburger {
+    padding: 0 15px;
+    color: #f1f2f3;
+    font-size: 24px;
+    line-height: 60px;
+    position: absolute;
+    cursor: pointer;
+    z-index: 999;
+}
+.layui-body, .layui-side, .layui-footer{
+    -webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    -ms-transition: all .2s linear;
+    -o-transition: all .2s linear;
+    transition: all .2s linear;
+}
+
+.layui-layout-admin.collapsed .layui-side {
+    width: 0;
+}
+.layui-layout-admin.collapsed .layui-body {
+    left: 0;
+}
+.layui-layout-admin.collapsed .layui-footer {
+    left:0;
+}
