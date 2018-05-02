@@ -1,13 +1,20 @@
-console.log('zhelin.js')
+/*
+ * @Author: qingbin_bai@163.com
+ * @Date: 2018-04-24 23:52:07
+ * @Last Modified by: baiqb@histudy.com
+ * @Last Modified time: 2018-05-01 21:47:59
+ * TODO:
+ *  1. 用户可配置文件保存路径
+ *  2. Cookie中保存用户的配置文件
+ */
 
 var szDeviceIndex = '0' // 设备的编号；   0：文档摄像头;1：人像摄像头
 var iColorMode = '0' // 设定获取的图像的色彩模式；   0: 彩色，1: 灰度，2: 黑白。
-var nDpi = 200 // 设定拍照后图像存档的DPI;
-var szPostfix = '.jpg'
-var imgeId = 0
+var szPostfix = '.jpg' // 默认图片文件后缀为jpg
+var imgeId = 0 // 图片默认起始ID（也用于预览）
 var strMergeSource1 // 合并图像源文件1 strMergeSource2 // 合并图像源文件2
 var strFileDirectory = 'D:\\DocImage\\'
-var strFileNames = []
+
 var imageFiles = []
 var szTifFileName
 var szAddInFileName
@@ -16,44 +23,92 @@ var szContinuePath
 var bContinueToTiff = 0
 var szFileForBase64 = ''
 var iDeviceStatus = -1
-var iCutPageType = -1 // 
+var iCutPageType = -1 //
 var iWaterMarkType = -1 // 水印类型
 var iVideoType = 0 // 视频类型
 var gRotation = 0
 var $notify = window.$notify
 var imageId = 0
+
+// 全局变量
 var gPdfName = ''
 var gPdfPath = ''
 var gTifName = ''
 var gTifPath = ''
-
-ScannerOcx = {
-  start: function () {
-    // InitDevice()
-    StartDevice()
-  },
-  scan: function () {
-    console.log('zhelin scan')
-    var imagePrefix = urlQuery.vbillno || 'image'
-    CaptureToFile(imagePrefix + '_')
-  },
-  merge: function () {
-    var pdfPrefix = urlQuery.vbillno || ''
-    BtnCreateMultiPageFile(pdfPrefix + '_')
-  },
-  upload: function () {
-    BtnUploadPdfFiles()
-  },
-  setting: function () {
-  }
-}
+var gImagePrefix = 'image'
 
 $(function () {
+  if (!isOcxInstalled()) {
+    return false
+  }
+  // TODO:如果设备已在运行，则不再重复启动设备，需要优化
   StopDevice()
   InitDevice()
   StartDevice()
   InitDefaultConfig()
 })
+
+// 统一对外接口，供父组件调用
+ScannerOcx = {
+  // 页面请求参数
+  urlQuery: {},
+  // 配置初始化
+  init: function (urlQuery) {
+    ScannerOcx.urlQuery = urlQuery || {}
+  },
+
+  // 启动设备
+  start: function () {
+    if (!isOcxInstalled()) {
+      console.log('!isOcxInstalled')
+      return false
+    }
+
+    StartDevice()
+  },
+
+  // 开启扫描
+  scan: function () {
+    if (!isOcxInstalled()) {
+      return false
+    }
+    gImagePrefix = urlQuery.vbillno || 'image'
+    CaptureToFile(imagePrefix + '_')
+  },
+
+  // 合并PDF
+  merge: function () {
+    if (!isOcxInstalled()) {
+      return false
+    }
+    var pdfPrefix = urlQuery.vbillno || ''
+    BtnCreateMultiPageFile(pdfPrefix + '_')
+  },
+
+  // 上传最近合并的PDF
+  upload: function () {
+    if (!isOcxInstalled()) {
+      return false
+    }
+
+    BtnUploadPdfFiles()
+  }
+}
+
+// 检测Ocx控件是否安装
+function isOcxInstalled () {
+  if (!window.Capture) {
+    $notify('哲林高拍仪控件未加载，请先安装Ocx控件，如有任何问题，请联系管理员', 'danger')
+    return false
+  }
+  console.log(window.Capture)
+  console.log(JSON.stringify(window.Capture))
+  if (!window.Capture.GetVersion) {
+    $notify('哲林高拍仪未连接到您的电脑上，请先连接设备，如有任何问题，请联系管理员', 'danger')
+    return false
+  }
+  return true
+}
 
 // 拍照并且存档,若勾选条码则一起获取条码信息
 function CaptureToFile (imagePrefix) {
@@ -108,8 +163,9 @@ function BtnUploadPdfFiles () {
   setTimeout(function () {
     var base64 = window.Capture.EncodeBase64(gPdfPath)
     WriteInfomation('上传PDF中，请稍候...')
-    setTimeout(function() {
+    setTimeout(function () {
       ScannerHome.uploadPdfBase64(gPdfName, base64, function (fileUrl) {
+        ScannerHome.reloadFileList()
         WriteInfomation('上传PDF成功！' + fileUrl)
       })
     }, 0)
@@ -304,15 +360,6 @@ function SetDPI (iDPIValue) {
   }
 }
 
-// 正则判断文本框中的内容是否为数字
-function isDigit (iVal) {
-  var patrn = /^-?\d+(\.\d+)?$/
-  if (!patrn.exec(iVal)) {
-    return false
-  }
-  return true
-}
-
 // 条形码/二维码识别
 function GetBarCodeEx () {
   var strFileName = textBaseFileName.value
@@ -418,31 +465,6 @@ function OpenImageFile () {
   }
 }
 
-// 形成预览图
-// function Preview (iValue) {
-//   var iPreViewType = parseInt(iValue)
-//   if (strFileNames.length > 3) {
-//     var pic1 = document.getElementById('preview1')
-//     var pic2 = document.getElementById('preview2')
-//     var pic3 = document.getElementById('preview3')
-//     pic1.style.filter = pic2.style.filter
-//     pic1.src = pic2.src
-//     pic2.style.filter = pic3.style.filter
-//     pic2.src = pic3.src
-//     if (iPreViewType == 0) {
-//       ShowPreview(strFileNames[strFileNames.length - 1], 3)
-//     } else {
-//       ShowPreviewBase64(strFileNames[strFileNames.length - 1], 3)
-//     }
-//   } else {
-//     if (iPreViewType == 0) {
-//       ShowPreview(strFileNames[strFileNames.length - 1], strFileNames.length)
-//     } else {
-//       ShowPreviewBase64(strFileNames[strFileNames.length - 1], strFileNames.length)
-//     }
-//   }
-// }
-
 function CheckIEVersion () {
   var iDx = 6
   var b = document.createElement('b')
@@ -455,32 +477,6 @@ function CheckIEVersion () {
   }
   return iDx
 }
-// function ShowPreviewBase64 (strFileName, PreviewWinsowsNo) {
-//   if (CheckIEVersion() > 8) {
-//     var pic = document.getElementById('preview' + PreviewWinsowsNo)
-//     pic.src = 'data:image/gif;base64,' + strFileName
-//   }
-// }
-// function ShowPreview (strFileName, PreviewWinsowsNo) {
-//   var pic = document.getElementById('preview' + PreviewWinsowsNo)
-//   var ext = strFileName.substring(strFileName.lastIndexOf('.') + 1).toLowerCase()
-//   // gif在IE浏览器暂时无法显示
-//   if (ext != 'png' && ext != 'jpg' && ext != 'bmp' && ext != 'tif') {
-//     alert('文件必须为图片！')
-//     return
-//   }
-//   // IE浏览器
-//   // IE6浏览器设置img的src为本地路径可以直接显示图片
-//   if (CheckIEVersion() === 6) {
-//     pic.src = strFileName
-//   } else {
-//     // 非IE6版本的IE由于安全问题直接设置img的src无法显示本地图片，但是可以通过滤镜来实现
-//     pic.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='scale',src=\"" + strFileName + '")'
-//     // 设置img的src为base64编码的透明图片 取消显示浏览器默认图片
-//     pic.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
-//   }
-// }
-
 // 获取设备硬件码
 function BtnHID () {
   var strHID = window.Capture.GetDeviceDetails()

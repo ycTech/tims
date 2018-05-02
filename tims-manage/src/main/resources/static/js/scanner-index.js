@@ -14,7 +14,7 @@ var urlQuery = {
   isFolder: getQueryString('isFolder'),
   path: getQueryString('path')
 }
-console.log(JSON.stringify(urlQuery))
+
 var ScannerOcx = {
   start: function () {
     alert('请选择设备并启动该设备，请确保已正确安装驱动！')
@@ -51,6 +51,9 @@ ScannerHome = {
       async: false,
       data: JSON.stringify(postData),
       success: function (resp) {
+        if (!resp.data || !resp.data.fileUrl) {
+          return false
+        }
         var res = resp.data
         var fileUrl = res.fileUrl
         var thumbImageUrl = res.thumbImageUrl
@@ -63,8 +66,8 @@ ScannerHome = {
       }
     })
   },
-  uploadImageFilePreview: function () {
-  },
+
+  // 上传Base64格式的PDF文件
   uploadPdfBase64: function (fileName, base64, callback) {
     var postData = {
       vsystem: getQueryString('vsystem'),
@@ -99,26 +102,49 @@ ScannerHome = {
       }
     })
   },
-  uploadPdfFile: function () {
-  },
+
+  // 上传Base64格式的图片文件
   uploadImageBase64: function () {
   },
-  uploadImageFile: function () {
+
+  clearImageThumbsNails: function () {
+  },
+
+  closeImagePreview: function () {
+
+  },
+
+  // 设置图片预览图片的Src
+  setImagePreviewSrc: function () {
+
+  },
+
+  //
+  resetImagePreviewSrc: function () {
+
+  },
+
+  reloadFileList: function () {
+    initJsTree()
   }
 }
 
 $(function () {
+  initJsTree()
+  // if (!isBrowserSupport()) {
+  //   return false
+  // }
+  initLayout()
   initEventListening()
   // 初始化
-  initLayout()
-  initJsTree()
   function initLayout () {
     // 初始化工具栏按钮提示框
     $('[data-toggle="tooltip"]').tooltip()
 
     // 加载默认设备对应的OCX控件及配置界面
-    var type = $('#device-select').children('option:selected').val()
-    loadHtml(ScannerTypeMap[type])
+    var storedDeviceType = store.get('scannerType')
+    var type = store.get('scannerType') || 'zhelin'
+    loadDeviceHtml(type)
   }
 
   // 初始化事件监听
@@ -131,32 +157,31 @@ $(function () {
     // 启动设备
     $('#action-button__start').click(function (e) {
       e.preventDefault()
-      ScannerOcx.start()
+      isBrowserSupport() && ScannerOcx.start()
     })
 
     // 开始扫描
     $('#action-button__scan').click(function (e) {
       e.preventDefault()
-      ScannerOcx.scan()
+      isBrowserSupport() && ScannerOcx.scan()
     })
 
     // 合并PDF
     $('#action-button__merge').click(function (e) {
       e.preventDefault()
-      ScannerOcx.merge()
+      isBrowserSupport() && ScannerOcx.merge()
     })
 
     // 上传PDF
     $('#action-button__upload').click(function (e) {
       e.preventDefault()
-      ScannerOcx.upload()
+      isBrowserSupport() && ScannerOcx.upload()
     })
 
     // 设置
     $('#action-button__setting').click(function (e) {
       e.preventDefault()
-      toggleScannerConfig()
-      ScannerOcx.setting()
+      toggleScannerConfigPanel()
     })
   }
 })
@@ -170,11 +195,24 @@ function initJsTree () {
     dataType: 'json',
     data: JSON.stringify(urlQuery),
     success: function (res) {
+      if (!res.data || !res.data.file) {
+        $notify('暂时获取不到单据相关文件！', 'warning')
+        return false
+      }
       var treeData = res.data.file
       var fileArray = res.data.fileStoreList
       $('#jstree').jstree({
         core: {
           data: parseTreeData(treeData)
+        }
+      })
+
+      $('#jstree').on('changed.jstree', function (e, data) {
+        if (data.node && data.node.li_attr && data.node.li_attr.fileUrl) {
+          var hostname = window.location.hostname
+          var search = window.location.search || '?t=' + new Date().getTime()
+          search = search + '&fileId=' + data.node.id
+          window.open('http://' + hostname + ':8012/index?' + search)
         }
       })
     },
@@ -205,15 +243,15 @@ function initJsTree () {
 
 // 关闭配置面板
 function onCloseConfig () {
-  showImagePreview()
+  showImagePreviewPanel()
 }
 
 // 切换设备配置面板
-function toggleScannerConfig () {
+function toggleScannerConfigPanel () {
   $('.image-preview__wrapper,.scanner-setting__wrapper').toggle()
 }
 // 显示图片预览
-function showImagePreview () {
+function showImagePreviewPanel () {
   $('.image-preview__wrapper').show()
   $('.scanner-setting__wrapper').hide()
 }
@@ -228,16 +266,22 @@ function onDeviceTypeChange () {
   $('#device-select').change(function (e) {
     e.preventDefault()
     var type = $('#device-select').children('option:selected').val()
-    loadHtml(ScannerTypeMap[type])
+    loadDeviceHtml(type)
   })
+}
+
+// 加载设备对应HTML
+function loadDeviceHtml (deviceType) {
+  store.set('scannerType', deviceType)
+  loadHtml(ScannerTypeMap[deviceType])
 }
 
 // 加载不同扫描设备的面板
 function loadHtml (htmlPath) {
   $.get(htmlPath, function (data) {
     $('#scanner-iframe').empty().html(data)
-    console.log('showImagePreview')
-    showImagePreview()
+    console.log('showImagePreviewPanel')
+    showImagePreviewPanel()
   })
 }
 function AddImagePreview (fileUrl, thumbImageUrl) {
@@ -276,7 +320,7 @@ function AddImagePreview (fileUrl, thumbImageUrl) {
       .empty()
       .append($imagePreviewContent)
 
-    showImagePreview()
+    showImagePreviewPanel()
   })
   var $imageThumbWrapper = $('<div/>')
     .addClass('image-thumbnail-wrapper')
@@ -298,4 +342,55 @@ function AddImagePreview (fileUrl, thumbImageUrl) {
       $imageThumb.css('width', '100%')
     }
   }, 0)
+}
+function isBrowserSupport () {
+  var IEVersion = CheckIEVersion()
+  if (IEVersion == 'edge') {
+    alert('您正在使用Edge浏览器，可能无法正常使用扫描功能，请使用IE8、IE9、IE10、IE11浏览器！')
+    return false
+  }
+
+  if (IEVersion == -1) {
+    alert('您使用的浏览器不是IE浏览器，可能无法正常使用扫描功能，请使用IE8、IE9、IE10、IE11浏览器！')
+    return false
+  }
+
+  if (IEVersion < 8) {
+    alert('您的IE版本过低，请使用IE8及以上浏览器！')
+    return false
+  }
+  return true
+}
+
+function CheckIEVersion () {
+  var userAgent = navigator.userAgent // 取得浏览器的userAgent字符串
+  var isIE = userAgent.indexOf('compatible') > -1 && userAgent.indexOf('MSIE') > -1 // 判断是否IE<11浏览器
+  var isEdge = userAgent.indexOf('Edge') > -1 && !isIE // 判断是否IE的Edge浏览器
+  var isIE11 = userAgent.indexOf('Trident') > -1 && userAgent.indexOf('rv:11.0') > -1
+  if (isIE) {
+    var reIE = new RegExp('MSIE (\\d+\\.\\d+);')
+    reIE.test(userAgent)
+    var fIEVersion = parseFloat(RegExp['$1'])
+    if (fIEVersion === 7) {
+      return 7
+    } else if (fIEVersion === 8) {
+      return 8
+    } else if (fIEVersion === 9) {
+      return 9
+    } else if (fIEVersion === 10) {
+      return 10
+    } else {
+      return 6// IE版本<=7
+    }
+  } else if (isEdge) {
+    return 'edge'// edge
+  } else if (isIE11) {
+    return 11 // IE11
+  } else {
+    return -1// 不是ie浏览器
+  }
+}
+
+function toggleSidebar () {
+  $('.layui-layout.layui-layout-admin').toggleClass('collapsed')
 }
