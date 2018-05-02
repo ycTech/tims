@@ -58,4 +58,9 @@ public class SysApiServiceImpl implements SysApiService {
     public Page<SysUserInfo> querySysuserInfoPage(SysUserInfo sysUserInfo) {
         return sysUserInfoService.querySysuserInfoPage(sysUserInfo);
     }
+
+    @Override
+    public Page<SysUnitInfo> querySysUnitInfoPage(SysUnitInfo sysUnitInfo) {
+        return sysUnitInfoService.querySysUnitInfoPage(sysUnitInfo);
+    }
 }
