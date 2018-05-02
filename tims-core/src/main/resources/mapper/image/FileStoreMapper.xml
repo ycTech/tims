@@ -87,4 +87,7 @@
         order by create_time desc
     </select>
 
+    <update id="deleteFileInfoByPath" parameterType="string" >
+        update file_store  set  is_delete="1"  where  file_path=#{filePath}
+    </update>
 </mapper>

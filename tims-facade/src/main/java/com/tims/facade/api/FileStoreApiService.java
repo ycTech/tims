@@ -11,14 +11,24 @@ import java.util.List;
 public interface FileStoreApiService {
     /**
      * 保存文件
+     *
      * @param uploadQos
      */
     public void saveFileStore(UploadQo uploadQos);
 
     /**
      * 查询上传文件
+     *
      * @param uploadQo
      * @return
      */
     public List<FileStore> queryUrlByPath(UploadQo uploadQo) throws Exception;
+
+    /**
+     * 根据path删除文件
+     * @param filePath
+     * @return
+     */
+    public Boolean deleteFileInfoByPath(String filePath);
+
 }

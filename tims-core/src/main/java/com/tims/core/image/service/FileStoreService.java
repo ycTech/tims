@@ -34,4 +34,11 @@ public class FileStoreService {
         return fileStoreList;
     }
 
+    public  Boolean  deleteFileInfoByPath(String filePath){
+        if(fileStoreRepository.deleteFileInfoByPath(filePath)>0){
+            return  true;
+        }else {
+            return false;
+        }
+    }
 }

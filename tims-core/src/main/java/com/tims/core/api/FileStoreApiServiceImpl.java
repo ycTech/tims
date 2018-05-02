@@ -34,4 +34,11 @@ public class FileStoreApiServiceImpl implements FileStoreApiService {
     public List<FileStore> queryUrlByPath(UploadQo uploadQo) throws Exception {
         return fileStoreService.queryUrlByPath(uploadQo);
     }
+
+    @Override
+    public Boolean deleteFileInfoByPath(String filePath) {
+        return fileStoreService.deleteFileInfoByPath(filePath);
+    }
+
+
 }
