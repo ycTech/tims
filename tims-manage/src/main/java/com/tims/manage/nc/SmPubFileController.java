@@ -5,7 +5,6 @@ import com.tims.common.util.ResultUtil;
 import com.tims.facade.api.FileStoreApiService;
 import com.tims.facade.api.SysApiService;
 import com.tims.facade.dfs.qo.UploadQo;
-import com.tims.facade.nc.qo.UploadFileInfo;
 import com.tims.facade.nc.vo.FileInfoVo;
 import com.tims.facade.sys.SysUnitInfo;
 import com.tims.facade.sys.SysUserInfo;
@@ -13,7 +12,6 @@ import com.tims.manage.controller.BaseController;
 import com.tims.manage.fast.FastDFSClientWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +43,7 @@ public class SmPubFileController extends BaseController {
                            @RequestParam(value = "userCode",required=true) String userCode,
                            @RequestParam(value = "billType",required=true) String billType,
                            @RequestParam(value = "billId",required=true) String billId,
-                           @RequestParam(value = "billNo",required=true) String billNo,
+                           @RequestParam(value = "billNo",required=false) String billNo,
                            @RequestParam(value = "path",required=true) String path,
                            @RequestParam(value = "isFolder",required=true) String isFolder
                            ) throws Exception {
