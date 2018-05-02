@@ -62,4 +62,11 @@ public interface SysApiService {
      * @return
      */
     public Page<SysUserInfo> querySysuserInfoPage(SysUserInfo sysUserInfo);
+
+    /**
+     * 单位信息分页
+      * @param sysUnitInfo
+     * @return
+     */
+    public Page<SysUnitInfo> querySysUnitInfoPage(SysUnitInfo sysUnitInfo);
 }

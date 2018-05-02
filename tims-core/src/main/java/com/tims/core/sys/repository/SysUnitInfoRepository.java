@@ -1,7 +1,10 @@
 package com.tims.core.sys.repository;
 
+
+import com.github.pagehelper.Page;
 import com.tims.core.sys.mapper.SysUnitInfoMapper;
 import com.tims.facade.sys.SysUnitInfo;
+import com.tims.facade.sys.SysUserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -27,4 +30,6 @@ public class SysUnitInfoRepository {
     public int deleteSysUnitInfoById(String id){
         return  sysUnitInfoMapper.deleteSysUnitInfoById(id);
     }
+
+    public Page<SysUnitInfo> querySysUnitInfoPage(SysUnitInfo sysUnitInfo){return sysUnitInfoMapper.querySysUnitInfoPage(sysUnitInfo);}
 }

@@ -55,7 +55,7 @@ public class SysUserInfoController {
     @ApiOperation(value = "用户分页")
     @PostMapping( value = {"/page"},headers = {"Accept=application/json"})
     @ResponseBody
-    public ResultVo<SysUserInfo> querySysuserInfoPage(@RequestBody SysUserInfo sysUserInfo){
+    public ResultVo<Page<SysUserInfo>> querySysuserInfoPage(@RequestBody SysUserInfo sysUserInfo){
         Page<SysUserInfo>  sysUserInfoPage = sysApiService.querySysuserInfoPage(sysUserInfo);
         return ResultUtil.success(sysUserInfoPage);
     }
