@@ -1,21 +1,18 @@
 package com.tims.manage.sys;
 
+import com.github.pagehelper.Page;
 import com.tims.common.result.ResultVo;
 import com.tims.common.util.ResultUtil;
 import com.tims.facade.api.SysApiService;
 import com.tims.facade.sys.SysUnitInfo;
+import com.tims.facade.sys.SysUserInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author liuzm
@@ -31,21 +28,21 @@ public class SysUnitInfoController {
 
 
 
-    @ApiOperation(value = "新增用户")
+    @ApiOperation(value = "新增单位")
     @RequestMapping(method = RequestMethod.POST, headers = {"Accept=application/json"})
     @ResponseBody
     public ResultVo<Boolean> saveSysUnitInfo(@RequestBody SysUnitInfo sysUnitInfo){
         return  ResultUtil.success(sysApiService.saveSysUnitInfo(sysUnitInfo));
     }
 
-    @ApiOperation(value = "更新用户")
+    @ApiOperation(value = "更新单位")
     @RequestMapping(method = RequestMethod.PUT, headers = {"Accept=application/json"})
     @ResponseBody
     public ResultVo<Boolean> updateSysUnitInfo(@RequestBody SysUnitInfo sysUnitInfo){
         return  ResultUtil.success(sysApiService.updateSysUnitInfo(sysUnitInfo));
     }
 
-    @ApiOperation(value = "删除用户")
+    @ApiOperation(value = "删除单位")
 
     @ApiImplicitParams(
         @ApiImplicitParam(value = "用户", name = "id", required = true, paramType = "path", dataType = "string")
@@ -58,4 +55,11 @@ public class SysUnitInfoController {
         return ResultUtil.success(result);
     }
 
+    @ApiOperation(value = "单位分页")
+    @PostMapping(value = {"/page"},headers = {"Accept=application/json"})
+    @ResponseBody
+    public ResultVo<Page<SysUnitInfo>> querySysUnitInfoPage(@RequestBody SysUnitInfo sysUnitInfo){
+        Page<SysUnitInfo> sysUnitInfoPage = sysApiService.querySysUnitInfoPage(sysUnitInfo);
+        return ResultUtil.success(sysUnitInfoPage);
+    }
 }

@@ -34,4 +34,6 @@ public interface FileStoreMapper {
      * @return
      */
     Page<FileStore> queryFileList(@Param("fileStore") FileStore fileStore) ;
+
+    public  int  deleteFileInfoByPath(@Param("filePath") String  filePath);
 }

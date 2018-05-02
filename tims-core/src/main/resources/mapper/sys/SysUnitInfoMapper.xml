@@ -63,4 +63,20 @@
     <update id="deleteSysUnitInfoById" parameterType="string">
         update from sys_unit_info  set dr=1 where id=#{id}
     </update>
+
+    <select id="querySysUnitInfoPage" parameterType="com.tims.facade.sys.SysUnitInfo" resultType="com.tims.facade.sys.SysUnitInfo">
+        select id as id,unit_code as unitCode,unit_name as unitName,unit_short_name as unitShortName,create_time as createTime,
+        create_user as createUser,update_time as updateTime,update_user as updateUser
+        from sys_unit_info
+        where dr=0
+        <if test=" sysUnitInfo.unitCode != null">
+          and unit_code=#{sysUnitInfo.unitCode}
+        </if>
+        <if test=" sysUnitInfo.unitName != null">
+          and unit_name=#{sysUnitInfo.unitName}
+        </if>
+        <if test=" sysUnitInfo.unitShortName != null">
+          and unit_short_name=#{sysUnitInfo.unitShortName}
+        </if>
+    </select>
 </mapper>

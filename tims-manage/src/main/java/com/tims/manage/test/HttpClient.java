@@ -232,16 +232,16 @@ public class HttpClient {
 
     public  static  void  main(String[]  args) throws IOException {
         HttpClient httpsUtils  =  new HttpClient();
-        /**  1. POST请求   **/
-        String testUrl02 = "http://127.0.0.1:10060/smfile/save/user";
-        Map<String, Object> params02 = new HashMap<>();
-        params02.put("userCode", "001");
-        params02.put("userName", "测试用户");
-        String params="{\n" +
-                "  \"userCode\": \"002\",\n" +
-                "  \"userName\": \"test\"\n" +
-                "}";
-        System.out.println(sendPost(testUrl02,params));
+//        /**  1. POST请求   **/
+//        String testUrl02 = "http://127.0.0.1:10060/smfile/save/user";
+//        Map<String, Object> params02 = new HashMap<>();
+//        params02.put("userCode", "001");
+//        params02.put("userName", "测试用户");
+//        String params="{\n" +
+//                "  \"userCode\": \"002\",\n" +
+//                "  \"userName\": \"test\"\n" +
+//                "}";
+//        System.out.println(sendPost(testUrl02,params));
 
         /**  2. GET请求   **/
 //        String testUrl01 = "具体的测试接口地址";
@@ -251,20 +251,20 @@ public class HttpClient {
 //        System.out.println(getJsonByInternet(testUrl01, params01));
 
         /**  3. 文件上传 **/
-//        String  filePath  =  "c:/1/test5.doc";
-//        String  postUrl    =  "http://127.0.0.1:10060/smfile/upload";
-//        Map<String,String>  postParam  =  new  HashMap<String,String>();
-//        postParam.put("userCode",  "11122");
-//        postParam.put("billType",  "11122");
-//        postParam.put("billId",  "11122");
-//        postParam.put("billNo",  "11122");
-//        postParam.put("path",  "11122");
-//        postParam.put("isFolder",  "11122");
-//
-//        File  postFile  =  new  File(filePath);
-//        Map<String, File> files=new HashMap<>();
-//        files.put("test5.doc",postFile);
-//        uploadFile(postUrl,postParam,files);
+        String  filePath  =  "c:/1/test5.doc";
+        String  postUrl    =  "http://127.0.0.1:10060/smfile/upload";
+        Map<String,String>  postParam  =  new  HashMap<String,String>();
+        postParam.put("userCode",  "11122");
+        postParam.put("billType",  "11122");
+        postParam.put("billId",  "11122");
+        postParam.put("billNo",  "11122");
+        postParam.put("path",  "11122");
+        postParam.put("isFolder",  "11122");
+
+        File  postFile  =  new  File(filePath);
+        Map<String, File> files=new HashMap<>();
+        files.put("test5.doc",postFile);
+        httpsUtils.uploadFile(postUrl,postParam,files);
     }
 
 }

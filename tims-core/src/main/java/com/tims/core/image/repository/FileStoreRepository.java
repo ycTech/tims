@@ -40,4 +40,8 @@ public class FileStoreRepository {
 //        PageInfo<FileStore> pageInfo = new PageInfo<>(fileStoreList);
         return fileStoreList;
     }
+
+    public  int  deleteFileInfoByPath(String filePath){
+        return  fileStoreMapper.deleteFileInfoByPath(filePath);
+    }
 }

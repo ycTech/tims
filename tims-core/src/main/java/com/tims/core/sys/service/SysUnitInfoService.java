@@ -1,8 +1,12 @@
 package com.tims.core.sys.service;
 
+
+import com.github.pagehelper.Page;
 import com.tims.core.sys.repository.SysUnitInfoRepository;
 import com.tims.facade.sys.SysUnitInfo;
 import java.util.Date;
+
+import com.tims.facade.sys.SysUserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,5 +59,14 @@ public class SysUnitInfoService {
             return true;
         }
         return false;
+    }
+
+    /**
+     * 单位信息分页
+     * @param sysUnitInfo
+     * @return
+     */
+    public Page<SysUnitInfo> querySysUnitInfoPage(SysUnitInfo sysUnitInfo){
+        return sysUnitInfoRepository.querySysUnitInfoPage(sysUnitInfo);
     }
 }
