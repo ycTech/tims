@@ -5,6 +5,7 @@ import com.tims.facade.domain.FileStore;
 import com.tims.facade.hessian.HessianService;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @HessianService(uri = "/fileStoreApiService")
@@ -14,7 +15,7 @@ public interface FileStoreApiService {
      *
      * @param uploadQos
      */
-    public void saveFileStore(UploadQo uploadQos);
+    public void saveFileStore(UploadQo uploadQos) throws Exception;
 
     /**
      * 查询上传文件
