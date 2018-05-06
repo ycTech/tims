@@ -73,37 +73,38 @@ public class ImageInfoService {
         List<File> list=new ArrayList<>();
         Map<String,String> treeIdMap=new HashMap<String,String>();
         for(FileStore fileStore:fileStoreList){
+            //       1/2/3  6/2/3
             String[] pathArry=fileStore.getFilePath().split("/");
             if(pathArry.length>0){
-                if(treeIdMap.get(pathArry[1])==null) {
+                if(treeIdMap.get(pathArry[0])==null) {
                     File file = new File();
-                    file.setId(pathArry[1]);
+                    file.setId(pathArry[0]);
                     file.setParentId("0");
-                    file.setName(pathArry[1]);
+                    file.setName(pathArry[0]);
                     file.setUrl(fileStore.getUrl());
                     list.add(file);
                     treeIdMap.put(file.getId(),file.getId());
                 }
             }
             if(pathArry.length>2){
-                if(treeIdMap.get(pathArry[3])==null) {
+                if(treeIdMap.get(pathArry[0]+pathArry[2])==null) {
                     File file = new File();
-                    file.setId(pathArry[3]);
-                    file.setParentId(pathArry[1]);
-                    file.setName(pathArry[3]);
+                    file.setId(pathArry[0]+pathArry[2]);
+                    file.setParentId(pathArry[0]);
+                    file.setName(pathArry[2]);
                     file.setUrl(fileStore.getUrl());
                     list.add(file);
                     treeIdMap.put(file.getId(),file.getId());
                 }
                 if (fileStore.getImageName() != null && !fileStore.getImageName().isEmpty()) {
-                    if(treeIdMap.get(fileStore.getImageName())==null) {
+                    if(treeIdMap.get(pathArry[0]+pathArry[2]+fileStore.getId())==null) {
                         File file = new File();
                         file.setId(fileStore.getId());
-                        file.setParentId(pathArry[3]);
+                        file.setParentId(pathArry[0]+pathArry[2]);
                         file.setName(fileStore.getImageName());
                         file.setUrl(fileStore.getUrl());
                         list.add(file);
-                        treeIdMap.put(file.getName(), file.getId());
+                        treeIdMap.put(pathArry[0]+pathArry[2]+fileStore.getId(), file.getId());
                     }
                 }
             }
