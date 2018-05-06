@@ -2,6 +2,7 @@ package com.tims.core.image.service;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.StringUtil;
 import com.tims.common.util.PkUtil;
 import com.tims.core.image.repository.FileStoreRepository;
 import com.tims.core.image.repository.ImageInfoRepository;
@@ -69,11 +70,13 @@ public class ImageInfoService {
         //通过单据编号查询出对应的文件目录
         UploadQo uploadQoTmp=new UploadQo();
         uploadQoTmp.setBillId(uploadQo.getBillId());
+        if(StringUtil.isNotEmpty(uploadQo.getBillType())){
+            uploadQoTmp.setBillType(uploadQo.getBillType());
+        }
         List<FileStore> fileStoreList=fileStoreRepository.queryFileStore(uploadQoTmp);
         List<File> list=new ArrayList<>();
         Map<String,String> treeIdMap=new HashMap<String,String>();
         for(FileStore fileStore:fileStoreList){
-            //       1/2/3  6/2/3
             String[] pathArry=fileStore.getFilePath().split("/");
             if(pathArry.length>0){
                 if(treeIdMap.get(pathArry[0])==null) {

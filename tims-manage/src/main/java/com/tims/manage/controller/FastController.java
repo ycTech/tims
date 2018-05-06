@@ -9,7 +9,9 @@ import com.tims.manage.fast.FastDFSClientWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -50,17 +52,21 @@ public class FastController extends BaseController {
     @ApiOperation(value = "上传BASE64文件")
     @RequestMapping(value = "/base64/upload", method = RequestMethod.POST)
     @ResponseBody
-    public ResultVo uploadBase64(@RequestBody UploadQo uploadQos) throws Exception {
-        String fileUrl= dfsClient.uploadFile(uploadQos.getImageBase64(),uploadQos.getImageName());
-        uploadQos.setImageUrl(fileUrl);
-        fileStoreApiService.saveFileStore(uploadQos);
+    public ResultVo uploadBase64(@Validated @RequestBody UploadQo uploadQo) throws Exception {
+        Assert.hasText(uploadQo.getPath(), "参数：目录不能为空！");
+        Assert.hasText(uploadQo.getUserCode(), "参数：制单人不能为空！");
+        String fileUrl= dfsClient.uploadFile(uploadQo.getImageBase64(),uploadQo.getImageName());
+        uploadQo.setImageUrl(fileUrl);
+        fileStoreApiService.saveFileStore(uploadQo);
         return ResultUtil.success(fileUrl);
     }
 
     @ApiOperation(value = "上传BASE64文件-预览使用(指定了分组)")
     @RequestMapping(value = "/group/base64/upload", method = RequestMethod.POST)
     @ResponseBody
-    public ResultVo uploadBase64ByGroup(@RequestBody UploadQo uploadQos) throws Exception {
+    public ResultVo uploadBase64ByGroup(@Validated @RequestBody UploadQo uploadQos) throws Exception {
+        Assert.hasText(uploadQos.getPath(), "参数：目录不能为空！");
+        Assert.hasText(uploadQos.getUserCode(), "参数：制单人不能为空！");
         String fileUrl= dfsClient.uploadFileByGroup("group1",uploadQos.getImageBase64(),uploadQos.getImageName());
         String[] thumbImageUrls=dfsClient.uploadThumbImageByGroup("group1",uploadQos.getImageBase64(),uploadQos.getImageName());
         Map<String,String> urlMap=new HashMap<String,String>();

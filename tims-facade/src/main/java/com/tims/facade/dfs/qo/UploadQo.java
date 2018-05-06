@@ -2,6 +2,7 @@ package com.tims.facade.dfs.qo;
 
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -15,6 +16,7 @@ public class UploadQo implements Serializable {
     private String billType;
     @ApiModelProperty(value = "单据编号")
     private String billNo;
+    @NotNull(message = "单据ID不允许为空")
     @ApiModelProperty(value = "单据ID")
     private String billId;
     @ApiModelProperty(value = "路径")

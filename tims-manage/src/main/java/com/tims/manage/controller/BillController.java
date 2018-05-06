@@ -41,7 +41,7 @@ public class BillController {
     @RequestMapping(value = "/images/billno/{billNo}", method = RequestMethod.GET, headers = {"Accept=application/json"})
     @ResponseBody
     public ResultVo queryImagesByBillNo(@PathVariable String billNo) throws Exception {
-        Assert.hasText(billNo, "参数：员工Id不能为空！");
+        Assert.hasText(billNo, "参数：单据Id不能为空！");
         BillImageVo billImageVo= imageApiService.queryImagesByBillNo(billNo);
         return ResultUtil.success(billImageVo);
     }
