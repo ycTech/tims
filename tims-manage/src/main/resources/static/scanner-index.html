@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>影像采集系统</title>
+  <link rel="stylesheet" href="./lib/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./lib/jstree/themes/default/style.min.css">
+  <link rel="stylesheet" href="./lib/layui/css/layui.css">
+  <link rel="stylesheet" href="./css/common.css">
+  <link rel="stylesheet" href="./css/scanner-index.css">
+  <link rel="stylesheet" href="./css/iconfont/iconfont.css">
+  
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+    <script src="./lib/respond.min.js"></script>
+    <script src="./lib/html5shiv.min.js"></script>
+    <script src="./lib/PIE_IE678.js"></script>
+    <script src="./lib/json2.js"></script>
+    <script src="./lib/PIE_IE9.js"></script>
+    <style>
+      label {
+        display: inline;
+        zoom: 1;
+      }
+    </style>
+  <![endif]-->
+</head>
+
+<body class="layui-layout-body">
+  <div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+      <div class="menu-hamburger" onclick="toggleSidebar()">
+        <i class="glyphicon glyphicon-menu-hamburger"></i>
+      </div>
+      <div class="layui-logo">
+        影像扫描系统
+      </div>
+      <ul class="layui-nav layui-layout-left">
+        <li class="layui-nav-item layui-this">
+          文件扫描
+        </li>
+      </ul>
+      <ul class="layui-nav layui-layout-right">
+        <li class="layui-nav-item selected-device-name" style="display: block; float: left;">
+          哲林高拍仪
+        </li>
+        <li class="layui-nav-item" style="display: block; float: left;">
+          <a href="javascript:;">选择设备</a>
+          <dl class="layui-nav-child">
+            <!-- 二级菜单 -->
+            <dd>
+              <a href="javascript:void(0);" onclick="loadDeviceHtml('zhelin')">哲林高拍仪</a>
+            </dd>
+            <dd>
+              <a href="javascript:void(0);" onclick="loadDeviceHtml('founder')">方正扫描仪</a>
+            </dd>
+            <dd>
+              <a href="javascript:void(0);" onclick="loadDeviceHtml('czur')">CZUR高拍仪</a>
+            </dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="./res/installer.rar">下载资源包</a>
+        </li>
+      </ul>
+    </div>
+    <div class="layui-side layui-bg-black">
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item layui-nav-itemed layui-this text-center">
+          单据文件列表
+        </li>
+      </ul>
+      <div id="jstree" style="overflow-x: auto; overflow-y: hidden; position: absolute;top:45px; left: 0; right: 0;bottom: 0;">
+      </div>
+    </div>
+    <div class="layui-body" style="bottom: 0;">
+      <div class="layout-container">
+        <div class="layout-main">
+          <div id="scanner-iframe"></div>
+        </div>
+        <div class="layout-sidebar__right layui-bg-black">
+          <div class="action-button__wrapper">
+            <button type="button" id="action-button__start" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="启动设备">
+              <i class="glyphicon glyphicon-play"></i>
+            </button>
+          </div>
+          <div class="action-button__wrapper">
+            <button type="button" id="action-button__scan" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="开始扫描">
+              <i class="glyphicon glyphicon-camera"></i>
+            </button>
+          </div>
+          <div class="action-button__wrapper">
+            <button type="button" id="action-button__merge" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="合并PDF">
+              <i class="glyphicon glyphicon-book"></i>
+            </button>
+          </div>
+          <div class="action-button__wrapper">
+            <button type="button" id="action-button__upload" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="上传PDF">
+              <i class="glyphicon glyphicon-cloud-upload"></i>
+            </button>
+          </div>
+          <div class="action-button__wrapper">
+            <button type="button" id="action-button__setting" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="设置">
+              <i class="glyphicon glyphicon-cog"></i>
+            </button>
+          </div>
+        </div>
+        <div class="layout-footer">
+          <div class="image-thumbnails">
+            <div class="image-thumbnail-wrapper image-thumbnail-default">
+              <i class="glyphicon glyphicon-picture" style="color: #fff; line-height: 76px; font-size: 48px;"></i>
+            </div>
+            <div class="image-thumbnail-wrapper image-thumbnail-default">
+              <i class="glyphicon glyphicon-picture" style="color: #fff; line-height: 76px; font-size: 48px;"></i>
+            </div>
+            <div class="image-thumbnail-wrapper image-thumbnail-default">
+              <i class="glyphicon glyphicon-picture" style="color: #fff; line-height: 76px; font-size: 48px;"></i>
+            </div>
+            <div class="image-thumbnail-wrapper image-thumbnail-default">
+              <i class="glyphicon glyphicon-picture" style="color: #fff; line-height: 76px; font-size: 48px;"></i>
+            </div>
+            <div class="image-thumbnail-wrapper image-thumbnail-default">
+              <i class="glyphicon glyphicon-picture" style="color: #fff; line-height: 76px; font-size: 48px;"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Library JS -->
+  <script src="./lib/store.legacy.min.js"></script>
+  <script src="./lib/jquery/1.9.1/jquery.min.js"></script>
+  <script src="./lib/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="./lib/bootstrap-notify/bootstrap-growl.min.js"></script>
+  <script src="./lib/jstree/jstree.min.js"></script>
+  <script src="./lib/layui/layui.all.js"></script>
+  <script src="./js/utils.js"></script>
+  <script src="./js/scanner-index.js"></script>
+</body>
+
+</html>
