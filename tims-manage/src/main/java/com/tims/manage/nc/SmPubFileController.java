@@ -12,6 +12,7 @@ import com.tims.manage.controller.BaseController;
 import com.tims.manage.fast.FastDFSClientWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLDecoder;
 
 /**
@@ -73,6 +80,35 @@ public class SmPubFileController extends BaseController {
         String filePath=URLDecoder.decode(path,"UTF-8");
         Boolean result=  fileStoreApiService.deleteFileInfoByPath(filePath);
         return ResultUtil.success(result);
+    }
+
+    @ApiOperation(value = "下载文件")
+    @RequestMapping(value = "/downFile", method = RequestMethod.GET)
+    public void downFile(@RequestParam(value = "urlPath",required=true) String urlPath, HttpServletResponse resp) throws Exception{
+        InputStream inputStream = null;
+        try {
+            String strUrl = urlPath.trim();
+            URL url = new URL(strUrl);
+            //打开请求连接
+            URLConnection connection = url.openConnection();
+            HttpURLConnection httpURLConnection = (HttpURLConnection) connection;
+            httpURLConnection.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
+            inputStream = httpURLConnection.getInputStream();
+            resp.setContentType("application/octet-stream");
+            resp.setHeader("Content-Length", String.valueOf(url.openConnection().getContentLength()));
+
+            byte[] bs = new byte[1024];
+            int len;
+            while (-1 != (len = inputStream.read(bs))) {
+                resp.getOutputStream().write(bs, 0, len);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (inputStream != null) {
+                IOUtils.closeQuietly(inputStream);
+            }
+        }
     }
 
     @ApiOperation(value = "新增机构")
