@@ -23,7 +23,7 @@
             </div>
             <ul class="layui-nav layui-layout-left">
                 <li class="layui-nav-item layui-this">
-                    图片预览
+                    <span id="billInfo"></span>图片预览
                 </li>
             </ul>
         </div>

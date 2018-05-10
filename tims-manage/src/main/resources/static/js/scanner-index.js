@@ -18,6 +18,7 @@ var urlQuery = {
   userCode: getQueryString('userCode'),
   billType: getQueryString('billType'),
   billtypename: getQueryString('billtypename'),
+  funName: getQueryString('funName'),
   billId: getQueryString('billId'),
   billNo: getQueryString('billNo'),
   isFolder: getQueryString('isFolder'),
@@ -224,9 +225,9 @@ function initJsTree () {
       $('#jstree').on('changed.jstree', function (e, data) {
         if (data.node && data.node.li_attr && data.node.li_attr.fileUrl) {
           var hostname = window.location.hostname
-          var search = window.location.search || '?t=' + new Date().getTime()
-          search = search + '&fileId=' + data.node.id
-          window.open('http://' + hostname + ':10060/preview' + search)
+          var search = '?' + window.location.search.substr(1).replace(/(^|&)path=([^&]*)(&|$)/, '');
+          search += '&path=' + data.node.id
+          window.open('http://' + hostname + ':10060/preview' +  search)
         }
       })
     },
