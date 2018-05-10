@@ -76,7 +76,12 @@ public class ImageInfoService {
         List<FileStore> fileStoreList=fileStoreRepository.queryFileStore(uploadQoTmp);
         List<File> list=new ArrayList<>();
         Map<String,String> treeIdMap=new HashMap<String,String>();
-
+        File fileRoot = new File();
+        fileRoot.setId("0");
+        fileRoot.setParentId("-1");
+        fileRoot.setName("文件目录");
+        fileRoot.setUrl(null);
+        list.add(fileRoot);
         for(FileStore fileStore:fileStoreList){
             String[] pathArry=fileStore.getFilePath().split("/");
             if(pathArry.length==2){
@@ -113,7 +118,7 @@ public class ImageInfoService {
                 if (fileStore.getImageName() != null && !fileStore.getImageName().isEmpty()) {
                     if (treeIdMap.get(pathArry[0] + pathArry[pathArry.length-1] + fileStore.getId()) == null) {
                         File file = new File();
-                        file.setId(fileStore.getId());
+                        file.setId(fileStore.getFilePath()+"/"+fileStore.getImageName());
                         file.setParentId(pathArry[0] + pathArry[pathArry.length-1]);
                         file.setName(fileStore.getImageName());
                         file.setUrl(fileStore.getUrl());
@@ -123,7 +128,7 @@ public class ImageInfoService {
                 }
             }
         }
-        List<File>  fileList=TreeParseUtil.getTreeList("0",list);
+        List<File>  fileList=TreeParseUtil.getTreeList("-1",list);
         FileTree fileTree=new FileTree();
         fileTree.setFile(fileList);
         fileTree.setFileStoreList(fileStoreList);
