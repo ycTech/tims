@@ -4,6 +4,7 @@ var urlQuery = {
     userCode: getQueryString('userCode'),
     billType: getQueryString('billType'),
     billtypename: getQueryString('billtypename'),
+    funName: getQueryString('funName'),
     billId: getQueryString('billId'),
     billNo: getQueryString('billNo'),
     isFolder: getQueryString('isFolder'),
@@ -11,8 +12,14 @@ var urlQuery = {
 }
 var g_fileList = []
 var g_curFileId = null
+
 $(function () {
     getTreeData()
+    if (urlQuery.funName || urlQuery.billNo) {
+        $('#billInfo').html((urlQuery.funName || '') + '/' + (urlQuery.billNo || '')).css({
+            margin: '0 15px'
+        })
+    }
     // $('li.file-item').on('click', function() {
     //     console.log('on click')
     //     var srcPrefix = '/onlinePreview?url='
@@ -55,21 +62,25 @@ function getTreeData() {
                 }
             })
             $('#jstree').on('changed.jstree', function (e, data) {
+                if (data.node.children && data.node.children.length > 0) {
+                    return false
+                }
                 var fileUrl = data.node.li_attr.fileUrl
                 g_curFileId = data.node.id
                 setPreviewIframeSrc(fileUrl)
             })
             $('#jstree').on('ready.jstree', function (e, data) {
-                var nextFileId = getQueryString('fileId')
+                var nextFileId = getQueryString('path')
                 if (!nextFileId) {
                     showNextFile()
                 } else {
-                    $('#' + nextFileId + '_anchor').click()
+                    $(document.getElementById(nextFileId + '_anchor')).click()
+                    // $('#' + nextFileId + '_anchor').click()
                 }
             })
         },
         error: function (error) {
-            console.log(JSON.stringify(error))
+            alert(JSON.stringify(error))
         }
     })
 }
@@ -83,8 +94,9 @@ function showNextFile () {
         layer.msg('没有更多文件了！')
         return false
     }
-    var nextFileId = g_fileList[idx].id
-    $('#' + nextFileId + '_anchor').click()
+    var nextFileId = g_fileList[idx].filePath + '/' + g_fileList[idx].imageName
+    var el = document.getElementById(nextFileId + '_anchor')
+    $(el).click()
 }
 
 function showPrevFile () {
@@ -97,13 +109,14 @@ function showPrevFile () {
         layer.msg('已经是第一个文件了！')
         return false
     }
-    var prevFileId = g_fileList[idx].id
-    $('#' + prevFileId + '_anchor').click()
+    var prevFileId = g_fileList[idx].filePath + '/' + g_fileList[idx].imageName
+    var el = document.getElementById(prevFileId + '_anchor')
+    $(el).click()
 }
 
 function getIndexOfFileList (fileList, fileId) {
     for (var i = 0; i < fileList.length; i ++) {
-        if (fileList[i].id == fileId) {
+        if (fileList[i].filePath + '/' + fileList[i].imageName == fileId) {
             return i
         }
     }
@@ -136,7 +149,7 @@ function getQueryString(name) {
     var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i')
     var r = window.location.search.substr(1).match(reg)
     if (r != null) {
-        return unescape(r[2])
+        return decodeURIComponent(r[2])
     } else {
         return null
     }
