@@ -56,7 +56,10 @@ public class SmPubFileController extends BaseController {
                            @RequestParam(value = "path",required=true) String path,
                            @RequestParam(value = "isFolder",required=false) String isFolder
                            ) throws Exception {
-        String fileUrl= dfsClient.uploadFile(file);
+        String fileUrl=null;
+        if(file!=null) {
+            fileUrl = dfsClient.uploadFile(file);
+        }
         UploadQo uploadQos=new UploadQo();
         uploadQos.setBillNo(billNo);
         uploadQos.setBillType(billType);
@@ -65,9 +68,11 @@ public class SmPubFileController extends BaseController {
         uploadQos.setPath(URLDecoder.decode(path,"UTF-8"));
         uploadQos.setIsFolder(isFolder);
         uploadQos.setImageUrl(fileUrl);
-        uploadQos.setFileSize(String.valueOf(file.getSize()));
-        String fileName=URLDecoder.decode(file.getOriginalFilename(),"UTF-8");
-        uploadQos.setImageName(fileName);
+        if(file!=null){
+            uploadQos.setFileSize(String.valueOf(file.getSize()));
+            String fileName=URLDecoder.decode(file.getOriginalFilename(),"UTF-8");
+            uploadQos.setImageName(fileName);
+        }
         fileStoreApiService.saveFileStore(uploadQos);
         return ResultUtil.success(fileUrl);
     }
