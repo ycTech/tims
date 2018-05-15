@@ -41,4 +41,8 @@ public class FileStoreService {
             return false;
         }
     }
+
+    public  List<FileStore> queryFileStoreByPath( String path){
+        return  fileStoreRepository.queryFileStoreByPath(path);
+    }
 }
