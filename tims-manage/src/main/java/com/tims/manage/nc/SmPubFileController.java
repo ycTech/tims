@@ -1,10 +1,12 @@
 package com.tims.manage.nc;
 
+import com.tims.common.exception.BusinessException;
 import com.tims.common.result.ResultVo;
 import com.tims.common.util.ResultUtil;
 import com.tims.facade.api.FileStoreApiService;
 import com.tims.facade.api.SysApiService;
 import com.tims.facade.dfs.qo.UploadQo;
+import com.tims.facade.domain.FileStore;
 import com.tims.facade.nc.vo.FileInfoVo;
 import com.tims.facade.sys.SysUnitInfo;
 import com.tims.facade.sys.SysUserInfo;
@@ -14,6 +16,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,6 +33,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLDecoder;
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/4/11.
@@ -84,10 +89,21 @@ public class SmPubFileController extends BaseController {
 
     @ApiOperation(value = "下载文件")
     @RequestMapping(value = "/downFile", method = RequestMethod.GET)
-    public void downFile(@RequestParam(value = "urlPath",required=true) String urlPath, HttpServletResponse resp) throws Exception{
+    public void downFile(@RequestParam(value = "path",required=true) String path,
+                         @RequestParam(value = "creator",required=false) String creator,
+                         HttpServletResponse resp) throws Exception{
         InputStream inputStream = null;
         try {
-            String strUrl = urlPath.trim();
+            Assert.isNull(path,"path参数不能为空");
+            List<FileStore> fileStore=fileStoreApiService.queryFileStoreByPath(path);
+            if(!CollectionUtils.isEmpty(fileStore) && fileStore.size()>1){
+                throw  new BusinessException("传入的参数path不是唯一的！");
+            }
+            FileStore fileStore1=fileStore.get(0);
+            String strUrl=null;
+            if(null!=fileStore1.getUrl()){
+                 strUrl =fileStore1.getUrl();
+            }
             URL url = new URL(strUrl);
             //打开请求连接
             URLConnection connection = url.openConnection();

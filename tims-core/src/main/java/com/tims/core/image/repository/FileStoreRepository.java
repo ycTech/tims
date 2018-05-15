@@ -8,6 +8,7 @@ import com.tims.facade.dfs.qo.UploadQo;
 import com.tims.facade.dfs.vo.BillImageVo;
 import com.tims.facade.domain.FileStore;
 import com.tims.facade.domain.ImageInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -43,5 +44,9 @@ public class FileStoreRepository {
 
     public  int  deleteFileInfoByPath(String filePath){
         return  fileStoreMapper.deleteFileInfoByPath(filePath);
+    }
+
+    public  List<FileStore> queryFileStoreByPath( String path){
+        return  fileStoreMapper.queryFileStoreByPath(path);
     }
 }

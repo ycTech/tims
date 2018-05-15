@@ -42,5 +42,10 @@ public class FileStoreApiServiceImpl implements FileStoreApiService {
         return fileStoreService.deleteFileInfoByPath(filePath);
     }
 
+    @Override
+    public List<FileStore> queryFileStoreByPath(String path) {
+        return fileStoreService.queryFileStoreByPath(path);
+    }
+
 
 }

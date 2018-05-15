@@ -32,4 +32,10 @@ public interface FileStoreApiService {
      */
     public Boolean deleteFileInfoByPath(String filePath);
 
+    /**
+     * 通过path获取文件信息
+     * @param path
+     * @return
+     */
+    public  List<FileStore> queryFileStoreByPath( String path);
 }

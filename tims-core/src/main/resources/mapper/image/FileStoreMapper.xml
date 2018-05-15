@@ -90,4 +90,7 @@
     <update id="deleteFileInfoByPath" parameterType="string" >
         update file_store  set  is_delete="1"  where  file_path=#{filePath}
     </update>
+    <select id="queryFileStoreByPath" parameterType="string" resultType="com.tims.facade.domain.FileStore">
+        select  * from  file_store where  file_path=#{path}
+    </select>
 </mapper>
