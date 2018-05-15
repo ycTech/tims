@@ -27,6 +27,7 @@ public class FileStoreApiServiceImpl implements FileStoreApiService {
         fileStore.setUrl(uploadQos.getImageUrl());
         fileStore.setUserCode(uploadQos.getUserCode());
         fileStore.setImageName(uploadQos.getImageName());
+        fileStore.setIsFolder(uploadQos.getIsFolder());
         fileStore.setFileSize(uploadQos.getFileSize());
         fileStore.setIsDelete("0");
         fileStoreService.saveImageInfo(fileStore);
