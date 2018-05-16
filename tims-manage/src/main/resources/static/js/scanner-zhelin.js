@@ -117,7 +117,8 @@ function CaptureToFile (imagePrefix) {
   imagePrefix = imagePrefix || ''
   var strFileName = imagePrefix + getDateString() + szPostfix
   var strFilePath = strFileDirectory + strFileName
-  window.Capture.CaptureImage(szDeviceIndex, strFilePath)
+  var res = window.Capture.CaptureImage(szDeviceIndex, strFilePath);
+  $notify('拍摄完成，返回值：' + res)
   $notify('文件保存路径:' + strFilePath)
   window.Capture.MakeMultiPageFile(strFilePath, imgeId.toString(), '0')
   // if ($('#checkMultiSource').attr('checked')) {
