@@ -42,7 +42,7 @@
         file_path filePath,
         is_folder isFolder,
         url url
-      from file_store where 1=1
+      from file_store where 1=1 and is_delete='0'
       <if test="uploadQo.billNo!=null and uploadQo.billNo!=''">
           and bill_no=#{uploadQo.billNo}
       </if>
@@ -69,7 +69,7 @@
         file_path filePath,
         url url,
         create_time createTime
-        from file_store where 1=1
+        from file_store where 1=1 and is_delete='0'
         <if test="fileStore.billNo!=null and fileStore.billNo!=''">
             and bill_no=#{fileStore.billNo}
         </if>
@@ -92,6 +92,6 @@
         update file_store  set  is_delete="1"  where  file_path=#{filePath}
     </update>
     <select id="queryFileStoreByPath" parameterType="string" resultType="com.tims.facade.domain.FileStore">
-        select  * from  file_store where  file_path=#{path}
+        select  * from  file_store where  file_path=#{path} and is_delete='0'
     </select>
 </mapper>
