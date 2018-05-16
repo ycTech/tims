@@ -74,8 +74,7 @@ ScannerHome = {
         cb(fileUrl, thumbImageUrl)
       },
       error: function (error) {
-        console.log('fast/group/base64/upload error')
-        console.log(JSON.stringify(error))
+        $notify('上传预览图片失败！' + JSON.stringify(error))
       }
     })
   },
@@ -110,14 +109,11 @@ ScannerHome = {
       data: JSON.stringify(postData),
       success: function (resp) {
         var fileUrl = resp.data
-        console.log('上传PDF成功')
-        console.log(JSON.stringify(resp))
         ScannerHome.reloadFileList()
         callback(fileUrl)
       },
       error: function (error) {
-        console.log('fast/group/base64/upload error')
-        console.log(JSON.stringify(error))
+        $notify('上传文件失败，' + JSON.stringify(error))
       }
     })
   },
@@ -144,7 +140,6 @@ ScannerHome = {
   },
 
   reloadFileList: function () {
-    console.log('reloadFileList')
     window.location.reload()
     // initJsTree()
   }
@@ -214,7 +209,6 @@ $(function () {
 
 // 初始化JsTree
 function initJsTree () {
-  console.log('initJsTree')
   $.ajax({
     type: 'POST',
     url: baseUrl + 'bill/file/list',
@@ -245,11 +239,10 @@ function initJsTree () {
             urlQuery.path = data.node.li_attr.path || urlQuery.path;
           }
         }
-        console.log(urlQuery.path)
       })
     },
     error: function (error) {
-      console.log(JSON.stringify(error))
+      $notify('生成文件列表失败，' + JSON.stringify(error))
     }
   })
   function parseTreeData (treeArray) {

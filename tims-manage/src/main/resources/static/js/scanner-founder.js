@@ -39,7 +39,7 @@ ScannerOcx = {
     uploadPdf()
   },
     close: function () {
-        
+
     }
 }
 
@@ -74,7 +74,7 @@ function addEventListeners () {
 
 // 接收OCX的消息后的回调函数
 function OnRecvMsg (msg) {
-  console.log(JSON.stringify(msg))
+  // console.log(JSON.stringify(msg))
 }
 
 // 获取扫描仪名称
@@ -93,7 +93,8 @@ function GetScannerName () {
     }
     SelScanner()
   } catch (error) {
-    console.log(error)
+    $notify('获取扫描仪失败,' + JSON.stringify(error))
+    // console.log(error)
   }
   $notify('设备启动成功！')
 }
@@ -175,7 +176,6 @@ function ShowUISettings () {
 
 function GetScanImagePath (imageIndex) {
   var path = window.FScanX.GetScanImagePath(ImageIndex)
-  console.log(path)
   return path
 }
 
@@ -204,7 +204,6 @@ function GetPdfBase64 (path) {
 function GetImageBase64 () {
   var base64 = window.FScanX.GetImageBase64String(document.getElementById('ScanImagePath').value)
   document.getElementById('ImageBase64').value = base64
-  console.log('upload base64')
   var postData = {
     billNo: 'billNo',
     billTypeId: 'billTypeId',
@@ -213,7 +212,6 @@ function GetImageBase64 () {
     imageBase64: base64,
     imageName: 'test.jpg'
   }
-  console.log(new Date().getTime())
   $.ajax({
     type: 'POST',
     contentType: 'application/json; charset=utf-8',
@@ -223,13 +221,8 @@ function GetImageBase64 () {
     url: '/fast/base64/upload',
     data: JSON.stringify(postData),
     success: function (resp) {
-      console.log('resp success')
-      console.log(new Date().getTime())
-      console.log(JSON.stringify(resp))
     },
     error: function (error) {
-      console.log('error')
-      console.log(JSON.stringify(error))
     }
   })
 }

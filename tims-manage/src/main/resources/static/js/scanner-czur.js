@@ -84,7 +84,7 @@ function czurOcxStartDevice () {
   if (res) {
     var breadthLabel = breadth === 0 ? 'A3幅面' : 'A4幅面'
     var detectLabel = detect === 1 ? '开启' : '关闭'
-    console.log('启动设备成功,扫描幅面：' + detectLabel + '；边缘检测:' + breadthLabel + '；开启自动裁边;')
+    // console.log('启动设备成功,扫描幅面：' + detectLabel + '；边缘检测:' + breadthLabel + '；开启自动裁边;')
   }
 }
 
@@ -100,7 +100,7 @@ function czurOcxCloseDevice () {
 function czurOcxMergeImageToPdf () {
   imageFileList = imageFileList || []
   for (var i = 0; i < imageFileList.length; i++) {
-    console.log(JSON.stringify(imageFileList[i]))
+    // console.log(JSON.stringify(imageFileList[i]))
     CZUR_Pdf_Image(imageFileList[i].filePath)
   }
   CZUR_Pdf_Submit()
@@ -112,7 +112,7 @@ function CZUR_Initialize () {
     $notify('设备初始化失败！')
     return false
   }
-  console.log('设备初始化成功！')
+  // console.log('设备初始化成功！')
   return true
 }
 // 打开设备 0：失败，1：成功，2：设备未连接或型号不支持（不支持ET16、ET18U）
@@ -122,7 +122,7 @@ function CZUR_OpenDevice () {
     $notify('打开设备失败！请确认设备是否已启动，如未启动，请再次点击启动按钮或刷新页面；如果设备已启动，无需重复点击。')
     return false
   } else if (bOpenDevice === 1) {
-    console.log('打开设备成功')
+    // console.log('打开设备成功')
     return true
   } else {
     $notify('请检查设备是否连接或型号是否支持')
@@ -150,30 +150,30 @@ function CZUR_CloseDevice () {
 }
 // 设置扫描幅面，0：A3幅面，1：A4幅面，默认A3幅面
 function CZUR_ScanBreadth (breadth) {
-  console.log('设置扫描幅面：' + (breadth === 0 ? 'A3幅面' : 'A4幅面'))
+  // console.log('设置扫描幅面：' + (breadth === 0 ? 'A3幅面' : 'A4幅面'))
   window.EtOcxEx.CZUR_ScanBreadth(breadth)
   return true
 }
 // 是否开启边缘检测，0：关闭，1：开启
 function CZUR_EdgeDetect (detect) {
-  console.log((detect === 0 ? '关闭' : '开启') + '边缘检测')
+  // console.log((detect === 0 ? '关闭' : '开启') + '边缘检测')
   window.EtOcxEx.CZUR_EdgeDetect(detect)
   return true
 }
 // 清除Ocx资源
 function CZUR_Deinitialize () {
-  console.log('清除控件内存资源')
+  // console.log('清除控件内存资源')
   window.EtOcxEx.CZUR_Deinitialize()
 }
 // 设置图片保存路径
 function CZUR_Path (path) {
-  console.log('设置图片保存路径', path)
+  // console.log('设置图片保存路径', path)
   window.EtOcxEx.CZUR_Path(path)
 }
 // 自定义图片命名规则
 function CZUR_Custom (prefix, initNumber) {
   initNumber = initNumber || 1
-  console.log('自定义图片命名规则', '前缀：' + prefix + ', 图片起始序号：' + initNumber)
+  // console.log('自定义图片命名规则', '前缀：' + prefix + ', 图片起始序号：' + initNumber)
   window.EtOcxEx.CZUR_Custom(prefix, initNumber)
 }
 function CZUR_Http_URL () {
@@ -187,7 +187,7 @@ function CZUR_Http_Form (name, content) {
 }
 //  自动对图片进行裁边处理
 function CZUR_EdgeCutting () {
-  console.log('自动对图片进行裁边处理')
+  // console.log('自动对图片进行裁边处理')
   window.EtOcxEx.CZUR_EdgeCutting()
   return true
 }
@@ -195,7 +195,7 @@ function CZUR_EdgeCutting () {
 function CZUR_Pdf_Image (filePath) {
   var res = window.EtOcxEx.CZUR_Pdf_Image(filePath)
   if (res === 0) {
-    console.log('添加用于合成PDF的图片文件添加成功' + '图片路径：' + filePath)
+    // console.log('添加用于合成PDF的图片文件添加成功' + '图片路径：' + filePath)
     return true
   }
   $notify('添加图片失败' + filePath)
@@ -248,7 +248,7 @@ function uploadPdfBase64 () {
 
 function CZUR_Http_Upload () {
   var localfile = fileDirect + '\\' + defaultFileName
-  console.log(localfile)
+  // console.log(localfile)
   var url = 'http://192.168.1.112:10060/fast/upload?billNo=1111&billTypeId=2222&classifyId=33333'
   var name = 'file'
   var username = ''
@@ -290,9 +290,9 @@ function CZUR_SelectType (selType) {
 function JS_CZUR_CALLBACK (uploadcnt, barcode, httpinfo, imagefile1, imagefile2) {
   $notify('图片已保存到本地' + imagefile1)
   if (uploadcnt && httpinfo) {
-    console.log(httpinfo)
+    // console.log(httpinfo)
     var res = JSON.parse(httpinfo)
-    console.log(res.data)
+    // console.log(res.data)
   }
   addThumbnail(imagefile1)
   if (imagefile2) {
@@ -303,8 +303,8 @@ function JS_CZUR_CALLBACK (uploadcnt, barcode, httpinfo, imagefile1, imagefile2)
 function addThumbnail (filePath) {
   fileDirect = filePath.slice(0, filePath.lastIndexOf('\\'))
   var fileName = filePath.slice(filePath.lastIndexOf('\\') + 1)
-  console.log(fileDirect)
-  console.log(fileName)
+  // console.log(fileDirect)
+  // console.log(fileName)
   var base64 = CZUR_Base64(filePath)
   ScannerHome.uploadImageBase64Preview(base64, fileName, filePath,
     function (fileUrl, thumbImageUrl) {
@@ -322,7 +322,7 @@ function addThumbnail (filePath) {
 
 function JS_CZUR_UPLOAD_CALLBACK (uploadcnt, localfile, errcode, errmsg) {
   $notify('文件上传成功' + '上传的本地文件地址为：' + localfile)
-  console.log(uploadcnt, localfile, errcode, errmsg)
+  // console.log(uploadcnt, localfile, errcode, errmsg)
 }
 
 function JS_CZUR_PDF_CALLBACK (pdfstatus) {
@@ -334,8 +334,8 @@ function JS_CZUR_PDF_CALLBACK (pdfstatus) {
 }
 
 function JS_CZUR_CAPTURE_CALLBACK (reserver) {
-  console.log('拍摄图片')
-  console.log(reserver)
+  // console.log('拍摄图片')
+  // console.log(reserver)
 }
 
 function getDateTimeString () {
