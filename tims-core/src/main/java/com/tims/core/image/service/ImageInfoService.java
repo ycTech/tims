@@ -87,7 +87,7 @@ public class ImageInfoService {
         for(FileStore fileStore:fileStoreList){
             String[] pathArry=fileStore.getFilePath().split("/");
             if(pathArry.length==3&&"n".equals(fileStore.getIsFolder())){
-                String pathTmp=fileStore.getFilePath().substring(0,fileStore.getFilePath().indexOf("/"+pathArry[2]));
+                String pathTmp=fileStore.getFilePath();
                 File file = new File();
                 file.setId(pathTmp);
                 file.setParentId("0");
