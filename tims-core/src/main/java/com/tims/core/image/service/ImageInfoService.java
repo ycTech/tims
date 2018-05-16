@@ -96,35 +96,35 @@ public class ImageInfoService {
             if(pathArry.length==3&&"y".equals(fileStore.getIsFolder())){
                 if (treeIdMap.get(pathArry[0] + pathArry[2]) == null) {
                     File file = new File();
-                    file.setId(pathArry[0] + pathArry[2]);
+                    file.setId(fileStore.getFilePath());
                     file.setParentId("0");
                     file.setName(pathArry[2]);
                     file.setUrl(null);
                     list.add(file);
-                    treeIdMap.put(file.getId(), file.getId());
+                    treeIdMap.put(pathArry[0] + pathArry[2], file.getId());
                 }
             }
             if(pathArry.length>=4){
                 if("n".equals(fileStore.getIsFolder())){
                     if (treeIdMap.get(pathArry[0] + pathArry[2]) == null) {
                         File file = new File();
-                        file.setId(pathArry[0] + pathArry[2]);
+                        file.setId(fileStore.getFilePath());
                         file.setParentId("0");
                         file.setName(pathArry[2]);
                         file.setUrl(null);
                         list.add(file);
-                        treeIdMap.put(file.getId(), file.getId());
+                        treeIdMap.put(pathArry[0] + pathArry[2], file.getId());
                     }
                     if( pathArry.length>4) {
                         for (int i = 3; i < pathArry.length-1; i++) {
                             if (treeIdMap.get(pathArry[0] + pathArry[i]) == null) {
                                 File file = new File();
-                                file.setId(pathArry[0] + pathArry[i]);
+                                file.setId(fileStore.getFilePath());
                                 file.setParentId(pathArry[0] + pathArry[i - 1]);
                                 file.setName(pathArry[i]);
                                 file.setUrl(null);
                                 list.add(file);
-                                treeIdMap.put(file.getId(), file.getId());
+                                treeIdMap.put(pathArry[0] + pathArry[i], file.getId());
                             }
                         }
                     }
@@ -144,23 +144,23 @@ public class ImageInfoService {
                 if("y".equals(fileStore.getIsFolder())){
                     if (treeIdMap.get(pathArry[0] + pathArry[2]) == null) {
                         File file = new File();
-                        file.setId(pathArry[0] + pathArry[2]);
+                        file.setId(fileStore.getFilePath());
                         file.setParentId("0");
                         file.setName(pathArry[2]);
                         file.setUrl(null);
                         list.add(file);
-                        treeIdMap.put(file.getId(), file.getId());
+                        treeIdMap.put(pathArry[0] + pathArry[2], file.getId());
                     }
                     if( pathArry.length>4) {
                         for (int i = 3; i < pathArry.length; i++) {
                             if (treeIdMap.get(pathArry[0] + pathArry[i]) == null) {
                                 File file = new File();
-                                file.setId(pathArry[0] + pathArry[i]);
+                                file.setId(fileStore.getFilePath());
                                 file.setParentId(pathArry[0] + pathArry[i - 1]);
                                 file.setName(pathArry[i]);
                                 file.setUrl(null);
                                 list.add(file);
-                                treeIdMap.put(file.getId(), file.getId());
+                                treeIdMap.put(pathArry[0] + pathArry[i], file.getId());
                             }
                         }
                     }
