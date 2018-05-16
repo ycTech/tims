@@ -30,7 +30,7 @@
   <![endif]-->
 </head>
 
-<body class="layui-layout-body">
+<body class="layui-layout-body" onunload="onPageUnload()">
   <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
       <div class="menu-hamburger" onclick="toggleSidebar()">
@@ -41,7 +41,7 @@
       </div>
       <ul class="layui-nav layui-layout-left">
         <li class="layui-nav-item layui-this">
-          文件扫描
+          <span id="billInfo"></span>文件扫描
         </li>
       </ul>
       <ul class="layui-nav layui-layout-right">
