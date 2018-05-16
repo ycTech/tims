@@ -80,6 +80,8 @@ public class ImageInfoService {
         fileRoot.setId("0");
         fileRoot.setParentId("-1");
         fileRoot.setName("文件目录");
+        fileRoot.setIsFolder("y");
+        fileRoot.setPath(uploadQo.getBillType()+"/"+uploadQo.getBillId());
         fileRoot.setUrl(null);
         list.add(fileRoot);
         for(FileStore fileStore:fileStoreList){
