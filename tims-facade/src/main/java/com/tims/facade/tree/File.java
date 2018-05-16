@@ -9,6 +9,7 @@ public class File implements TreeEntity<File>,Serializable {
     public String name;
     private String url;
     private String path;
+    private String isFolder;
     public String parentId;
     public List<File> children;
 
@@ -64,5 +65,13 @@ public class File implements TreeEntity<File>,Serializable {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public String getIsFolder() {
+        return isFolder;
+    }
+
+    public void setIsFolder(String isFolder) {
+        this.isFolder = isFolder;
     }
 }
