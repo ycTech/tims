@@ -90,6 +90,7 @@ public class ImageInfoService {
                 file.setParentId("0");
                 file.setName(fileStore.getImageName());
                 file.setUrl(fileStore.getUrl());
+                file.setIsFolder("n");
                 file.setPath(fileStore.getFilePath());
                 list.add(file);
                 treeIdMap.put(file.getId(), file.getId());
@@ -101,6 +102,7 @@ public class ImageInfoService {
                     file.setParentId("0");
                     file.setName(pathArry[2]);
                     file.setUrl(null);
+                    file.setIsFolder("y");
                     file.setPath(fileStore.getFilePath());
                     list.add(file);
                     treeIdMap.put(file.getId(), file.getId());
@@ -114,6 +116,7 @@ public class ImageInfoService {
                         file.setParentId("0");
                         file.setName(pathArry[2]);
                         file.setUrl(null);
+                        file.setIsFolder("n");
                         file.setPath(fileStore.getFilePath());
                         list.add(file);
                         treeIdMap.put(file.getId(), file.getId());
@@ -125,6 +128,7 @@ public class ImageInfoService {
                                 file.setId(pathArry[0] + pathArry[i]);
                                 file.setParentId(pathArry[0] + pathArry[i - 1]);
                                 file.setName(pathArry[i]);
+                                file.setIsFolder("n");
                                 file.setUrl(null);
                                 file.setPath(fileStore.getFilePath());
                                 list.add(file);
@@ -139,6 +143,7 @@ public class ImageInfoService {
                             file.setParentId(pathArry[0] + pathArry[pathArry.length - 2]);
                             file.setName(fileStore.getImageName());
                             file.setUrl(fileStore.getUrl());
+                            file.setIsFolder("n");
                             file.setPath(fileStore.getFilePath());
                             list.add(file);
                             treeIdMap.put(pathArry[0] + pathArry[pathArry.length - 1] + fileStore.getId(), file.getId());
@@ -152,6 +157,7 @@ public class ImageInfoService {
                         file.setId(pathArry[0] + pathArry[2]);
                         file.setParentId("0");
                         file.setName(pathArry[2]);
+                        file.setIsFolder("y");
                         file.setUrl(null);
                         file.setPath(fileStore.getFilePath());
                         list.add(file);
@@ -164,6 +170,7 @@ public class ImageInfoService {
                                 file.setId(pathArry[0] + pathArry[i]);
                                 file.setParentId(pathArry[0] + pathArry[i - 1]);
                                 file.setName(pathArry[i]);
+                                file.setIsFolder("y");
                                 file.setUrl(null);
                                 file.setPath(fileStore.getFilePath());
                                 list.add(file);
