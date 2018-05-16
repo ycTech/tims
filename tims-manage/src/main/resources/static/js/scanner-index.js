@@ -90,8 +90,8 @@ ScannerHome = {
       billtypename: getQueryString('billtypename'),
       billId: getQueryString('billId'),
       billNo: getQueryString('billNo'),
-      isFolder: getQueryString('isFolder'),
-      path: getQueryString('path'),
+      isFolder: 'n',
+      path: urlQuery.path + '/' + fileName,
       imageBase64: base64,
       imageName: fileName
     }
@@ -236,6 +236,10 @@ function initJsTree () {
           var search = '?' + window.location.search.substr(1).replace(/(^|&)path=([^&]*)(&|$)/, '');
           search += '&path=' + data.node.id
           window.open('http://' + hostname + ':10060/preview' +  search)
+        } else {
+          if (data.node.li_attr.id) {
+            urlQuery.path = data.node.li_attr.id;
+          }
         }
       })
     },
