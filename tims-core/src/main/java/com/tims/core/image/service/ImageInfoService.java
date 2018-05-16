@@ -121,7 +121,7 @@ public class ImageInfoService {
                         file.setParentId("0");
                         file.setName(pathArry[2]);
                         file.setUrl(null);
-                        file.setIsFolder("n");
+                        file.setIsFolder("y");
                         file.setPath(pathTmp);
                         list.add(file);
                         treeIdMap.put(file.getId(), file.getId());
@@ -135,7 +135,7 @@ public class ImageInfoService {
                                 file.setId(path);
                                 file.setParentId(parentPath);
                                 file.setName(pathArry[i]);
-                                file.setIsFolder("n");
+                                file.setIsFolder("y");
                                 file.setUrl(null);
                                 file.setPath(path);
                                 list.add(file);
