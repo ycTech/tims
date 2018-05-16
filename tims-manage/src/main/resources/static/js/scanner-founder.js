@@ -37,7 +37,10 @@ ScannerOcx = {
     }
 
     uploadPdf()
-  }
+  },
+    close: function () {
+        
+    }
 }
 
 $(function () {

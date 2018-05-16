@@ -40,7 +40,10 @@ var ScannerOcx = {
   },
   setting: function () {
     alert('请选择设备并启动该设备，请确保已正确安装驱动！')
-  }
+  },
+    close: function () {
+        
+    }
 }
 
 ScannerHome = {
@@ -148,6 +151,11 @@ $(function () {
   // if (!isBrowserSupport()) {
   //   return false
   // }
+  if (urlQuery.funName || urlQuery.billNo) {
+      $('#billInfo').html((urlQuery.funName || '') + '/' + (urlQuery.billNo || '')).css({
+          margin: '0 15px'
+      })
+  }
   initLayout()
   initEventListening()
   // 初始化
@@ -289,7 +297,9 @@ function initJsTree () {
     return treeArray
   }
 }
-
+function onPageUnload() {
+    ScannerOcx.close()
+}
 // 关闭配置面板
 function onCloseConfig () {
   showImagePreviewPanel()
@@ -321,6 +331,7 @@ function onDeviceTypeChange () {
 
 // 加载设备对应HTML
 function loadDeviceHtml (deviceType) {
+  ScannerOcx.close()
   store.set('scannerType', deviceType)
   $('.layui-nav-item.selected-device-name').html(ScannerTypeMap[deviceType].name)
   loadHtml(ScannerTypeMap[deviceType].url)

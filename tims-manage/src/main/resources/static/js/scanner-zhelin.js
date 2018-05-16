@@ -41,8 +41,6 @@ $(function () {
   if (!isOcxInstalled()) {
     return false
   }
-  // TODO:如果设备已在运行，则不再重复启动设备，需要优化
-  StopDevice()
   InitDevice()
   StartDevice()
   InitDefaultConfig()
@@ -63,7 +61,7 @@ ScannerOcx = {
       console.log('!isOcxInstalled')
       return false
     }
-
+    InitDevice()
     StartDevice()
   },
 
@@ -92,6 +90,10 @@ ScannerOcx = {
     }
 
     BtnUploadPdfFiles()
+  },
+
+  close: function () {
+
   }
 }
 
@@ -230,7 +232,7 @@ function StartDevice (value) {
 function StopDevice () {
   window.Capture.StopDevice(szDeviceIndex)
   console.log('StopDevice')
-  // WriteInfomation('停用当前设备')
+  WriteInfomation('停用当前设备')
 }
 
 // 4. 释放设备，退出程序之前，必须调用此方法，保证设备被正确释放
