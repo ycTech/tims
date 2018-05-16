@@ -99,7 +99,7 @@ public class SmPubFileController extends BaseController {
                          HttpServletResponse resp) throws Exception{
         InputStream inputStream = null;
         try {
-            Assert.isNull(path,"path参数不能为空");
+            Assert.notNull(path,"path参数不能为空");
             List<FileStore> fileStore=fileStoreApiService.queryFileStoreByPath(path);
             if(!CollectionUtils.isEmpty(fileStore) && fileStore.size()>1){
                 throw  new BusinessException("传入的参数path不是唯一的！");
