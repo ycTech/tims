@@ -82,6 +82,10 @@ ScannerHome = {
 
   // 上传Base64格式的PDF文件
   uploadPdfBase64: function (fileName, base64, callback) {
+    if (!urlQuery.path) {
+      $notify('上传目录未指定，请在左边文件列表中选择要上传的目录！');
+      return false;
+    }
     var postData = {
       vsystem: getQueryString('vsystem'),
       pk_corp: getQueryString('pk_corp'),
@@ -237,10 +241,11 @@ function initJsTree () {
           search += '&path=' + data.node.id
           window.open('http://' + hostname + ':10060/preview' +  search)
         } else {
-          if (data.node.li_attr.id) {
-            urlQuery.path = data.node.li_attr.id;
+          if (data.node.li_attr.path) {
+            urlQuery.path = data.node.li_attr.path || urlQuery.path;
           }
         }
+        console.log(urlQuery.path)
       })
     },
     error: function (error) {
@@ -255,46 +260,56 @@ function initJsTree () {
         opened: true
       }
       if (item.children && item.children.length > 0) {
-        item.icon = 'glyphicon glyphicon-folder-open'
+        item.icon = 'glyphicon glyphicon-folder-open';
+        item.li_attr = item.li_attr || {}
+        item.li_attr.path = item.path
         item.children = parseTreeData(item.children)
       } else {
-        var suffix = item.name.split('.').pop()
-        switch (suffix) {
-          case 'jpg':
-          case 'gif':
-            item.icon = 'iconfont icon-filepicture'
-            break
-          case 'png':
-            item.icon = 'iconfont icon-geshi_tupianpng'
-            break
-          case 'pdf':
-            item.icon = 'iconfont icon-pdf1'
-            break
-          case 'wps':
-          case 'doc':
-            item.icon = 'iconfont icon-icondoc'
-            break
-          case 'docx':
-            item.icon = 'iconfont icon-geshi_wendangdocx'
-            break
-          case 'xls':
-          case 'xlsx':
-            item.icon = 'iconfont icon-excelbangongruanjianbiaoge'
-            break
-          default:
-            item.icon = 'glyphicon glyphicon-file'
-            break
-        }
-        var IEVersion = CheckIEVersion()
-        if (IEVersion == 8) {
-          if (suffix == 'jpg' || suffix == 'png' || suffix == 'gif') {
-            item.icon = 'glyphicon glyphicon-picture'
-          } else {
-            item.icon = 'glyphicon glyphicon-file'
+        if (item.isFolder == 'y') {
+            item.icon = 'glyphicon glyphicon-folder-open';
+          item.li_attr = {
+            path: item.path
           }
-        }
-        item.li_attr = {
-          fileUrl: item.url
+        } else {
+          var suffix = item.name.split('.').pop()
+          switch (suffix) {
+              case 'jpg':
+              case 'gif':
+                  item.icon = 'iconfont icon-filepicture'
+                  break
+              case 'png':
+                  item.icon = 'iconfont icon-geshi_tupianpng'
+                  break
+              case 'pdf':
+                  item.icon = 'iconfont icon-pdf1'
+                  break
+              case 'wps':
+              case 'doc':
+                  item.icon = 'iconfont icon-icondoc'
+                  break
+              case 'docx':
+                  item.icon = 'iconfont icon-geshi_wendangdocx'
+                  break
+              case 'xls':
+              case 'xlsx':
+                  item.icon = 'iconfont icon-excelbangongruanjianbiaoge'
+                  break
+              default:
+                  item.icon = 'glyphicon glyphicon-file'
+                  break
+          }
+          var IEVersion = CheckIEVersion()
+          if (IEVersion == 8) {
+              if (suffix == 'jpg' || suffix == 'png' || suffix == 'gif') {
+                  item.icon = 'glyphicon glyphicon-picture'
+              } else {
+                  item.icon = 'glyphicon glyphicon-file'
+              }
+          }
+          item.li_attr = {
+              fileUrl: item.url,
+              path: item.path
+          }
         }
       }
     }
