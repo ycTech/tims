@@ -118,8 +118,12 @@ function CaptureToFile (imagePrefix) {
   var strFileName = imagePrefix + getDateString() + szPostfix
   var strFilePath = strFileDirectory + strFileName
   var res = window.Capture.CaptureImage(szDeviceIndex, strFilePath);
-  $notify('拍摄完成，返回值：' + res)
-  $notify('文件保存路径:' + strFilePath)
+  if (res != 0) {
+    $notify('扫描失败，请重新扫描，如果还是失败，请重启扫描仪或者联系管理员。错误码：' + res);
+    return false;
+  } else {
+    $notify('文件保存路径:' + strFilePath);
+  }
   window.Capture.MakeMultiPageFile(strFilePath, imgeId.toString(), '0')
   // if ($('#checkMultiSource').attr('checked')) {
   //   window.Capture.MakeMultiPageFile(strFilePath, imgeId.toString(), '0')
