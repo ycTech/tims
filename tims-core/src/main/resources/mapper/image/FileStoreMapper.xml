@@ -92,6 +92,12 @@
         update file_store  set  is_delete="1"  where  file_path=#{filePath}
     </update>
     <select id="queryFileStoreByPath" parameterType="string" resultType="com.tims.facade.domain.FileStore">
-        select  * from  file_store where  file_path=#{path} and is_delete='0'
+        select  bill_id billId,
+        file_name imageName,
+        bill_no billNo,
+        bill_type billType,
+        file_path filePath,
+        url url,
+        create_time createTime from  file_store where  file_path=#{path} and is_delete='0'
     </select>
 </mapper>

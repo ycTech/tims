@@ -29,10 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLDecoder;
+import java.net.*;
 import java.util.List;
 
 /**
@@ -101,6 +98,9 @@ public class SmPubFileController extends BaseController {
         try {
             Assert.notNull(path,"path参数不能为空");
             List<FileStore> fileStore=fileStoreApiService.queryFileStoreByPath(path);
+            if(CollectionUtils.isEmpty(fileStore)){
+                throw  new BusinessException("没有找到对应的文件！");
+            }
             if(!CollectionUtils.isEmpty(fileStore) && fileStore.size()>1){
                 throw  new BusinessException("传入的参数path不是唯一的！");
             }
@@ -116,8 +116,9 @@ public class SmPubFileController extends BaseController {
             httpURLConnection.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
             inputStream = httpURLConnection.getInputStream();
             resp.setContentType("application/octet-stream");
+            resp.setHeader("Content-Disposition", "attachment; filename="
+                    + URLEncoder.encode(fileStore1.getImageName(), "UTF-8"));
             resp.setHeader("Content-Length", String.valueOf(url.openConnection().getContentLength()));
-
             byte[] bs = new byte[1024];
             int len;
             while (-1 != (len = inputStream.read(bs))) {
