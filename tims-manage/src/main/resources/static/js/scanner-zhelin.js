@@ -58,7 +58,6 @@ ScannerOcx = {
   // 启动设备
   start: function () {
     if (!isOcxInstalled()) {
-      console.log('!isOcxInstalled')
       return false
     }
     InitDevice()
@@ -157,7 +156,6 @@ function BtnCreateMultiPageFile (prefix) {
     WriteInfomation(pdfPath + '创建成功')
     gPdfName = pdfName
     gPdfPath = pdfPath
-    console.log(gPdfPath)
   }
   // if (window.Capture.MakeMultiPageFile(tifPath, '0', '3') == 0) {
   //   alert(tifPath + '创建成功')
@@ -236,7 +234,7 @@ function StartDevice (value) {
 // 3. 停用当前设备
 function StopDevice () {
   window.Capture.StopDevice(szDeviceIndex)
-  console.log('StopDevice')
+  // console.log('StopDevice')
   WriteInfomation('停用当前设备')
 }
 
