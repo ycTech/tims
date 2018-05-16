@@ -84,48 +84,77 @@ public class ImageInfoService {
         list.add(fileRoot);
         for(FileStore fileStore:fileStoreList){
             String[] pathArry=fileStore.getFilePath().split("/");
-            if(pathArry.length==3){
+            if(pathArry.length==3&&"n".equals(fileStore.getIsFolder())){
                 File file = new File();
                 file.setId(fileStore.getFilePath());
                 file.setParentId("0");
                 file.setName(fileStore.getImageName());
                 file.setUrl(fileStore.getUrl());
                 list.add(file);
+                treeIdMap.put(file.getId(), file.getId());
             }
             if(pathArry.length>=4){
-                if (treeIdMap.get(pathArry[0] + pathArry[2]) == null) {
-                    File file = new File();
-                    file.setId(pathArry[0] + pathArry[2]);
-                    file.setParentId("0");
-                    file.setName(pathArry[2]);
-                    file.setUrl(null);
-                    list.add(file);
-                    treeIdMap.put(file.getId(), file.getId());
-                }
-                if( pathArry.length>4) {
-                    for (int i = 3; i < pathArry.length-1; i++) {
-                        if (treeIdMap.get(pathArry[0] + pathArry[i]) == null) {
+                if("n".equals(fileStore.getIsFolder())){
+                    if (treeIdMap.get(pathArry[0] + pathArry[2]) == null) {
+                        File file = new File();
+                        file.setId(pathArry[0] + pathArry[2]);
+                        file.setParentId("0");
+                        file.setName(pathArry[2]);
+                        file.setUrl(null);
+                        list.add(file);
+                        treeIdMap.put(file.getId(), file.getId());
+                    }
+                    if( pathArry.length>4) {
+                        for (int i = 3; i < pathArry.length-1; i++) {
+                            if (treeIdMap.get(pathArry[0] + pathArry[i]) == null) {
+                                File file = new File();
+                                file.setId(pathArry[0] + pathArry[i]);
+                                file.setParentId(pathArry[0] + pathArry[i - 1]);
+                                file.setName(pathArry[i]);
+                                file.setUrl(null);
+                                list.add(file);
+                                treeIdMap.put(file.getId(), file.getId());
+                            }
+                        }
+                    }
+                    if (fileStore.getImageName() != null && !fileStore.getImageName().isEmpty()) {
+                        if (treeIdMap.get(pathArry[0] + pathArry[pathArry.length - 1] + fileStore.getId()) == null) {
                             File file = new File();
-                            file.setId(pathArry[0] + pathArry[i]);
-                            file.setParentId(pathArry[0] + pathArry[i - 1]);
-                            file.setName(pathArry[i]);
-                            file.setUrl(null);
+                            file.setId(fileStore.getFilePath());
+                            file.setParentId(pathArry[0] + pathArry[pathArry.length - 2]);
+                            file.setName(fileStore.getImageName());
+                            file.setUrl(fileStore.getUrl());
                             list.add(file);
-                            treeIdMap.put(file.getId(), file.getId());
+                            treeIdMap.put(pathArry[0] + pathArry[pathArry.length - 1] + fileStore.getId(), file.getId());
                         }
                     }
                 }
-                if (fileStore.getImageName() != null && !fileStore.getImageName().isEmpty()) {
-                    if (treeIdMap.get(pathArry[0] + pathArry[pathArry.length - 1] + fileStore.getId()) == null) {
+
+                if("y".equals(fileStore.getIsFolder())){
+                    if (treeIdMap.get(pathArry[0] + pathArry[2]) == null) {
                         File file = new File();
-                        file.setId(fileStore.getFilePath());
-                        file.setParentId(pathArry[0] + pathArry[pathArry.length - 2]);
-                        file.setName(fileStore.getImageName());
-                        file.setUrl(fileStore.getUrl());
+                        file.setId(pathArry[0] + pathArry[2]);
+                        file.setParentId("0");
+                        file.setName(pathArry[2]);
+                        file.setUrl(null);
                         list.add(file);
-                        treeIdMap.put(pathArry[0] + pathArry[pathArry.length - 1] + fileStore.getId(), file.getId());
+                        treeIdMap.put(file.getId(), file.getId());
+                    }
+                    if( pathArry.length>4) {
+                        for (int i = 3; i < pathArry.length; i++) {
+                            if (treeIdMap.get(pathArry[0] + pathArry[i]) == null) {
+                                File file = new File();
+                                file.setId(pathArry[0] + pathArry[i]);
+                                file.setParentId(pathArry[0] + pathArry[i - 1]);
+                                file.setName(pathArry[i]);
+                                file.setUrl(null);
+                                list.add(file);
+                                treeIdMap.put(file.getId(), file.getId());
+                            }
+                        }
                     }
                 }
+
             }
         }
         List<File>  fileList=TreeParseUtil.getTreeList("-1",list);

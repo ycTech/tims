@@ -40,6 +40,7 @@
         bill_no billNo,
         bill_type billType,
         file_path filePath,
+        is_folder isFolder,
         url url
       from file_store where 1=1
       <if test="uploadQo.billNo!=null and uploadQo.billNo!=''">
