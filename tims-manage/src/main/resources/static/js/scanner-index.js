@@ -260,7 +260,11 @@ function initJsTree () {
         opened: true
       }
       if (item.path == urlQuery.path) {
-        gCurJsTreeNodeId = item.id;
+        if (item.isFolder == 'y') {
+          gCurJsTreeNodeId = item.id;
+        } else {
+          gCurJsTreeNodeId = item.parentId
+        }
       }
       if (item.children && item.children.length > 0) {
         item.icon = 'glyphicon glyphicon-folder-open';
@@ -480,4 +484,10 @@ function CheckIEVersion () {
 
 function toggleSidebar () {
   $('.layui-layout.layui-layout-admin').toggleClass('collapsed')
+}
+
+function hrefToPreview () {
+  var hostname = window.location.hostname;
+  var search = window.location.search;
+  window.location.href=('http://' + hostname + ':10060/preview' +  search)
 }
