@@ -87,62 +87,68 @@ public class ImageInfoService {
         for(FileStore fileStore:fileStoreList){
             String[] pathArry=fileStore.getFilePath().split("/");
             if(pathArry.length==3&&"n".equals(fileStore.getIsFolder())){
+                String pathTmp=fileStore.getFilePath();
                 File file = new File();
-                file.setId(fileStore.getFilePath());
+                file.setId(pathTmp);
                 file.setParentId("0");
                 file.setName(fileStore.getImageName());
                 file.setUrl(fileStore.getUrl());
                 file.setIsFolder("n");
-                file.setPath(fileStore.getFilePath());
+                file.setPath(pathTmp);
                 list.add(file);
                 treeIdMap.put(file.getId(), file.getId());
             }
             if(pathArry.length==3&&"y".equals(fileStore.getIsFolder())){
-                if (treeIdMap.get(pathArry[0] + pathArry[2]) == null) {
+                String pathTmp=fileStore.getFilePath();
+                if (treeIdMap.get(pathTmp) == null) {
                     File file = new File();
-                    file.setId(pathArry[0] + pathArry[2]);
+                    file.setId(pathTmp);
                     file.setParentId("0");
                     file.setName(pathArry[2]);
                     file.setUrl(null);
                     file.setIsFolder("y");
-                    file.setPath(fileStore.getFilePath());
+                    file.setPath(pathTmp);
                     list.add(file);
                     treeIdMap.put(file.getId(), file.getId());
                 }
             }
             if(pathArry.length>=4){
                 if("n".equals(fileStore.getIsFolder())){
-                    if (treeIdMap.get(pathArry[0] + pathArry[2]) == null) {
+                    String pathTmp=fileStore.getFilePath().substring(0,fileStore.getFilePath().indexOf("/"+pathArry[3]));
+                    if (treeIdMap.get(pathTmp) == null) {
                         File file = new File();
-                        file.setId(pathArry[0] + pathArry[2]);
+                        file.setId(pathTmp);
                         file.setParentId("0");
                         file.setName(pathArry[2]);
                         file.setUrl(null);
-                        file.setIsFolder("n");
-                        file.setPath(fileStore.getFilePath());
+                        file.setIsFolder("y");
+                        file.setPath(pathTmp);
                         list.add(file);
                         treeIdMap.put(file.getId(), file.getId());
                     }
                     if( pathArry.length>4) {
                         for (int i = 3; i < pathArry.length-1; i++) {
-                            if (treeIdMap.get(pathArry[0] + pathArry[i]) == null) {
+                            String path=fileStore.getFilePath().substring(0,fileStore.getFilePath().indexOf("/"+pathArry[i]))+"/"+pathArry[i];
+                            String parentPath=fileStore.getFilePath().substring(0,fileStore.getFilePath().indexOf("/"+pathArry[i-1]))+"/"+pathArry[i-1];
+                            if (treeIdMap.get(path) == null) {
                                 File file = new File();
-                                file.setId(pathArry[0] + pathArry[i]);
-                                file.setParentId(pathArry[0] + pathArry[i - 1]);
+                                file.setId(path);
+                                file.setParentId(parentPath);
                                 file.setName(pathArry[i]);
-                                file.setIsFolder("n");
+                                file.setIsFolder("y");
                                 file.setUrl(null);
-                                file.setPath(fileStore.getFilePath());
+                                file.setPath(path);
                                 list.add(file);
                                 treeIdMap.put(file.getId(), file.getId());
                             }
                         }
                     }
                     if (fileStore.getImageName() != null && !fileStore.getImageName().isEmpty()) {
+                        String parentPath=fileStore.getFilePath().substring(0,fileStore.getFilePath().indexOf("/"+pathArry[pathArry.length-1]));
                         if (treeIdMap.get(pathArry[0] + pathArry[pathArry.length - 1] + fileStore.getId()) == null) {
                             File file = new File();
                             file.setId(fileStore.getFilePath());
-                            file.setParentId(pathArry[0] + pathArry[pathArry.length - 2]);
+                            file.setParentId(parentPath);
                             file.setName(fileStore.getImageName());
                             file.setUrl(fileStore.getUrl());
                             file.setIsFolder("n");
@@ -154,23 +160,14 @@ public class ImageInfoService {
                 }
 
                 if("y".equals(fileStore.getIsFolder())){
-                    if (treeIdMap.get(pathArry[0] + pathArry[2]) == null) {
-                        File file = new File();
-                        file.setId(pathArry[0] + pathArry[2]);
-                        file.setParentId("0");
-                        file.setName(pathArry[2]);
-                        file.setIsFolder("y");
-                        file.setUrl(null);
-                        file.setPath(fileStore.getFilePath());
-                        list.add(file);
-                        treeIdMap.put(file.getId(), file.getId());
-                    }
-                    if( pathArry.length>4) {
+                    if( pathArry.length>=4) {
                         for (int i = 3; i < pathArry.length; i++) {
-                            if (treeIdMap.get(pathArry[0] + pathArry[i]) == null) {
+                            String path=fileStore.getFilePath().substring(0,fileStore.getFilePath().indexOf("/"+pathArry[i]))+"/"+pathArry[i];
+                            String parentPath=fileStore.getFilePath().substring(0,fileStore.getFilePath().indexOf("/"+pathArry[i]));
+                            if (treeIdMap.get(path) == null) {
                                 File file = new File();
-                                file.setId(pathArry[0] + pathArry[i]);
-                                file.setParentId(pathArry[0] + pathArry[i - 1]);
+                                file.setId(path);
+                                file.setParentId(parentPath);
                                 file.setName(pathArry[i]);
                                 file.setIsFolder("y");
                                 file.setUrl(null);
