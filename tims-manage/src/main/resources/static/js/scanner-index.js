@@ -1,3 +1,4 @@
+var gCurJsTreeNodeId = null
 var ScannerTypeMap = {
   czur: {
     name: 'CZUR高拍仪',
@@ -240,6 +241,12 @@ function initJsTree () {
           }
         }
       })
+
+      $('#jstree').on('ready.jstree', function (e, data) {
+        if (gCurJsTreeNodeId) {
+            $(document.getElementById(gCurJsTreeNodeId + '_anchor')).click()
+        }
+      })
     },
     error: function (error) {
       $notify('生成文件列表失败，' + JSON.stringify(error))
@@ -252,6 +259,9 @@ function initJsTree () {
       item.state = {
         opened: true
       }
+      if (item.path == urlQuery.path) {
+        gCurJsTreeNodeId = item.id;
+      }
       if (item.children && item.children.length > 0) {
         item.icon = 'glyphicon glyphicon-folder-open';
         item.li_attr = item.li_attr || {}
@@ -259,7 +269,7 @@ function initJsTree () {
         item.children = parseTreeData(item.children)
       } else {
         if (item.isFolder == 'y') {
-            item.icon = 'glyphicon glyphicon-folder-open';
+          item.icon = 'glyphicon glyphicon-folder-open';
           item.li_attr = {
             path: item.path
           }
