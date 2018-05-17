@@ -154,3 +154,8 @@ function getQueryString(name) {
         return null
     }
 }
+function hrefToScanner() {
+    var hostname = window.location.hostname
+    var search = window.location.search
+    window.location.href=('http://' + hostname + ':10060/scanner-index.html' +  search)
+}

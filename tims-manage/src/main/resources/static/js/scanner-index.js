@@ -234,7 +234,7 @@ function initJsTree () {
           var hostname = window.location.hostname
           var search = '?' + window.location.search.substr(1).replace(/(^|&)path=([^&]*)(&|$)/, '');
           search += '&path=' + data.node.id
-          window.open('http://' + hostname + ':10060/preview' +  search)
+          window.location.href=('http://' + hostname + ':10060/preview' +  search)
         } else {
           if (data.node.li_attr.path) {
             urlQuery.path = data.node.li_attr.path || urlQuery.path;

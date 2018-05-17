@@ -26,6 +26,12 @@
                     <span id="billInfo"></span>图片预览
                 </li>
             </ul>
+
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item ">
+                    <a href="javascript:void(0);" onclick="hrefToScanner()">影像扫描</a>
+                </li>
+            </ul>
         </div>
         <div class="layui-side layui-bg-black">
             <div class="layui-side-scroll">
