@@ -8,7 +8,7 @@
          id,
          user_name,
          password,
-         user_code，
+         user_code,
          pk_corp,
          dr,
          create_time,
@@ -19,18 +19,18 @@
          update_user_code
          )
      values(
-         #{id},
-         #{userName},
-         #{password},
-         #{userCode},
-         #{pkCorp},
-         #{dr},
-         #{createTime},
-         #{createUser},
-         #{createUserCode},
-         #{updateTime},
-         #{updateUser},
-         #{updateUserCode}
+         #{sysUserInfo.id},
+         #{sysUserInfo.userName},
+         #{sysUserInfo.password},
+         #{sysUserInfo.userCode},
+         #{sysUserInfo.pkCorp},
+         #{sysUserInfo.dr},
+         #{sysUserInfo.createTime},
+         #{sysUserInfo.createUser},
+         #{sysUserInfo.createUserCode},
+         #{sysUserInfo.updateTime},
+         #{sysUserInfo.updateUser},
+         #{sysUserInfo.updateUserCode}
         )
  </insert>
 

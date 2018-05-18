@@ -33,6 +33,8 @@ public class UploadQo implements Serializable {
     private String imageUrl;
     @ApiModelProperty(value = "base64")
     private String imageBase64;
+    @ApiModelProperty(value = "是否传输",hidden = false)
+    private String isTransfer;
 
     public String getFileSize() {
         return fileSize;
@@ -128,6 +130,14 @@ public class UploadQo implements Serializable {
 
     public void setImageBase64(String imageBase64) {
         this.imageBase64 = imageBase64;
+    }
+
+    public String getIsTransfer() {
+        return isTransfer;
+    }
+
+    public void setIsTransfer(String isTransfer) {
+        this.isTransfer = isTransfer;
     }
 }
 

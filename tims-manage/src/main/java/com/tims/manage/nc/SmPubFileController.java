@@ -116,8 +116,10 @@ public class SmPubFileController extends BaseController {
             httpURLConnection.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
             inputStream = httpURLConnection.getInputStream();
             resp.setContentType("application/octet-stream");
-            resp.setHeader("Content-Disposition", "attachment; filename="
-                    + URLEncoder.encode(fileStore1.getImageName(), "UTF-8"));
+//            resp.setHeader("Content-Disposition", "attachment; filename="
+//                    + URLEncoder.encode(fileStore1.getImageName(), "UTF-8"));
+//            resp.setHeader("Content-Disposition", "attachment;fileName="+ fileStore1.getImageName());
+            resp.setHeader("Content-Disposition", "attachment; fileName="+  fileStore1.getImageName() +";filename*=utf-8''"+URLEncoder.encode(fileStore1.getImageName(),"UTF-8"));
             resp.setHeader("Content-Length", String.valueOf(url.openConnection().getContentLength()));
             byte[] bs = new byte[1024];
             int len;
@@ -136,35 +138,66 @@ public class SmPubFileController extends BaseController {
     @ApiOperation(value = "新增机构")
     @RequestMapping(value = "/save/org",method = RequestMethod.POST, headers = {"Accept=application/json"})
     @ResponseBody
-    public ResultVo insertOrg(@RequestParam(value = "unitCode",required=true) String unitCode,
+    public ResultVo insertOrg(@RequestParam(value = "corpId",required=true) String corpId ,
+                              @RequestParam(value = "unitCode",required=true) String unitCode,
                               @RequestParam(value = "unitName",required=true) String unitName,
                               @RequestParam(value = "unitShortName",required=true) String unitShortName,
+                              @RequestParam(value = "vSystem",required=true) String vSystem,
+                              @RequestParam(value = "operate",required=true) String operate,
                               @RequestParam(value = "dr",required=true) int dr){
-        SysUnitInfo sysUnitInfo=new SysUnitInfo();
-        sysUnitInfo.setUnitCode(unitCode);
-        sysUnitInfo.setDr(dr);
-        sysUnitInfo.setUnitName(unitName);
-        sysUnitInfo.setUnitShortName(unitShortName);
-        Boolean result=  sysApiService.saveSysUnitInfo(sysUnitInfo);
-        return ResultUtil.success(result);
+        if("add".equals(operate)){
+            SysUnitInfo sysUnitInfo=new SysUnitInfo();
+            sysUnitInfo.setId(corpId);
+            sysUnitInfo.setUnitCode(unitCode);
+            sysUnitInfo.setDr(dr);
+            sysUnitInfo.setUnitName(unitName);
+            sysUnitInfo.setUnitShortName(unitShortName);
+            Boolean result=  sysApiService.saveSysUnitInfo(sysUnitInfo);
+        }
+        if("update".equals(operate)){
+            SysUnitInfo sysUnitInfo=new SysUnitInfo();
+            sysUnitInfo.setId(corpId);
+            sysUnitInfo.setUnitCode(unitCode);
+            sysUnitInfo.setDr(dr);
+            sysUnitInfo.setUnitName(unitName);
+            sysUnitInfo.setUnitShortName(unitShortName);
+            Boolean result=  sysApiService.updateSysUnitInfo(sysUnitInfo);
+        }
+        return success;
     }
 
     @ApiOperation(value = "新增用户")
     @RequestMapping(value = "/save/user",method = RequestMethod.POST, headers = {"Accept=application/json"})
     @ResponseBody
-    public ResultVo<FileInfoVo> insertUser(  @RequestParam(value = "userCode",required=true) String userCode,
+    public ResultVo<FileInfoVo> insertUser(  @RequestParam(value = "userId",required=true) String userId,
+                                             @RequestParam(value = "userCode",required=true) String userCode,
                                              @RequestParam(value = "userName",required=true) String userName,
                                              @RequestParam(value = "password",required=false) String password,
                                              @RequestParam(value = "dr",required=true) int dr,
-                                             @RequestParam(value = "pkCorp",required=true) String pkCorp){
-        SysUserInfo  userInfo=new SysUserInfo();
-        userInfo.setPkCorp(pkCorp);
-        userInfo.setUserName(userName);
-        userInfo.setUserCode(userCode);
-        userInfo.setPassword(password);
-        userInfo.setDr(dr);
-      Boolean result=  sysApiService.saveSysUserInfo(userInfo);
-        return ResultUtil.success(result);
+                                             @RequestParam(value = "vSystem",required=true) String vSystem,
+                                             @RequestParam(value = "operate",required=true) String operate,
+                                             @RequestParam(value = "corpId",required=true) String corpId){
+        if("add".equals(operate)){
+            SysUserInfo  userInfo=new SysUserInfo();
+            userInfo.setId(userId);
+            userInfo.setPkCorp(corpId);
+            userInfo.setUserName(userName);
+            userInfo.setUserCode(userCode);
+            userInfo.setPassword(password);
+            userInfo.setDr(dr);
+            Boolean result=  sysApiService.saveSysUserInfo(userInfo);
+        }
+        if("update".equals(operate)){
+            SysUserInfo  userInfo=new SysUserInfo();
+            userInfo.setId(userId);
+            userInfo.setPkCorp(corpId);
+            userInfo.setUserName(userName);
+            userInfo.setUserCode(userCode);
+            userInfo.setPassword(password);
+            userInfo.setDr(dr);
+            Boolean result=  sysApiService.updateSysUserInfo(userInfo);
+        }
+        return success;
     }
 
     @ApiOperation(value = "查询附件的URL")

@@ -52,9 +52,10 @@ public class FastController extends BaseController {
     @ApiOperation(value = "上传BASE64文件")
     @RequestMapping(value = "/base64/upload", method = RequestMethod.POST)
     @ResponseBody
-    public ResultVo uploadBase64(@Validated @RequestBody UploadQo uploadQo) throws Exception {
-        Assert.hasText(uploadQo.getPath(), "参数：目录不能为空！");
-        Assert.hasText(uploadQo.getUserCode(), "参数：制单人不能为空！");
+    public ResultVo uploadBase64(@RequestBody UploadQo uploadQo) throws Exception {
+//        Assert.hasText(uploadQo.getPath(), "参数：目录不能为空！");
+//        Assert.hasText(uploadQo.getUserCode(), "参数：制单人不能为空！");
+        uploadQo.setIsTransfer("Y");
         String fileUrl= dfsClient.uploadFile(uploadQo.getImageBase64(),uploadQo.getImageName());
         uploadQo.setImageUrl(fileUrl);
         fileStoreApiService.saveFileStore(uploadQo);
@@ -64,9 +65,10 @@ public class FastController extends BaseController {
     @ApiOperation(value = "上传BASE64文件-预览使用(指定了分组)")
     @RequestMapping(value = "/group/base64/upload", method = RequestMethod.POST)
     @ResponseBody
-    public ResultVo uploadBase64ByGroup(@Validated @RequestBody UploadQo uploadQos) throws Exception {
-        Assert.hasText(uploadQos.getPath(), "参数：目录不能为空！");
-        Assert.hasText(uploadQos.getUserCode(), "参数：制单人不能为空！");
+    public ResultVo uploadBase64ByGroup(@RequestBody UploadQo uploadQos) throws Exception {
+//        Assert.hasText(uploadQos.getPath(), "参数：目录不能为空！");
+//        Assert.hasText(uploadQos.getUserCode(), "参数：制单人不能为空！");
+        uploadQos.setIsTransfer("Y");
         String fileUrl= dfsClient.uploadFileByGroup("group1",uploadQos.getImageBase64(),uploadQos.getImageName());
         String[] thumbImageUrls=dfsClient.uploadThumbImageByGroup("group1",uploadQos.getImageBase64(),uploadQos.getImageName());
         Map<String,String> urlMap=new HashMap<String,String>();

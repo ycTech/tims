@@ -8,7 +8,7 @@
          id,
          unit_code,
          unit_name,
-         unit_short_name，
+         unit_short_name,
          dr,
          create_time,
          create_user,
@@ -18,17 +18,17 @@
          update_user_code
          )
      values(
-         #{id},
-         #{unitCode},
-         #{unitName},
-         #{unitShortName},
-         #{dr},
-         #{createTime},
-         #{createUser},
-         #{createUserCode},
-         #{updateTime},
-         #{updateUser},
-         #{updateUserCode}
+         #{sysUnitInfo.id},
+         #{sysUnitInfo.unitCode},
+         #{sysUnitInfo.unitName},
+         #{sysUnitInfo.unitShortName},
+         #{sysUnitInfo.dr},
+         #{sysUnitInfo.createTime},
+         #{sysUnitInfo.createUser},
+         #{sysUnitInfo.createUserCode},
+         #{sysUnitInfo.updateTime},
+         #{sysUnitInfo.updateUser},
+         #{sysUnitInfo.updateUserCode}
         )
  </insert>
 
@@ -45,7 +45,7 @@
             unit_short_name=#{sysUnitInfo.unitShortName},
           </if>
           <if test=" sysUnitInfo.dr != null">
-            dr=#{sysUnitInfo.dr},
+              dr=#{sysUnitInfo.dr},
           </if>
           <if test=" sysUnitInfo.updateTime != null">
             update_time=#{sysUnitInfo.updateTime},
@@ -57,7 +57,7 @@
             update_user_code=#{sysUnitInfo.updateUserCode},
           </if>
         </set>
-        WHERE  id=#{sysUserInfo.id}
+        WHERE  id=#{sysUnitInfo.id}
     </update>
 
     <update id="deleteSysUnitInfoById" parameterType="string">

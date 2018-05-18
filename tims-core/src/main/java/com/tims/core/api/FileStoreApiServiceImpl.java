@@ -47,25 +47,26 @@ public class FileStoreApiServiceImpl implements FileStoreApiService {
         fileStore.setFileSize(uploadQos.getFileSize());
         fileStore.setIsDelete("0");
         fileStoreService.saveImageInfo(fileStore);
-
-        Map<String, Object> params02 = new HashMap<>();
-        params02.put("isFloder", uploadQos.getIsFolder());
-        params02.put("path", uploadQos.getPath());
-        params02.put("m_isDirty", false);
-        params02.put("creator", uploadQos.getUserCode());
-        List<Map> maplist=new ArrayList<>();
-        maplist.add(params02);
-        Map<String, List<Map>> params03 = new HashMap<>();
-        params03.put("param",maplist);
-        String paramTmp= JSONObject.valueToString(params03);
-        String param=URLEncoder.encode(paramTmp, "UTF-8");
-        if(url==null){
-            url="http://10.188.183.85/YCRestfulService/rest/webnc2/file/dopost/";
+        if("Y".equals(uploadQos.getIsTransfer())){
+            Map<String, Object> params02 = new HashMap<>();
+            params02.put("isFloder", uploadQos.getIsFolder());
+            params02.put("path", uploadQos.getPath());
+            params02.put("m_isDirty", false);
+            params02.put("creator", uploadQos.getUserCode());
+            List<Map> maplist=new ArrayList<>();
+            maplist.add(params02);
+            Map<String, List<Map>> params03 = new HashMap<>();
+            params03.put("param",maplist);
+            String paramTmp= JSONObject.valueToString(params03);
+            String param=URLEncoder.encode(paramTmp, "UTF-8");
+            if(url==null){
+                url="http://10.188.183.85/YCRestfulService/rest/webnc2/file/dopost/";
+            }
+            log.info("请求的参数:"+url);
+            String responseContent = HttpClientUtil.getInstance()
+                    .sendHttpPost(url+""+"?param="+param);
+            log.info("请求的结果reponse content:" + responseContent);
         }
-        log.info("请求的参数:"+url);
-        String responseContent = HttpClientUtil.getInstance()
-                .sendHttpPost(url+""+"?param="+param);
-        log.info("请求的结果reponse content:" + responseContent);
     }
 
     @Override
