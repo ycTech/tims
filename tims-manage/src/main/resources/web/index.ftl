@@ -35,7 +35,7 @@
         </div>
         <div class="layui-side layui-bg-black">
             <div class="layui-side-scroll">
-                <div id="jstree"></div>
+                <div id="jstree" style="overflow-x: auto; overflow-y: hidden; position: absolute;top:45px; left: 0; right: 0;bottom: 0;"></div>
             </div>
         </div>
 

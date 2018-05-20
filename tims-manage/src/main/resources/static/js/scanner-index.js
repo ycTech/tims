@@ -110,8 +110,8 @@ ScannerHome = {
       data: JSON.stringify(postData),
       success: function (resp) {
         var fileUrl = resp.data
-        ScannerHome.reloadFileList()
-        callback(fileUrl)
+          callback(fileUrl)
+          ScannerHome.reloadFileList()
       },
       error: function (error) {
         $notify('上传文件失败，' + JSON.stringify(error))
@@ -141,6 +141,10 @@ ScannerHome = {
   },
 
   reloadFileList: function () {
+    var win = window.opener;
+    if(win){
+        win.afterImageScan();
+    }
     window.location.reload()
     // initJsTree()
   }
