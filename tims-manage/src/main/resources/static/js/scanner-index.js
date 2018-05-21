@@ -416,12 +416,16 @@ function AddImagePreview (fileUrl, thumbImageUrl) {
 
     showImagePreviewPanel()
   })
+
   var $imageThumbWrapper = $('<div/>')
     .addClass('image-thumbnail-wrapper')
     .append($imageThumb)
+
   $('.image-thumbnail-default').hide()
+
   $('.image-thumbnails')
     .append($imageThumbWrapper)
+
   setTimeout(function () {
     var imageThumbW = $imageThumb.width()
     var imageThumbH = $imageThumb.height()
@@ -436,7 +440,7 @@ function AddImagePreview (fileUrl, thumbImageUrl) {
       $imageThumb.css('height', 'auto')
       $imageThumb.css('width', '100%')
     }
-  }, 0)
+  }, 100)
 }
 function isBrowserSupport () {
   var IEVersion = CheckIEVersion()
