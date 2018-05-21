@@ -77,8 +77,7 @@ ScannerOcx = {
     if (!isOcxInstalled()) {
       return false
     }
-    var pdfPrefix = urlQuery.billNo || ''
-    BtnCreateMultiPageFile(pdfPrefix + '_')
+    BtnCreateMultiPageFile()
   },
 
   // 上传最近合并的PDF
@@ -146,6 +145,7 @@ function CaptureToFile (imagePrefix) {
 
 // 合并PDF
 function BtnCreateMultiPageFile (prefix) {
+  prefix = prefix || ''
   var pdfName = prefix + getDateString() + '.pdf'
   var pdfPath = strFileDirectory + pdfName
   var tifName = prefix + getDateString() + '.tif'

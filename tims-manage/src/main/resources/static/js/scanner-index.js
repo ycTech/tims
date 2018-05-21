@@ -236,6 +236,8 @@ function initJsTree () {
 
       $('#jstree').on('changed.jstree', function (e, data) {
         if (data.node && data.node.li_attr && data.node.li_attr.fileUrl) {
+          // 点击附件时，如果不是目录，则不允许点击
+          $(document.getElementById(gCurJsTreeNodeId + '_anchor')).click()
           // var hostname = window.location.hostname
           // var search = '?' + window.location.search.substr(1).replace(/(^|&)path=([^&]*)(&|$)/, '');
           // search += '&path=' + data.node.id
@@ -317,6 +319,10 @@ function initJsTree () {
               } else {
                   item.icon = 'glyphicon glyphicon-file'
               }
+          }
+          item.state = {
+            disabled: true,
+            selected: false
           }
           item.li_attr = {
               fileUrl: item.url,
