@@ -143,7 +143,8 @@ ScannerHome = {
   reloadFileList: function () {
     var win = window.opener;
     if(win){
-        win.afterImageScan();
+        var id = win.FileManage_ID;
+        win.Ext.getCmp(id).afterImageScan();
     }
     window.location.reload()
     // initJsTree()
@@ -235,10 +236,10 @@ function initJsTree () {
 
       $('#jstree').on('changed.jstree', function (e, data) {
         if (data.node && data.node.li_attr && data.node.li_attr.fileUrl) {
-          var hostname = window.location.hostname
-          var search = '?' + window.location.search.substr(1).replace(/(^|&)path=([^&]*)(&|$)/, '');
-          search += '&path=' + data.node.id
-          window.location.href=('http://' + hostname + ':10060/preview' +  search)
+          // var hostname = window.location.hostname
+          // var search = '?' + window.location.search.substr(1).replace(/(^|&)path=([^&]*)(&|$)/, '');
+          // search += '&path=' + data.node.id
+          // window.location.href=('http://' + hostname + ':10060/preview' +  search)
         } else {
           if (data.node.li_attr.path) {
             urlQuery.path = data.node.li_attr.path || urlQuery.path;
