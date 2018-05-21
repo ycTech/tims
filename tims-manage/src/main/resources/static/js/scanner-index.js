@@ -141,11 +141,11 @@ ScannerHome = {
   },
 
   reloadFileList: function () {
-    var win = window.opener;
-    if(win){
-        var id = win.FileManage_ID;
-        win.Ext.getCmp(id).afterImageScan();
-    }
+    // var win = window.opener;
+    // if(win){
+    //     var id = win.FileManage_ID;
+    //     win.Ext.getCmp(id).afterImageScan();
+    // }
     window.location.reload()
     // initJsTree()
   }
