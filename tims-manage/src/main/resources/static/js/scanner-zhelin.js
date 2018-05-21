@@ -69,8 +69,7 @@ ScannerOcx = {
     if (!isOcxInstalled()) {
       return false
     }
-    gImagePrefix = urlQuery.billNo || 'image'
-    CaptureToFile(gImagePrefix + '_')
+    CaptureToFile()
   },
 
   // 合并PDF
