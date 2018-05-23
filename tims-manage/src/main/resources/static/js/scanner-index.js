@@ -368,8 +368,10 @@ function onDeviceTypeChange () {
 
 // 加载设备对应HTML
 function loadDeviceHtml (deviceType) {
-  ScannerOcx.close()
-  store.set('scannerType', deviceType)
+    try {
+      ScannerOcx.close()
+    } catch (error) {}
+    store.set('scannerType', deviceType)
   $('.layui-nav-item.selected-device-name').html(ScannerTypeMap[deviceType].name)
   loadHtml(ScannerTypeMap[deviceType].url)
 }

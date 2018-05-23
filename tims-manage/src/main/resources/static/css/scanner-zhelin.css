@@ -1,3 +1,10 @@
 .zhelin-wrapper {
   background: blue;
 }
+
+.layui-form-label {
+  width: 135px;
+}
+.layui-input-block {
+  margin-left: 135px;
+}

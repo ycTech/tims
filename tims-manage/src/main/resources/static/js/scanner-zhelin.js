@@ -13,7 +13,7 @@ var iColorMode = '0' // 设定获取的图像的色彩模式；   0: 彩色，1:
 var szPostfix = '.jpg' // 默认图片文件后缀为jpg
 var imgeId = 0 // 图片默认起始ID（也用于预览）
 var strMergeSource1 // 合并图像源文件1 strMergeSource2 // 合并图像源文件2
-var strFileDirectory = 'D:\\DocImage\\'
+var strFileDirectory = store.get('zhelin.filepath') || 'D:\\DocImage\\'
 
 var imageFiles = []
 var szTifFileName
@@ -38,6 +38,7 @@ var gTifPath = ''
 var gImagePrefix = 'image'
 
 $(function () {
+  $('#FilePath').val(strFileDirectory)
   if (!isOcxInstalled()) {
     return false
   }
@@ -161,7 +162,10 @@ function BtnCreateMultiPageFile (prefix) {
   //   gTifPath = tifPath
   // }
 }
-
+function SetFilePath(path) {
+    strFileDirectory = path
+    store.set('zhelin.filepath', path)
+}
 function BtnUploadPdfFiles () {
   WriteInfomation('准备上传PDF中...')
   setTimeout(function () {
@@ -180,7 +184,7 @@ function BtnUploadPdfFiles () {
  * --------------------------------------
  */
 function InitDefaultConfig () {
-  iCutPageType = $('#rgCutPageType').val()
+  iCutPageType = $('#rgCutPageType').val();
   SetCutPageType(iCutPageType) // 设置
   SetDeviceRotation(0)
 }
