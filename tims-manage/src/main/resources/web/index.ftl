@@ -22,13 +22,13 @@
                 影像扫描系统
             </div>
             <ul class="layui-nav layui-layout-left">
-                <li class="layui-nav-item">
+                <li class="layui-nav-item" style="display: block; float: left;">
                     <span id="billInfo"></span>
                 </li>
-                <li class="layui-nav-item ">
+                <li class="layui-nav-item " style="display: block; float: left;">
                     <a href="javascript:void(0);" onclick="hrefToScanner()">影像扫描</a>
                 </li>
-                <li class="layui-nav-item layui-this">
+                <li class="layui-nav-item layui-this" style="display: block; float: left;">
                     文件预览
                 </li>
             </ul>
