@@ -9,32 +9,32 @@
   </div>
   <div class="scanner-setting__wrapper" style="display: none;">
 
-    <form class="layui-form" role="form">
-      <div class="layui-form-item">
+    <form >
+      <div>
         <button type="button" class="btn btn-primary" onclick="StartDevice(CammeraType.value)">打开</button>
         <button type="button" class="btn btn-primary" onclick="CaptureToFile()">拍摄</button>
         <button type="button" class="btn btn-danger" onclick="StopDevice()">关闭</button>
       </div>
-      <div class="layui-form-item">
-        <label for="CammeraType" class="layui-form-label">
+      <div>
+        <label for="CammeraType">
           选择设备
         </label>
-        <div class="layui-input-block">
+        <div>
           <select name="CammeraType" id="CammeraType" style="width: 220px;">
             <option value="0" selected="selected">文档摄像头</option>
             <option value="1">人像摄像头</option>
           </select>
         </div>
       </div>
-      <div class="layui-form-item">
-        <label for="FilePath" class="layui-form-label">文件保存路径</label>
-        <div class="layui-input-inline">
-          <input type="text" name="FilePath" id="FilePath" class="layui-input" onchange="SetFilePath(FilePath.value)">
+      <div>
+        <label for="FilePath">文件保存路径</label>
+        <div>
+          <input type="text" name="FilePath" id="FilePath" onchange="SetFilePath(FilePath.value)">
         </div>
       </div>
-      <div class="layui-form-item">
-        <label for="Resolution_Select" class="layui-form-label">分辨率</label>
-        <div class="layui-input-block">
+      <div>
+        <label for="Resolution_Select">分辨率</label>
+        <div>
           <select id="Resolution_Select" name="Resolution" onclick="SetResIndex(Resolution_Select.value)">
           </select>
         </div>
@@ -55,9 +55,9 @@
             生成
           </button>
         </div> -->
-      <div class="layui-form-item">
-        <label for="rgFileType" class="layui-form-label">保存格式</label>
-        <div class="layui-input-block">
+      <div>
+        <label for="rgFileType">保存格式</label>
+        <div>
           <select id="rgFileType" name="rgFileType" onclick="SetFileType(rgFileType.value)">
             <option value="0" selected="selected">jpg</option>
             <option value="1">bmp</option>
@@ -67,9 +67,9 @@
           </select>
         </div>
       </div>
-      <div class="layui-form-item">
-        <label for="rgColorMode" class="layui-form-label">色彩模式</label>
-        <div class="layui-input-block">
+      <div>
+        <label for="rgColorMode">色彩模式</label>
+        <div>
           <select id="rgColorMode" name="rgColorMode" onclick="SetColorMode(rgColorMode.value)">
             <option value="0" selected="selected">彩色</option>
             <option value="1">灰度</option>
@@ -77,9 +77,9 @@
           </select>
         </div>
       </div>
-      <div class="layui-form-item">
-        <label for="rgCutPageType" class="layui-form-label">切边方式</label>
-        <div class="layui-input-block">
+      <div>
+        <label for="rgCutPageType">切边方式</label>
+        <div>
           <select id="rgCutPageType" name="rgCutPageType" onclick="SetCutPageType(rgCutPageType.value)">
             <option value="0">不切边</option>
             <option value="1" selected="selected">自动切边</option>
@@ -89,22 +89,22 @@
           </select>
         </div>
       </div>
-      <div class="layui-form-item">
-        <label for="DPI" class="layui-form-label">DPI</label>
-        <div class="layui-input-inline">
-          <input type="text" name="DPI" id="DPI" align="center" valign="middle" class="layui-input" value="150" size="4" onclick="SetDPI(DPI.value)"
+      <div>
+        <label for="DPI">DPI</label>
+        <div>
+          <input type="text" name="DPI" id="DPI" align="center" valign="middle" value="150" size="4" onclick="SetDPI(DPI.value)"
           />
         </div>
       </div>
-      <div class="layui-form-item">
-        <label for="DPI" class="layui-form-label">JPG质量</label>
-        <div class="layui-input-inline">
-          <input type="text" name="JPGQuality" id="JPGQuality" align="center" valign="middle" class="layui-input" value="70" size="4"
+      <div>
+        <label for="DPI">JPG质量</label>
+        <div>
+          <input type="text" name="JPGQuality" id="JPGQuality" align="center" valign="middle" value="70" size="4"
             onclick="SetJPGQuality(JPGQuality.value)" />
         </div>
       </div>
       <legend style="margin-top: 20px; margin-bottom: 10px;">图像旋转</legend>
-      <div class="layui-form-item">
+      <div>
         <button type="button" class="btn btn-primary" onclick="SetDeviceRotation(270)">左转
         </button>
         <button type="button" class="btn btn-primary" onclick="SetDeviceRotation(90)">右转
@@ -123,5 +123,4 @@
   </div>
 </div>
 
-<script src="./lib/layui/layui.all.js"></script>
 <script src="./js/scanner-zhelin.js"></script>
