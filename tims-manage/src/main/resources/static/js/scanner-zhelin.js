@@ -1,8 +1,8 @@
 /*
  * @Author: qingbin_bai@163.com
  * @Date: 2018-04-24 23:52:07
- * @Last Modified by: qingbin_bai@163.com
- * @Last Modified time: 2018-05-03 21:39:33
+ * @Last Modified by: baiqb@histudy.com
+ * @Last Modified time: 2018-05-28 11:23:14
  * TODO:
  *  1. 用户可配置文件保存路径
  *  2. Cookie中保存用户的配置文件
@@ -91,7 +91,8 @@ ScannerOcx = {
   },
 
   close: function () {
-
+    ReleaseDevice()
+    StopDevice()
   }
 }
 
