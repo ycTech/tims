@@ -382,8 +382,11 @@ function loadHtml (htmlPath) {
     $('object').remove()
     $('#scanner-iframe').empty()
     setTimeout(function () {
-      $('#scanner-iframe').html(data)
-      showImagePreviewPanel()
+      try {
+        $('#scanner-iframe').html(data)
+        showImagePreviewPanel()
+      } catch (error) {
+      }
     }, 100)
   })
 }

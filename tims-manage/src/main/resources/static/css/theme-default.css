@@ -1,0 +1,203 @@
+/* Normalize CSS */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+}
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+}
+.fixed {
+  position: fixed;
+}
+
+/* Layui override */
+.layui-layout-admin .layui-header {
+  background-color: #fff;
+  box-shadow: 0px 0px 7px rgba(0, 0, 0, .1);
+  behavior: url(ie-css3.htc);
+}
+
+.layui-layout-admin .layui-logo {
+  color: #2D8CF0;
+  font-weight: bold;
+}
+
+.layui-nav {
+  color: #333;
+  font-size: 14px;
+}
+
+.layui-nav .layui-nav-item a {
+  color: #333;
+  color: rgba(51, 51, 51, .7);
+}
+.layui-nav .layui-nav-item a:hover, .layui-nav .layui-this a {
+  color: #333;
+  color: rgba(51, 51, 51, .7);
+}
+.layui-nav .layui-this:after, .layui-nav-bar, .layui-nav-tree .layui-nav-itemed:after {
+  background-color: #2D8CF0;
+}
+
+.layui-nav-child {
+  border-radius: 5px;
+}
+
+.layui-nav-child.layui-anim.layui-anim-upbit dd{
+  line-height: 2;
+}
+.layui-nav-static-item {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 60px;
+  padding: 0 20px;
+}
+.layui-side-header {
+  height: 30px;
+  line-height: 30px;
+  font-size: 12px;
+  color: #333;
+  font-weight: bold;
+  text-indent: 1em;
+  background-color: #EFEFEF;
+}
+.layui-layout-admin .layui-side {
+  width: 220px;
+  border-right: 1px solid #D2D2D2;
+  transition: width .5s ease;
+}
+.layui-layout-admin .layui-body {
+  left: 220px;
+  transition: left .5s ease;
+  bottom: 0;
+  background-color: #f5f5f5;
+}
+.layui-side-hamburger-close {
+  background: url(../img/sidebar-close.png) no-repeat center;
+  background-color: #EFEFEF;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  transition: all .5s ease;
+}
+.layui-side-hamburger-open {
+  display: none;
+}
+.layui-layout-admin.collapsed .layui-side {
+  width: 30px;
+}
+.layui-layout-admin.collapsed .layui-body {
+  left: 30px;
+}
+.layui-layout-admin.collapsed .layui-side-title {
+  display: none;
+}
+.layui-layout-admin.collapsed .layui-side-hamburger-close {
+  display: none;
+}
+.layui-layout-admin.collapsed .layui-side-hamburger-open {
+  background: url(../img/sidebar-open.png) no-repeat center;
+  background-color: #EFEFEF;
+  top: 0;
+  width: 30px;
+  height: 30px;
+  left: 0;
+  position: absolute;
+  cursor: pointer;
+  display: block;
+  transition: position .5s ease;
+}
+/* Scanner toolbar */
+.scanner-toolbar {
+  height: 50px;
+  padding: 0 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #E5E5E5;
+}
+.scanner-toolbar .action-button__wrapper {
+  height: 36px;
+  line-height: 36px;
+  margin: 7px;
+  float: left;
+  cursor: pointer;
+}
+
+.scanner-toolbar .action-button__wrapper:hover {
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  behavior: url(ie-css3.htc);
+}
+
+.scanner-toolbar .action-button__wrapper span.action-text {
+  margin-right: 5px;
+}
+.scanner-toolbar .action-button__wrapper i {
+  display: block;
+  float: left;
+  width: 36px;
+  height: 36px;
+  background-position: center;
+}
+.scanner-toolbar i.action-start {
+  background-image: url(../img/scanner/start.png)
+}
+.scanner-toolbar i.action-scan {
+  background-image: url(../img/scanner/scan.png)
+}
+.scanner-toolbar i.action-merge {
+  background-image: url(../img/scanner/merge.png)
+}
+.scanner-toolbar i.action-upload {
+  background-image: url(../img/scanner/upload.png)
+}
+.scanner-toolbar i.action-setting {
+  background-image: url(../img/scanner/setting.png)
+}
+
+/* Scanner Ocx */
+.scanner-iframe-wrapper {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  right: 50%;
+  bottom: 0;
+}
+
+.scanner-iframe-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 10px;
+  bottom: 20px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+}
+
+/* Scanner Image-preview */
+.scanner-preview-wrapper {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  left: 50%;
+  bottom: 0;
+}
+
+.scanner-preview-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  bottom: 20px;
+  left: 10px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+}
