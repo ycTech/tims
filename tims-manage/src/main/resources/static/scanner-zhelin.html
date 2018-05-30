@@ -1,14 +1,63 @@
 <link rel="stylesheet" href="./css/scanner-zhelin.css">
 
-<div class="scanner-wrapper scanner-zhelin">
-  <div class="ocx-wrapper">
-    <object id="Capture" wmode="transparent" type="application/ZCaptureVideo" style="position: absolute; width: 100%; height: 100%; z-index:1;">
-    </object>
+<div class="scanner-iframe-wrapper">
+  <div class="scanner-iframe-container scanner-zhelin">
+    <div class="ocx-top-toolbar">
+        <label for="rgFileType">保存格式</label>
+        <select id="rgFileType" name="rgFileType" onclick="SetFileType(rgFileType.value)">
+          <option value="0" selected="selected">jpg</option>
+          <option value="1">bmp</option>
+          <option value="2">png</option>
+        </select>
+        <label for="rgColorMode">色彩模式</label>
+        <select id="rgColorMode" name="rgColorMode" onclick="SetColorMode(rgColorMode.value)">
+          <option value="0" selected="selected">彩色</option>
+          <option value="1">灰度</option>
+          <option value="2">黑白</option>
+        </select>
+        <label for="rgCutPageType">切边方式</label>
+        <select id="rgCutPageType" name="rgCutPageType" onclick="SetCutPageType(rgCutPageType.value)">
+          <option value="0">不切边</option>
+          <option value="1" selected="selected">自动切边</option>
+          <option value="2">自定义切边</option>
+          <option value="3">人像切边</option>
+          <option value="4">人像即时出图</option>
+        </select>
+    </div>
+    <div class="ocx-wrapper">
+      <object id="Capture" wmode="transparent" type="application/ZCaptureVideo" style="position: absolute; width: 100%; height: 100%; z-index:1;">
+      </object>
+    </div>
+    <div class="ocx-bottom-toolbar">
+        <div class="rotation-action" onclick="SetDeviceRotation(0)">
+          <div class="rotation-img rotation-0"></div>
+          <div class="rotation-title">
+            还原默认
+          </div>
+        </div>
+        <div class="rotation-action" onclick="SetDeviceRotation(270)">
+          <div class="rotation-img rotation-270"></div>
+          <div class="rotation-title">
+            左转90度
+          </div>
+        </div>
+        <div class="rotation-action" onclick="SetDeviceRotation(90)">
+          <div class="rotation-img rotation-90"></div>
+          <div class="rotation-title">
+            右转90度
+          </div>
+        </div>
+        <div class="rotation-action" onclick="SetDeviceRotation(180)">
+          <div class="rotation-img rotation-180"></div>
+          <div class="rotation-title">
+            旋转180度
+          </div>
+        </div>
+    </div>
   </div>
-  <div class="image-preview__wrapper">
-  </div>
-  <div class="scanner-setting__wrapper" style="display: none;">
-
+</div>
+<div class="scanner-setting-wrapper" style="display: none;">
+  <div class="scanner-setting-container">
     <form >
       <div>
         <button type="button" class="btn btn-primary" onclick="StartDevice(CammeraType.value)">打开</button>
@@ -39,22 +88,6 @@
           </select>
         </div>
       </div>
-      <!-- <div class="form-group">
-          <label for="checkMultiSource" class="control-label">标记为多页源</label>
-          <input
-            type="checkbox"
-            name="checkMultiSource"
-            id="checkMultiSource"
-          >
-          <button
-            id="btnMakeMultiPage"
-            name="btnMakeMultiPage"
-            type="button"
-            class="btn btn-primary"
-            onclick="BtnCreateMultiPageFile()">
-            生成
-          </button>
-        </div> -->
       <div>
         <label for="rgFileType">保存格式</label>
         <div>
@@ -62,8 +95,6 @@
             <option value="0" selected="selected">jpg</option>
             <option value="1">bmp</option>
             <option value="2">png</option>
-            <!-- <option value="3">tif</option>
-              <option value="4">pdf</option> -->
           </select>
         </div>
       </div>
@@ -115,10 +146,8 @@
         </button>
       </div>
     </form>
-
     <div class="text-center" style="margin-top: 15px;">
-      <button type="button" class="btn btn-danger" onclick="onCloseConfig()">关闭</button>
-      <button type="button" class="btn btn-primary" onclick="onSaveScannerConfigZhelin()">确定</button>
+      <button type="button" class="btn btn-default" onclick="onCloseConfig()">关闭</button>
     </div>
   </div>
 </div>

@@ -117,6 +117,34 @@ html, body {
   display: block;
   transition: position .5s ease;
 }
+
+.timsicon {
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.jstree-default .jstree-themeicon-custom.timsicon-file-excel {
+  background-image: url(../img/file-excel.png)
+}
+.jstree-default .jstree-themeicon-custom.timsicon-file-image {
+  background-image: url(../img/file-image.png);
+}
+.jstree-default .jstree-themeicon-custom.timsicon-file-pdf {
+  background-image: url(../img/file-pdf.png);
+}
+.jstree-default .jstree-themeicon-custom.timsicon-file-ppt {
+  background-image: url(../img/file-ppt.png);
+}
+.jstree-default .jstree-themeicon-custom.timsicon-file-word {
+  background-image: url(../img/file-word.png);
+}
+.jstree-default .jstree-open .jstree-themeicon-custom.timsicon-folder {
+  background-image: url(../img/folder-open.png);
+}
+.jstree-default .jstree-closed .jstree-themeicon-custom.timsicon-folder {
+  background-image: url(../img/folder-close.png);
+}
+
 /* Scanner toolbar */
 .scanner-toolbar {
   height: 50px;
@@ -165,6 +193,76 @@ html, body {
 }
 
 /* Scanner Ocx */
+.ocx-top-toolbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  line-height: 40px;
+  background-color: #EEE;
+}
+.ocx-top-toolbar label {
+  font-size: 12px;
+  color: #666;
+  line-height: 40px;
+  vertical-align: middle;
+  margin: 0;
+  margin-left: 15px;
+}
+.ocx-top-toolbar select {
+  line-height: 40px;
+  vertical-align: middle;
+  margin: 0;
+}
+.ocx-bottom-toolbar button.btn {
+  height: 34px;
+  margin-top: 13px;
+  margin-left: 10px;
+}
+.ocx-wrapper {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  bottom: 60px;
+  left: 0;
+}
+.ocx-bottom-toolbar {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 60px;
+  padding: 0 10px;
+  background: url(../img/black-opacity-50.png);
+}
+.ocx-bottom-toolbar .rotation-action {
+  cursor: pointer;
+  color: #f2f2f2;
+  float: left;
+  height: 60px;
+  padding-top: 5px;
+  vertical-align: bottom;
+  font-size: 12px;
+  margin: 0 10px;
+}
+.ocx-bottom-toolbar .rotation-img {
+  height: 30px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.ocx-bottom-toolbar .rotation-0 {
+  background-image: url(../img/preview/turn-0.png)
+}
+.ocx-bottom-toolbar .rotation-90 {
+  background-image: url(../img/preview/turn-90.png)
+}
+.ocx-bottom-toolbar .rotation-180 {
+  background-image: url(../img/preview/turn-180.png)
+}
+.ocx-bottom-toolbar .rotation-270 {
+  background-image: url(../img/preview/turn-270.png)
+}
 .scanner-iframe-wrapper {
   position: absolute;
   top: 50px;
@@ -184,15 +282,14 @@ html, body {
 }
 
 /* Scanner Image-preview */
-.scanner-preview-wrapper {
+.scanner-preview-wrapper, .scanner-setting-wrapper {
   position: absolute;
   top: 50px;
   right: 0;
   left: 50%;
   bottom: 0;
 }
-
-.scanner-preview-container {
+.scanner-preview-container, .scanner-setting-container{
   position: absolute;
   top: 20px;
   right: 20px;
@@ -202,29 +299,63 @@ html, body {
   background-color: #fff;
 }
 
-.timsicon {
-  background-repeat: no-repeat;
-  background-position: center;
+.scanner-preview-container {
+  border: 0;
+  background-color: #f5f5f5;
 }
 
-.jstree-default .jstree-themeicon-custom.timsicon-file-excel {
-  background-image: url(../img/file-excel.png)
+.scanner-setting-container {
+  padding: 20px;
+  overflow: auto;
 }
-.jstree-default .jstree-themeicon-custom.timsicon-file-image {
-  background-image: url(../img/file-image.png);
+
+.image-preview__wrapper {
+  border: 1px solid #ddd;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 110px;
+  background-color: #fff;
 }
-.jstree-default .jstree-themeicon-custom.timsicon-file-pdf {
-  background-image: url(../img/file-pdf.png);
+.image-preview-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  text-align: center;
+  vertical-align: middle;
 }
-.jstree-default .jstree-themeicon-custom.timsicon-file-ppt {
-  background-image: url(../img/file-ppt.png);
+
+.scanner-preview-wrapper .image-thumbnails-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  background-color: #f5f5f5;
 }
-.jstree-default .jstree-themeicon-custom.timsicon-file-word {
-  background-image: url(../img/file-word.png);
+.scanner-preview-wrapper .image-thumbnails {
+  height: 90px;
 }
-.jstree-default .jstree-open .jstree-themeicon-custom.timsicon-folder {
-  background-image: url(../img/folder-open.png);
+.scanner-preview-wrapper .image-thumbnail-wrapper.current-iamge, 
+.scanner-preview-wrapper .image-thumbnail-wrapper:hover {
+  border: 1px solid #2D8CF0;
 }
-.jstree-default .jstree-closed .jstree-themeicon-custom.timsicon-folder {
-  background-image: url(../img/folder-close.png);
+.scanner-preview-wrapper .image-thumbnail-wrapper {
+  width: 70px;
+  height: 70px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  margin: 10px 5px;
+  cursor: pointer;
+  float: left;
+}
+
+.scanner-preview-wrapper .image-thumbnail-wrapper.image-thumbnail-default{
+  cursor: unset;
+  background:url(../img/no-image.png) no-repeat center;
 }

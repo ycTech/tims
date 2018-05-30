@@ -331,17 +331,17 @@ function onCloseConfig () {
 
 // 切换设备配置面板
 function toggleScannerConfigPanel () {
-  $('.image-preview__wrapper,.scanner-setting__wrapper').toggle()
+  $('.scanner-preview-wrapper,.scanner-setting-wrapper').toggle()
 }
 // 显示图片预览
 function showImagePreviewPanel () {
-  $('.image-preview__wrapper').show()
-  $('.scanner-setting__wrapper').hide()
+  $('.scanner-preview-wrapper').show()
+  $('.scanner-setting-wrapper').hide()
 }
 // 显示扫描设备配置项
 function showScannerConfig () {
-  $('.image-preview__wrapper').hide()
-  $('.scanner-setting__wrapper').show()
+  $('.scanner-preview-wrapper').hide()
+  $('.scanner-setting-wrapper').show()
 }
 
 // 监听设备类型改变事件
@@ -355,11 +355,12 @@ function onDeviceTypeChange () {
 
 // 加载设备对应HTML
 function loadDeviceHtml (deviceType) {
-    try {
-      ScannerOcx.close()
-    } catch (error) {}
-    store.set('scannerType', deviceType)
-  $('.layui-nav-item.selected-device-name').html(ScannerTypeMap[deviceType].name)
+  store.set('scannerType', deviceType)
+  $('.layui-nav-static-item.selected-device-name').html(ScannerTypeMap[deviceType].name)
+  try {
+    ScannerOcx.close()
+  } catch (error) {
+  }
   loadHtml(ScannerTypeMap[deviceType].url)
 }
 
@@ -377,6 +378,23 @@ function loadHtml (htmlPath) {
     }, 100)
   })
 }
+
+// 测试图片预览
+// setTimeout(function() {
+//   var url = 'http://www.histudy.com/static/klxx/widget/web/business/daxiaoban/xm/images/teacher-1_4673a5b.jpg'
+//   var url2 = 'http://www.histudy.com/static/klxx/widget/web/business/daxiaoban/xm/images/teacher-2_601585a.jpg'
+//   AddImagePreview(url, url)
+//   AddImagePreview(url2, url2)
+//   AddImagePreview(url, url)
+//   AddImagePreview(url2, url2)
+//   AddImagePreview(url2, url2)
+//   AddImagePreview(url, url)
+//   AddImagePreview(url2, url2)
+//   AddImagePreview(url, url)
+//   AddImagePreview(url2, url2)
+//   AddImagePreview(url, url)
+// }, 800);
+
 function AddImagePreview (fileUrl, thumbImageUrl) {
   var $imageThumb = $('<img/>').attr({
     src: thumbImageUrl,
@@ -388,6 +406,9 @@ function AddImagePreview (fileUrl, thumbImageUrl) {
     var contentH = $('.image-preview__wrapper').height()
     var imgW = $imgThumb.attr('img-w')
     var imgH = $imgThumb.attr('img-h')
+
+    $('.image-thumbnail-wrapper').removeClass('current-iamge')
+    $imgThumb.parent().addClass('current-iamge')
 
     var $imagePreview = $('<img/>')
       .attr('src', src)
@@ -439,6 +460,10 @@ function AddImagePreview (fileUrl, thumbImageUrl) {
       $imageThumb.css('height', 'auto')
       $imageThumb.css('width', '100%')
     }
+    var imageThumbnailsWidth = $('.scanner-preview-wrapper .image-thumbnails .image-thumbnail-wrapper').length;
+    $('.scanner-preview-wrapper .image-thumbnails').css({
+      width: (imageThumbnailsWidth - 1) * 80 + 'px'
+    })
   }, 100)
 }
 function isBrowserSupport () {

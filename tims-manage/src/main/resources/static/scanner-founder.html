@@ -1,26 +1,52 @@
 <link rel="stylesheet" href="./css/scanner-founder.css">
 
-<div class="scanner-wrapper scanner-founder">
-  <div class="ocx-wrapper">
-    <object id="FScanX" wmode="transparent" classid="clsid:9134F6A9-1FF8-420F-9E9E-DDD374C19715" style="position: relative; width:100%; height:100%;z-index:0;">
-      <param name="wmode" value="transparent" />
-    </object>
-
+<div class="scanner-iframe-wrapper">
+  <div class="scanner-iframe-container scanner-founder">
+    <div class="ocx-top-toolbar">
+      <label for="SourceType">扫描方式</label>
+      <select id="SourceType" name="SourceType">
+        <option value="0">平板</option>
+        <option value="1">ADF正面</option>
+        <option value="2">ADF双面</option>
+      </select>
+      <label for="PixelType">色彩模式</label>
+      <select id="PixelType" name="PixelType">
+        <option value="0">黑白</option>
+        <option value="1">灰阶</option>
+        <option value="2">彩色</option>
+      </select>
+      <label for="ImageFormat">图像格式</label>
+      <select id="ImageFormat">
+        <option value="0">bmp</option>
+        <option value="1" selected="selected">jpg</option>
+        <option value="2">单页tif</option>
+        <option value="3">单页pdf</option>
+        <option value="4">多页pdf</option>
+      </select>
+    </div>
+    <div class="ocx-wrapper">
+      <object id="FScanX" wmode="transparent" classid="clsid:9134F6A9-1FF8-420F-9E9E-DDD374C19715" style="position: relative; width:100%; height:100%;z-index:0;">
+        <param name="wmode" value="transparent" />
+      </object>
+  
+    </div>
+    <!-- <div class="scanner-toolbar">
+      <button class="btn btn-primary" onclick="ScanAdd()">添加扫描</button>
+      <button class="btn btn-default" onclick="ScanIns()">插入扫描</button>
+      <button class="btn btn-default" onclick="SaveAsPDF()">保存为PDF</button>
+      <button class="btn btn-danger" onclick="DelOneImg()">删除选中页</button>
+      <button class="btn btn-danger" onclick="DelAllImg()">删除所有页</button>
+      <button class="btn btn-primary" onclick="GetSN()">获取SN</button>
+      <button class="btn btn-primary" onclick="HttpSendFileEx()">上传</button>
+    </div> -->
+    <div class="ocx-bottom-toolbar">
+      <button class="btn btn-default" onclick="ScanAdd()">添加扫描</button>
+      <button class="btn btn-default" onclick="ScanIns()">插入扫描</button>
+    </div>
   </div>
-  <div class="scanner-toolbar">
-    <button class="btn btn-primary" onclick="ScanAdd()">添加扫描</button>
-    <button class="btn btn-default" onclick="ScanIns()">插入扫描</button>
-    <button class="btn btn-default" onclick="SaveAsPDF()">保存为PDF</button>
-    <button class="btn btn-danger" onclick="DelOneImg()">删除选中页</button>
-    <button class="btn btn-danger" onclick="DelAllImg()">删除所有页</button>
-    <!-- <button class="btn btn-primary" onclick="GetSN()">获取SN</button> -->
-    <!-- <button class="btn btn-primary" onclick="HttpSendFileEx()">上传</button> -->
-  </div>
-  <div class="image-preview__wrapper">
-  </div>
-
-
-  <div class="scanner-setting__wrapper container-fluid" style="display: none;">
+</div>
+<div class="scanner-setting-wrapper" style="display: none;">
+  <div class="scanner-setting-container">
     <form class="form-inline" role="form" id="FounderScanner" name="FounderScanner">
       <div class="form-group">
         <label for="ScannerName">选择扫描仪</label>
@@ -133,7 +159,7 @@
           </select>
         </div>
       </fieldset>
-
+  
       <!-- <button style="display:none;" type="button" class="btn btn-primary" onclick="Scan();">扫描</button>
       <div class="form-group">
         <label for="ScanImageCount">
@@ -156,10 +182,9 @@
         <textarea class="form-control" rows="3" cols="100" id="ImageBase64" style="width:440px"></textarea>
       </div> -->
     </form>
-<!-- 
-    <div class="text-center">
+    <div class="text-center" style="margin-top: 15px;">
       <button type="button" class="btn btn-default" onclick="onCloseConfig()">关闭</button>
-    </div> -->
+    </div>
   </div>
 </div>
 <script src="./js/scanner-founder.js"></script>
