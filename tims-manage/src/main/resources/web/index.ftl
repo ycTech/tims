@@ -15,9 +15,6 @@
 <body class="layui-layout-body">
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
-            <#--  <div class="menu-hamburger" onclick="toggleSidebar()">
-                <i class="glyphicon glyphicon-menu-hamburger"></i>
-            </div>  -->
             <div class="layui-logo">
                 影像扫描系统
             </div>

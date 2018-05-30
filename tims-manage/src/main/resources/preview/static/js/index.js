@@ -20,21 +20,12 @@ $(function () {
             margin: '0 15px'
         })
     }
-    // $('li.file-item').on('click', function() {
-    //     console.log('on click')
-    //     var srcPrefix = '/onlinePreview?url='
-    //     var fileUrl = $('span' ,$(this)).attr('data-url')
-    //     console.log($('span', $(this)))
-    //     console.log(fileUrl)
-    //     $('#file-preview__iframe')
-    //     .attr('src', srcPrefix + fileUrl)
-    // })
 
-    $('.layui-footer .prev-file').on('click', function () {
+    $('.file-preview-toolbar .prev-file').on('click', function () {
         showPrevFile()
     })
 
-    $('.layui-footer .next-file').on('click', function () {
+    $('.file-preview-toolbar .next-file').on('click', function () {
         showNextFile()
     })
 
@@ -131,12 +122,43 @@ function parseTreeData(treeArray) {
             opened: true
         }
         if (item.children && item.children.length > 0) {
-            item.icon = 'glyphicon glyphicon-folder-open'
+            item.icon = 'timsicon timsicon-folder';
+            item.li_attr = item.li_attr || {}
+            item.li_attr.path = item.path
             item.children = parseTreeData(item.children)
         } else {
-            item.icon = 'glyphicon glyphicon-file'
-            item.li_attr = {
-                fileUrl: item.url
+            if (item.isFolder == 'y') {
+                item.icon = 'timsicon timsicon-folder';
+                item.li_attr = {
+                path: item.path
+                }
+            } else {
+                var suffix = item.name.split('.').pop()
+                switch (suffix) {
+                    case 'jpg':
+                    case 'gif':
+                    case 'png':
+                        item.icon = 'timsicon timsicon-file-image'
+                        break
+                    case 'pdf':
+                        item.icon = 'timsicon timsicon-file-pdf'
+                        break
+                    case 'wps':
+                    case 'doc':
+                        item.icon = 'timsicon timsicon-file-word'
+                        break
+                    case 'xls':
+                    case 'xlsx':
+                        item.icon = 'timsicon timsicon-file-excel'
+                        break
+                    default:
+                        item.icon = 'timsicon timsicon-file-pdf'
+                        break
+                }
+                item.li_attr = {
+                    fileUrl: item.url,
+                    path: item.path
+                }
             }
         }
     }

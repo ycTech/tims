@@ -73,12 +73,17 @@
       </ul>
     </div>
     <div class="layui-side">
-      <div class="layui-side-header relative">
-        <span class="layui-side-title">单据文件列表</span>
-        <div class="layui-side-hamburger-close" onclick="toggleSidebar()"></div>
-        <div class="layui-side-hamburger-open" onclick="toggleSidebar()"></div>
-      </div>
-      <div id="jstree">
+      <div class="layui-side-scroll">
+        <div class="layui-side-header relative">
+          <span class="layui-side-title">单据文件列表</span>
+          <div class="layui-side-hamburger-close" onclick="toggleSidebar()"></div>
+          <div class="layui-side-hamburger-open" onclick="toggleSidebar()"></div>
+        </div>
+        <div
+          id="jstree"
+          style="overflow-x: auto;overflow-y: hidden;position: absolute;top: 30px;left: 0;right: 0;bottom: 0;"
+         >
+        </div>
       </div>
     </div>
     <div class="layui-body">

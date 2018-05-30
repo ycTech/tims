@@ -274,13 +274,13 @@ function initJsTree () {
         }
       }
       if (item.children && item.children.length > 0) {
-        item.icon = 'glyphicon glyphicon-folder-open';
+        item.icon = 'timsicon timsicon-folder';
         item.li_attr = item.li_attr || {}
         item.li_attr.path = item.path
         item.children = parseTreeData(item.children)
       } else {
         if (item.isFolder == 'y') {
-          item.icon = 'glyphicon glyphicon-folder-open';
+          item.icon = 'timsicon timsicon-folder';
           item.li_attr = {
             path: item.path
           }
@@ -289,36 +289,23 @@ function initJsTree () {
           switch (suffix) {
               case 'jpg':
               case 'gif':
-                  item.icon = 'iconfont icon-filepicture'
-                  break
               case 'png':
-                  item.icon = 'iconfont icon-geshi_tupianpng'
+                  item.icon = 'timsicon timsicon-file-image'
                   break
               case 'pdf':
-                  item.icon = 'iconfont icon-pdf1'
+                  item.icon = 'timsicon timsicon-file-pdf'
                   break
               case 'wps':
               case 'doc':
-                  item.icon = 'iconfont icon-icondoc'
-                  break
-              case 'docx':
-                  item.icon = 'iconfont icon-geshi_wendangdocx'
+                  item.icon = 'timsicon timsicon-file-word'
                   break
               case 'xls':
               case 'xlsx':
-                  item.icon = 'iconfont icon-excelbangongruanjianbiaoge'
+                  item.icon = 'timsicon timsicon-file-excel'
                   break
               default:
-                  item.icon = 'glyphicon glyphicon-file'
+                  item.icon = 'timsicon timsicon-file-pdf'
                   break
-          }
-          var IEVersion = CheckIEVersion()
-          if (IEVersion == 8) {
-              if (suffix == 'jpg' || suffix == 'png' || suffix == 'gif') {
-                  item.icon = 'glyphicon glyphicon-picture'
-              } else {
-                  item.icon = 'glyphicon glyphicon-file'
-              }
           }
           item.state = {
             disabled: true,

@@ -201,3 +201,30 @@ html, body {
   border: 1px solid #ddd;
   background-color: #fff;
 }
+
+.timsicon {
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.jstree-default .jstree-themeicon-custom.timsicon-file-excel {
+  background-image: url(../img/file-excel.png)
+}
+.jstree-default .jstree-themeicon-custom.timsicon-file-image {
+  background-image: url(../img/file-image.png);
+}
+.jstree-default .jstree-themeicon-custom.timsicon-file-pdf {
+  background-image: url(../img/file-pdf.png);
+}
+.jstree-default .jstree-themeicon-custom.timsicon-file-ppt {
+  background-image: url(../img/file-ppt.png);
+}
+.jstree-default .jstree-themeicon-custom.timsicon-file-word {
+  background-image: url(../img/file-word.png);
+}
+.jstree-default .jstree-open .jstree-themeicon-custom.timsicon-folder {
+  background-image: url(../img/folder-open.png);
+}
+.jstree-default .jstree-closed .jstree-themeicon-custom.timsicon-folder {
+  background-image: url(../img/folder-close.png);
+}
