@@ -521,5 +521,6 @@ function toggleSidebar () {
 function hrefToPreview () {
   var hostname = window.location.hostname;
   var search = window.location.search;
-  window.location.href=('http://' + hostname + ':10060/preview' +  search)
+  var port = window.location.port;
+  window.location.href=('http://' + hostname + ':' + port + '/preview' +  search)
 }

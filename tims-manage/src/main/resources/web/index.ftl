@@ -37,7 +37,7 @@
                     <div class="layui-side-hamburger-close" onclick="toggleSidebar()"></div>
                     <div class="layui-side-hamburger-open" onclick="toggleSidebar()"></div>
                 </div>
-                <div id="jstree" style="overflow-x: auto; overflow-y: hidden; position: absolute;top:30px; left: 0; right: 0;bottom: 0;"></div>
+                <div id="jstree" style="overflow-x: auto; overflow-y: auto; position: absolute;top:30px; left: 0; right: 0;bottom: 0;"></div>
             </div>
         </div>
 

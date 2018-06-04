@@ -85,8 +85,9 @@ function showNextFile () {
         layer.msg('没有更多文件了！')
         return false
     }
-    var nextFileId = g_fileList[idx].filePath + '/' + g_fileList[idx].imageName
+    var nextFileId = g_fileList[idx].filePath
     var el = document.getElementById(nextFileId + '_anchor')
+    g_curFileId = nextFileId
     $(el).click()
 }
 
@@ -100,14 +101,15 @@ function showPrevFile () {
         layer.msg('已经是第一个文件了！')
         return false
     }
-    var prevFileId = g_fileList[idx].filePath + '/' + g_fileList[idx].imageName
+    var prevFileId = g_fileList[idx].filePath
     var el = document.getElementById(prevFileId + '_anchor')
+    g_curFileId = prevFileId
     $(el).click()
 }
 
 function getIndexOfFileList (fileList, fileId) {
     for (var i = 0; i < fileList.length; i ++) {
-        if (fileList[i].filePath + '/' + fileList[i].imageName == fileId) {
+        if (fileList[i].filePath == fileId) {
             return i
         }
     }
@@ -179,5 +181,6 @@ function getQueryString(name) {
 function hrefToScanner() {
     var hostname = window.location.hostname
     var search = window.location.search
-    window.location.href=('http://' + hostname + ':10060/scanner-index.html' +  search)
+    var port = window.location.port
+    window.location.href=('http://' + hostname + ':' + port + ':/scanner-index.html' +  search)
 }
