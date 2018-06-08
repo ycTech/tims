@@ -58,6 +58,7 @@ function getTreeData() {
                 }
                 var fileUrl = data.node.li_attr.fileUrl
                 g_curFileId = data.node.id
+                $('#preview-filename').html(data.node.text)
                 setPreviewIframeSrc(fileUrl)
             })
             $('#jstree').on('ready.jstree', function (e, data) {

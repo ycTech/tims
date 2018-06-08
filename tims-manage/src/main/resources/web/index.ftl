@@ -42,7 +42,7 @@
         </div>
 
         <div class="layui-body">
-            <div class="file-preview-toolbar">
+            <div class="file-preview-toolbar text-center">
                 <div class="pull-left prev-file" style="cursor: pointer; line-height: 44px;">
                     <i class="layui-icon">&#xe603;</i>
                     <span>
@@ -55,6 +55,7 @@
                     </span>
                     <i class="layui-icon">&#xe602;</i>
                 </div>
+                <div id="preview-filename" style="line-height: 50px;" class="text-center"></div>
             </div>
             <div class="file-preview__wrapper">
                 <div class="file-preview__main">
