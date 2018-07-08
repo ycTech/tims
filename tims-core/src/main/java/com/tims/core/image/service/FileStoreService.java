@@ -29,6 +29,10 @@ public class FileStoreService {
         fileStoreRepository.savefileStore(fileStore);
     }
 
+    public void updateImageInfo(FileStore fileStore){
+        fileStoreRepository.updateFileStore(fileStore);
+    }
+
     public List<FileStore> queryUrlByPath(UploadQo uploadQo) throws Exception {
         List<FileStore> fileStoreList=fileStoreRepository.queryFileStore(uploadQo);
         return fileStoreList;

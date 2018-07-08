@@ -39,7 +39,7 @@
         </rollingPolicy>
     </appender>
 
-    <logger name="com.klxx.tc.manage" level="${logging.level}">
+    <logger name="com.tims.manage" level="${logging.level}">
         <appender-ref ref="TC-MANAGE" />
     </logger>
     <root level="INFO">

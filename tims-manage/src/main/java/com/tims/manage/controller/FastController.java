@@ -8,6 +8,8 @@ import com.tims.facade.dfs.qo.UploadQo;
 import com.tims.manage.fast.FastDFSClientWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
@@ -22,6 +24,9 @@ import java.util.Map;
 @RestController
 @RequestMapping("/fast")
 public class FastController extends BaseController {
+
+    private Logger log= LoggerFactory.getLogger(FastController.class);
+
     @Autowired
     private FastDFSClientWrapper dfsClient;
     @Autowired
@@ -55,9 +60,11 @@ public class FastController extends BaseController {
     public ResultVo uploadBase64(@RequestBody UploadQo uploadQo) throws Exception {
 //        Assert.hasText(uploadQo.getPath(), "参数：目录不能为空！");
 //        Assert.hasText(uploadQo.getUserCode(), "参数：制单人不能为空！");
+
         uploadQo.setIsTransfer("Y");
         String fileUrl= dfsClient.uploadFile(uploadQo.getImageBase64(),uploadQo.getImageName());
         uploadQo.setImageUrl(fileUrl);
+        log.debug("是否上传文件:"+uploadQo.getIsTransfer());
         fileStoreApiService.saveFileStore(uploadQo);
         return ResultUtil.success(fileUrl);
     }

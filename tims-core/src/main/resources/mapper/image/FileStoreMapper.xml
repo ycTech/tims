@@ -58,7 +58,27 @@
       <if test="uploadQo.imageName!=null and uploadQo.imageName!=''">
           and file_name=#{uploadQo.imageName}
       </if>
+      order by file_path
     </select>
+
+    <update id="updateFileStore" parameterType="com.tims.facade.domain.FileStore">
+        update file_store
+        <set>
+            <if test="billNo!=null and billNo!=''">
+                bill_no=#{billNo},
+            </if>
+            <if test="billId!=null and billId!=''">
+                bill_id=#{billId},
+            </if>
+            <if test="billType!=null and billType!=''">
+                bill_type=#{billType},
+            </if>
+            <if test="url!=null and url!=''">
+                url=#{url}
+            </if>
+        </set>
+        WHERE  file_path=#{filePath}
+    </update>
 
     <select id="queryFileList" resultType="com.tims.facade.domain.FileStore">
         select
@@ -73,10 +93,10 @@
         <if test="fileStore.billNo!=null and fileStore.billNo!=''">
             and bill_no=#{fileStore.billNo}
         </if>
+
         <if test="fileStore.billId!=null and fileStore.billId!=''">
             and bill_id=#{fileStore.billId}
-        </if>
-        <if test="fileStore.billType!=null and fileStore.billType!=''">
+        </if>        <if test="fileStore.billType!=null and fileStore.billType!=''">
             and bill_type=#{fileStore.billType}
         </if>
         <if test="fileStore.filePath!=null and fileStore.filePath!=''">

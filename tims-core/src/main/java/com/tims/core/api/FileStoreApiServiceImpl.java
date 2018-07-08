@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -46,7 +47,15 @@ public class FileStoreApiServiceImpl implements FileStoreApiService {
         fileStore.setIsFolder(uploadQos.getIsFolder());
         fileStore.setFileSize(uploadQos.getFileSize());
         fileStore.setIsDelete("0");
-        fileStoreService.saveImageInfo(fileStore);
+        UploadQo uploadQo=new UploadQo();
+        uploadQo.setPath(fileStore.getFilePath());
+        List<FileStore> fileStoreList=fileStoreService.queryUrlByPath(uploadQo);
+        if(CollectionUtils.isEmpty(fileStoreList)){
+            fileStoreService.saveImageInfo(fileStore);
+        }else{
+            fileStoreService.updateImageInfo(fileStore);
+            uploadQos.setIsTransfer("N");
+        }
         if("Y".equals(uploadQos.getIsTransfer())){
             Map<String, Object> params02 = new HashMap<>();
             params02.put("isFloder", uploadQos.getIsFolder());
@@ -62,9 +71,8 @@ public class FileStoreApiServiceImpl implements FileStoreApiService {
             if(url==null){
                 url="http://10.188.183.85/YCRestfulService/rest/webnc2/file/dopost/";
             }
-            log.info("请求的参数:"+url);
-            String responseContent = HttpClientUtil.getInstance()
-                    .sendHttpPost(url+""+"?param="+param);
+            log.info("请求的参数:"+url+"~"+param);
+            String responseContent = HttpClientUtil.getInstance().sendHttpPost(url+""+"?param="+param);
             log.info("请求的结果reponse content:" + responseContent);
         }
     }

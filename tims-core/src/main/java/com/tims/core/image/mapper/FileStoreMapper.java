@@ -21,6 +21,8 @@ public interface FileStoreMapper {
      */
     public void saveFileStore(FileStore fileStore);
 
+    public void updateFileStore(FileStore fileStore);
+
     /**
      * 查询文件存储信息
      * @param uploadQo

@@ -79,6 +79,38 @@ public class SmPubFileController extends BaseController {
         return ResultUtil.success(fileUrl);
     }
 
+    @ApiOperation(value = "上传文件到NC")
+    @RequestMapping(value = "/upload/nc", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultVo uploadToNc(@RequestParam(value="file",required=false)MultipartFile file,
+                           @RequestParam(value = "userCode",required=false) String userCode,
+                           @RequestParam(value = "billType",required=false) String billType,
+                           @RequestParam(value = "billId",required=false) String billId,
+                           @RequestParam(value = "billNo",required=false) String billNo,
+                           @RequestParam(value = "path",required=true) String path,
+                           @RequestParam(value = "isFolder",required=false) String isFolder
+    ) throws Exception {
+        String fileUrl=null;
+        if(file!=null) {
+            fileUrl = dfsClient.uploadFile(file);
+        }
+        UploadQo uploadQos=new UploadQo();
+        uploadQos.setBillNo(billNo);
+        uploadQos.setBillType(billType);
+        uploadQos.setBillId(billId);
+        uploadQos.setUserCode(userCode);
+        uploadQos.setPath(URLDecoder.decode(path,"UTF-8"));
+        uploadQos.setIsFolder("n");
+        uploadQos.setImageUrl(fileUrl);
+        if(file!=null){
+            uploadQos.setFileSize(String.valueOf(file.getSize()));
+            uploadQos.setImageName(URLDecoder.decode(file.getOriginalFilename(),"UTF-8"));
+        }
+        uploadQos.setIsTransfer("Y");
+        fileStoreApiService.saveFileStore(uploadQos);
+        return ResultUtil.success(fileUrl);
+    }
+
 
     @ApiOperation(value = "删除文件")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)

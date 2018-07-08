@@ -12,6 +12,8 @@ import org.apache.http.util.EntityUtils;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -75,7 +77,7 @@ public class HttpClient {
                 sb1.append(BOUNDARY);
                 sb1.append(LINEND);
                 // name是post中传参的键 filename是文件的名称
-                sb1.append("Content-Disposition: form-data; name=\"file\"; filename=\"" + file.getKey() + "\"" + LINEND);
+                sb1.append("Content-Disposition: form-data; name=\"file\"; filename=\"" + file.getKey()  + "\"" + LINEND);
                 sb1.append("Content-Type: application/octet-stream; charset=" + CHARSET + LINEND);
                 sb1.append(LINEND);
                 outStream.write(sb1.toString().getBytes());
@@ -118,38 +120,38 @@ public class HttpClient {
 
 
 
-    /** 
+    /**
       * HTTP Post 获取内容
-      * @return 页面内容 
-      * @throws IOException  
-      * @throws ClientProtocolException  
-      */  
-              
+      * @return 页面内容
+      * @throws IOException
+      * @throws ClientProtocolException
+      */
+
     public static String sendPost(String url, String params) throws ClientProtocolException, IOException {
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
         HttpPost httpPost = new HttpPost(url);
-        httpPost.addHeader("Content-type","application/json; charset=utf-8");  
+        httpPost.addHeader("Content-type","application/json; charset=utf-8");
         httpPost.setHeader("Accept", "application/json");
 
         StringEntity entity = new StringEntity(params, CHARSET);
-        httpPost.setEntity(entity);     
+        httpPost.setEntity(entity);
         CloseableHttpResponse response = httpClient.execute(httpPost);
-        int statusCode = response.getStatusLine().getStatusCode();  
-        if (statusCode != 200) {  
-            httpPost.abort();  
-            throw new RuntimeException("HttpClient,error status code :" + statusCode);  
-        }  
+        int statusCode = response.getStatusLine().getStatusCode();
+        if (statusCode != 200) {
+            httpPost.abort();
+            throw new RuntimeException("HttpClient,error status code :" + statusCode);
+        }
         HttpEntity responseEntity = response.getEntity();
-        String result = null;  
+        String result = null;
         if (responseEntity != null) {
             result = EntityUtils.toString(responseEntity, "utf-8");
-            EntityUtils.consume(entity);  
-            response.close();  
-            return result;  
-        }else{  
-             return null;  
-        }  
+            EntityUtils.consume(entity);
+            response.close();
+            return result;
+        }else{
+             return null;
+        }
     }
 
     /**
@@ -232,7 +234,7 @@ public class HttpClient {
 
     public  static  void  main(String[]  args) throws IOException {
         HttpClient httpsUtils  =  new HttpClient();
-//        /**  1. POST请求   **/
+        /**  1. POST请求   **/
 //        String testUrl02 = "http://127.0.0.1:10060/smfile/save/user";
 //        Map<String, Object> params02 = new HashMap<>();
 //        params02.put("userCode", "001");
@@ -251,20 +253,23 @@ public class HttpClient {
 //        System.out.println(getJsonByInternet(testUrl01, params01));
 
         /**  3. 文件上传 **/
-        String  filePath  =  "c:/1/test5.doc";
-        String  postUrl    =  "http://127.0.0.1:10060/smfile/upload";
+        String  filePath  =  "E:\\soft\\fastdfs.rar";
+        String  postUrl    =  "http://127.0.0.1/smfile/upload";
         Map<String,String>  postParam  =  new  HashMap<String,String>();
-        postParam.put("userCode",  "11122");
+        postParam.put("userCode",  "中文");
         postParam.put("billType",  "11122");
         postParam.put("billId",  "11122");
         postParam.put("billNo",  "11122");
-        postParam.put("path",  "11122");
+        postParam.put("path",  "/say/测试");
         postParam.put("isFolder",  "11122");
 
         File  postFile  =  new  File(filePath);
         Map<String, File> files=new HashMap<>();
-        files.put("test5.doc",postFile);
+        files.put("中文.doc",postFile);
         httpsUtils.uploadFile(postUrl,postParam,files);
+//String str="1/2/3/4";
+//        String[] pathArry=str.split("/");
+//        System.out.println(pathArry);
     }
 
 }

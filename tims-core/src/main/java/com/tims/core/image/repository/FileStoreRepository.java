@@ -28,6 +28,10 @@ public class FileStoreRepository {
         fileStoreMapper.saveFileStore(fileStore);
     }
 
+    public void updateFileStore(FileStore fileStore){
+        fileStoreMapper.updateFileStore(fileStore);
+    }
+
     public List<FileStore> queryFileStore(UploadQo uploadQo) throws Exception{
         List<FileStore> fileStore=fileStoreMapper.queryFileStore(uploadQo);
         return fileStore;

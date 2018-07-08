@@ -1,5 +1,7 @@
 package com.tims.common.util;
 
+import java.io.IOException;
+
 /**
  * 判断文件类型是否符合
  * @author: liuzm
@@ -20,5 +22,16 @@ public class FileUploadUtil {
             return true;
         }
         return false;
+    }
+
+    public static String getRandomDirectory(String path) {
+
+        int hashcode = path.hashCode();
+        int a =hashcode & 0xf;
+        return "/" + a%256;
+    }
+
+    public  static  void  main(String[]  args) throws IOException {
+        System.out.println(getRandomDirectory("/temp/123"));
     }
 }
