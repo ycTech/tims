@@ -1,36 +1,36 @@
 package com.tims.manage.nc;
 
-import com.tims.common.exception.BusinessException;
 import com.tims.common.result.ResultVo;
+import com.tims.common.util.FileUploadUtil;
+import com.tims.common.util.HttpClientUtil;
 import com.tims.common.util.ResultUtil;
 import com.tims.facade.api.FileStoreApiService;
 import com.tims.facade.api.SysApiService;
 import com.tims.facade.dfs.qo.UploadQo;
-import com.tims.facade.domain.FileStore;
 import com.tims.facade.nc.vo.FileInfoVo;
 import com.tims.facade.sys.SysUnitInfo;
 import com.tims.facade.sys.SysUserInfo;
 import com.tims.manage.controller.BaseController;
 import com.tims.manage.fast.FastDFSClientWrapper;
+import org.json.JSONObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.Assert;
-import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.*;
+import java.io.*;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2018/4/11.
@@ -40,6 +40,13 @@ import java.util.List;
 @RequestMapping("/smfile")
 public class SmPubFileController extends BaseController {
 
+    private Logger log= LoggerFactory.getLogger(SmPubFileController.class);
+
+
+    @Value("${file.store.path}")
+    String fileStorePath;
+    @Value("${nc.url}")
+    private String url;
     @Autowired
     private FastDFSClientWrapper dfsClient;
     @Autowired
@@ -52,63 +59,70 @@ public class SmPubFileController extends BaseController {
     @ResponseBody
     public ResultVo upload(@RequestParam(value="file",required=false)MultipartFile file,
                            @RequestParam(value = "userCode",required=false) String userCode,
-                           @RequestParam(value = "billType",required=false) String billType,
-                           @RequestParam(value = "billId",required=false) String billId,
-                           @RequestParam(value = "billNo",required=false) String billNo,
-                           @RequestParam(value = "path",required=true) String path,
-                           @RequestParam(value = "isFolder",required=false) String isFolder
+                           @RequestParam(value = "path",required=true) String path
                            ) throws Exception {
-        String fileUrl=null;
-        if(file!=null) {
-            fileUrl = dfsClient.uploadFile(file);
+        String pathTemp = fileStorePath;
+        String billType=FileUploadUtil.getBillTypeByPath(path);
+        // 根据PATH生成的随机目录
+        String randomDirectory = FileUploadUtil.getRandomDirectory(path)+"/"+billType;
+        // 注意:随机目录可能不存在，需要创建.
+        File rd = new File(pathTemp, randomDirectory);
+        if (!rd.exists()) {
+            rd.mkdirs();
         }
-        UploadQo uploadQos=new UploadQo();
-        uploadQos.setBillNo(billNo);
-        uploadQos.setBillType(billType);
-        uploadQos.setBillId(billId);
-        uploadQos.setUserCode(userCode);
-        uploadQos.setPath(URLDecoder.decode(path,"UTF-8"));
-        uploadQos.setIsFolder(isFolder);
-        uploadQos.setImageUrl(fileUrl);
-        if(file!=null){
-            uploadQos.setFileSize(String.valueOf(file.getSize()));
-            String fileName=URLDecoder.decode(file.getOriginalFilename(),"UTF-8");
-            uploadQos.setImageName(fileName);
-        }
-        fileStoreApiService.saveFileStore(uploadQos);
-        return ResultUtil.success(fileUrl);
+        String originalFileName=FileUploadUtil.getFileNameByPath(path);
+        String encryFileName=FileUploadUtil.encodeFileName(originalFileName);
+        //先把传过来的文件放在临时文件夹下，然后从文件夹中取出
+        InputStream inputStream = file.getInputStream();
+        IOUtils.copy(inputStream, new FileOutputStream(new File(rd, encryFileName)));
+        String filePath=fileStorePath+ randomDirectory + "/" + encryFileName;
+        return ResultUtil.success(filePath);
     }
 
     @ApiOperation(value = "上传文件到NC")
     @RequestMapping(value = "/upload/nc", method = RequestMethod.POST)
     @ResponseBody
-    public ResultVo uploadToNc(@RequestParam(value="file",required=false)MultipartFile file,
-                           @RequestParam(value = "userCode",required=false) String userCode,
-                           @RequestParam(value = "billType",required=false) String billType,
-                           @RequestParam(value = "billId",required=false) String billId,
-                           @RequestParam(value = "billNo",required=false) String billNo,
-                           @RequestParam(value = "path",required=true) String path,
-                           @RequestParam(value = "isFolder",required=false) String isFolder
+    public ResultVo uploadToNc(@RequestParam(value="file",required=true)MultipartFile file,
+                               @RequestParam(value = "userCode",required=false) String userCode,
+                               @RequestParam(value = "path",required=true) String path
     ) throws Exception {
-        String fileUrl=null;
-        if(file!=null) {
-            fileUrl = dfsClient.uploadFile(file);
+        String pathTemp = fileStorePath;
+        String billType=FileUploadUtil.getBillTypeByPath(path);
+        // 根据PATH生成的随机目录
+        String randomDirectory = FileUploadUtil.getRandomDirectory(path)+"/"+billType;
+        // 注意:随机目录可能不存在，需要创建.
+        File rd = new File(pathTemp, randomDirectory);
+        if (!rd.exists()) {
+            rd.mkdirs();
         }
-        UploadQo uploadQos=new UploadQo();
-        uploadQos.setBillNo(billNo);
-        uploadQos.setBillType(billType);
-        uploadQos.setBillId(billId);
-        uploadQos.setUserCode(userCode);
-        uploadQos.setPath(URLDecoder.decode(path,"UTF-8"));
-        uploadQos.setIsFolder("n");
-        uploadQos.setImageUrl(fileUrl);
-        if(file!=null){
-            uploadQos.setFileSize(String.valueOf(file.getSize()));
-            uploadQos.setImageName(URLDecoder.decode(file.getOriginalFilename(),"UTF-8"));
+        String originalFileName=FileUploadUtil.getFileNameByPath(path);
+        String encryFileName=FileUploadUtil.encodeFileName(originalFileName);
+        //先把传过来的文件放在临时文件夹下，然后从文件夹中取出
+        InputStream inputStream = file.getInputStream();
+        IOUtils.copy(inputStream, new FileOutputStream(new File(rd, encryFileName)));
+        String filePath=fileStorePath+ randomDirectory + "/" + encryFileName;
+        sendDataToNc(path,"0");
+        return ResultUtil.success(filePath);
+    }
+
+    private void sendDataToNc(String path,String userCode) throws Exception {
+        Map<String, Object> params02 = new HashMap<>();
+        params02.put("isFloder", "n");
+        params02.put("path", path);
+        params02.put("m_isDirty", false);
+        params02.put("creator", userCode);
+        List<Map> maplist=new ArrayList<>();
+        maplist.add(params02);
+        Map<String, List<Map>> params03 = new HashMap<>();
+        params03.put("param",maplist);
+        String paramTmp= JSONObject.valueToString(params03);
+        String param=URLEncoder.encode(paramTmp, "UTF-8");
+        if(url==null){
+            url="http://10.188.183.85/YCRestfulService/rest/webnc2/file/dopost/";
         }
-        uploadQos.setIsTransfer("Y");
-        fileStoreApiService.saveFileStore(uploadQos);
-        return ResultUtil.success(fileUrl);
+        log.info("请求的参数:"+url+"~"+param);
+        String responseContent = HttpClientUtil.getInstance().sendHttpPost(url+""+"?param="+param);
+        log.info("请求的结果reponse content:" + responseContent);
     }
 
 
@@ -128,31 +142,24 @@ public class SmPubFileController extends BaseController {
                          HttpServletResponse resp) throws Exception{
         InputStream inputStream = null;
         try {
-            Assert.notNull(path,"path参数不能为空");
-            List<FileStore> fileStore=fileStoreApiService.queryFileStoreByPath(path);
-            if(CollectionUtils.isEmpty(fileStore)){
-                throw  new BusinessException("没有找到对应的文件！");
+            String originalFilename =FileUploadUtil.getFileName(path);//获得上传文件名.后缀
+            String originalFile=FileUploadUtil.getFileNameByPath(path);
+            String encryFileName=FileUploadUtil.encodeFileName(originalFile);
+
+            String billType=FileUploadUtil.getBillTypeByPath(path);
+            String pathTemp = fileStorePath+FileUploadUtil.getRandomDirectory(path)+"/"+billType+"/"+encryFileName;
+
+            File file = new File(pathTemp);
+            if (!file.exists()) {
+                throw new Exception("文件不存在!");
             }
-            if(!CollectionUtils.isEmpty(fileStore) && fileStore.size()>1){
-                throw  new BusinessException("传入的参数path不是唯一的！");
-            }
-            FileStore fileStore1=fileStore.get(0);
-            String strUrl=null;
-            if(null!=fileStore1.getUrl()){
-                 strUrl =fileStore1.getUrl();
-            }
-            URL url = new URL(strUrl);
-            //打开请求连接
-            URLConnection connection = url.openConnection();
-            HttpURLConnection httpURLConnection = (HttpURLConnection) connection;
-            httpURLConnection.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
-            inputStream = httpURLConnection.getInputStream();
+            inputStream = new FileInputStream(file);
             resp.setContentType("application/octet-stream");
 //            resp.setHeader("Content-Disposition", "attachment; filename="
 //                    + URLEncoder.encode(fileStore1.getImageName(), "UTF-8"));
 //            resp.setHeader("Content-Disposition", "attachment;fileName="+ fileStore1.getImageName());
-            resp.setHeader("Content-Disposition", "attachment; fileName="+  fileStore1.getImageName() +";filename*=utf-8''"+URLEncoder.encode(fileStore1.getImageName(),"UTF-8"));
-            resp.setHeader("Content-Length", String.valueOf(url.openConnection().getContentLength()));
+            resp.setHeader("Content-Disposition", "attachment; fileName="+ originalFilename +";filename*=utf-8''"+URLEncoder.encode(originalFilename,"UTF-8"));
+            resp.setHeader("Content-Length", String.valueOf(file.length()));
             byte[] bs = new byte[1024];
             int len;
             while (-1 != (len = inputStream.read(bs))) {
